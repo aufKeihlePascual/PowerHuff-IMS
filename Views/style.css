@@ -99,6 +99,7 @@ button:hover {
     background: #fff;
     color: #24486d;
 }
+
 .success-container {
     display: flex;
     justify-content: center;
@@ -145,43 +146,7 @@ button:hover {
     background: #1a3551;
     color: #f0f0f0;
 }
-.social-login-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
 
-.social-btn {
-    display: inline-block;
-    width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-
-.social-btn.facebook {
-    background-color: #4267B2; /* Facebook Blue */
-}
-
-.social-btn.google {
-    background-color: #DB4437; /* Google Red */
-}
-
-.social-btn.apple {
-    background-color: #000; /* Black for Apple */
-}
-
-.social-btn:hover {
-    opacity: 0.9;
-}
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -189,7 +154,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #122841; /* Dark blue background */
+    background: #122841; 
     color: #fff;
 }
 
@@ -202,7 +167,7 @@ body {
 }
 
 .message-box {
-    background: linear-gradient(135deg, #f0f0f0, #d9d9d9); /* Subtle gradient */
+    background: linear-gradient(135deg, #f0f0f0, #d9d9d9); 
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -237,7 +202,7 @@ body {
 .message-box .btn:hover {
     background: #1a3551;
 }
-/* Ensure success page doesn't display signup elements */
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;

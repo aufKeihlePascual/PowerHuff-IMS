@@ -1,0 +1,295 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #122841;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+    flex: 1;
+    background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+    padding: 40px;
+    text-align: center;
+    color: #333;
+}
+
+.info-container {
+    flex: 1;
+    background: #24486d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #24486d;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #1a3551;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.options a {
+    text-decoration: none;
+    color: #24486d;
+    font-weight: bold;
+}
+
+.social-login img {
+    width: 30px;
+    margin: 5px;
+}
+
+.info-container a {
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.info-container a:hover {
+    background: #fff;
+    color: #24486d;
+}
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #122841;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.message-box {
+    text-align: center;
+    background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+}
+
+.message-box h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #24486d;
+}
+
+.message-box p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.message-box .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #24486d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.message-box .btn:hover {
+    background: #1a3551;
+    color: #f0f0f0;
+}
+.social-login-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-btn {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.social-btn.facebook {
+    background-color: #4267B2; /* Facebook Blue */
+}
+
+.social-btn.google {
+    background-color: #DB4437; /* Google Red */
+}
+
+.social-btn.apple {
+    background-color: #000; /* Black for Apple */
+}
+
+.social-btn:hover {
+    opacity: 0.9;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #122841; /* Dark blue background */
+    color: #fff;
+}
+
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.message-box {
+    background: linear-gradient(135deg, #f0f0f0, #d9d9d9); /* Subtle gradient */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    text-align: center;
+}
+
+.message-box h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #24486d;
+}
+
+.message-box p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.message-box .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #24486d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.message-box .btn:hover {
+    background: #1a3551;
+}
+/* Ensure success page doesn't display signup elements */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #122841;
+    color: #fff;
+}
+
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.message-box {
+    background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    text-align: center;
+}
+
+.message-box h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #24486d;
+}
+
+.message-box p {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.message-box .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #24486d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.message-box .btn:hover {
+    background: #1a3551;
+}
+

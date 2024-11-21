@@ -11,7 +11,7 @@
             $(".sidebar a").click(function(e) {
                 e.preventDefault();
                 var content = $(this).data('content');
-                $.get("/load-content", { content: content }, function(response) {
+                $.get("/dashboard/content", { content: content }, function(response) {
                     $(".main-content").html(response);
                 });
             });

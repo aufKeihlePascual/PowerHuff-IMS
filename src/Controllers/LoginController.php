@@ -16,7 +16,7 @@ class LoginController extends BaseController
     public function showLoginForm()
     {
         if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']) {
-            header('Location: /welcome');
+            header('Location: /dashboard');
             exit;
         }
 
@@ -54,7 +54,7 @@ class LoginController extends BaseController
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['last_name'] = $user['last_name'];
 
-            header('Location: /welcome');
+            header('Location: /dashboard');
             exit;
         } else {
             $_SESSION['login_attempts'] += 1;

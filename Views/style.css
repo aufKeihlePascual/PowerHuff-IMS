@@ -37,6 +37,14 @@ body {
     text-align: center;
 }
 
+.info-container .logo {
+    width: 200px;  /* Adjust this value to make the logo bigger */
+    height: auto;  /* Maintain the aspect ratio */
+    display: block;
+    margin: 0 auto 20px;  /* Center the logo and add some space below */
+}
+
+
 h2 {
     margin-bottom: 20px;
 }

@@ -3,45 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
+    <title>Dashboard UI</title>
     <link rel="stylesheet" href="/Views/dash-style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Sidebar link click handler for dynamic content loading
             $(".sidebar a").click(function(e) {
                 e.preventDefault();
-                var content = $(this).data('content');
-                $.get("/dashboard/content", { content: content }, function(response) {
-                    $(".main-content").html(response);
-                });
+                var content = $(this).data('content');  // Get the content to load
+
+                // Check if the clicked content is "dashboard"
+                if (content === "dashboard") {
+                    // Inject the Dashboard content directly
+                    var dashboardContent = `
+                        <div class="welcome-box">
+                            <h2>Hello, {{first_name}} {{last_name}}!</h2>
+                        </div>
+                        <div class="overview">
+                            <div class="overview-card">
+                                <h3>Last week overview</h3>
+                                <p>$120,537.90</p>
+                                <small>▼ 9.5%</small>
+                                <div class="chart-line"></div>
+                            </div>
+                            <div class="overview-card">
+                                <div class="chart-bar"></div>
+                            </div>
+                        </div>
+                        <div class="computations">
+                            <h3>Computations</h3>
+                        </div>
+                    `;
+                    $(".main-content .content").html(dashboardContent);
+                } else {
+                    // Load other content dynamically (example: from server)
+                    $.get("/dashboard/content", { content: content }, function(response) {
+                        $(".main-content .content").html(response);
+                    });
+                }
+
+                // Highlight the clicked link
+                $(".sidebar a").removeClass("active");
+                $(this).addClass("active");
             });
+
+            // Click handler for the logo to behave like clicking on the "Dashboard" link
+            $("#logo").click(function() {
+                // Manually trigger the "Dashboard" content as if clicked
+                var content = "dashboard";  // We want to load the "dashboard" content
+                var dashboardContent = `
+                    <div class="welcome-box">
+                        <h2>Hello, {{first_name}} {{last_name}}!</h2>
+                    </div>
+                    <div class="overview">
+                        <div class="overview-card">
+                            <h3>Last week overview</h3>
+                            <p>$120,537.90</p>
+                            <small>▼ 9.5%</small>
+                            <div class="chart-line"></div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="chart-bar"></div>
+                        </div>
+                    </div>
+                    <div class="computations">
+                        <h3>Computations</h3>
+                    </div>
+                `;
+                $(".main-content .content").html(dashboardContent);
+
+                // Highlight the "Dashboard" link
+                $(".sidebar a").removeClass("active");  // Remove active class from all links
+                $(".sidebar a[data-content='dashboard']").addClass("active");  // Add active to the Dashboard link
+            });
+
+            // Initially trigger the click for the "Dashboard" link to show its content by default
+            $(".sidebar a[data-content='dashboard']").trigger('click');
         });
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div>
-                <h2>Inventory System</h2>
-                <ul>
-                    <li><a href="#" data-content="dashboard">Dashboard</a></li>
-                    <li><a href="#" data-content="products">Products</a></li>
-                    <li><a href="#" data-content="categories">Categories</a></li>
-                    <li><a href="#" data-content="reports">Reports</a></li>
-                </ul>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <!-- Click on the logo to load the Dashboard content -->
+                <img src="logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
             </div>
-            <div class="logout-button">
-                <form method="GET" action="/logout">
-                    <button type="submit">Logout</button>
-                </form>
-            </div>
-        </div>
-        <div class="main-content">
-            <h1>Welcome, {{first_name}} {{last_name}}!</h1>
-            <p>
-                This is your inventory dashboard. Use the menu on the left to navigate through the system. You can manage your products, categories, and view reports from here.
-            </p>
-        </div>
+            <ul class="menu">
+                <li><a href="#" data-content="dashboard" class="active">Dashboard</a></li>
+                <li><a href="#" data-content="order">Order</a></li>
+                <li><a href="#" data-content="suppliers">Suppliers</a></li>
+                <li><a href="#" data-content="users">Users</a></li>
+                <li><a href="#" data-content="products">Products</a></li>
+                <li><a href="#" data-content="stocks">Stocks</a></li>
+                <li><a href="#" data-content="reports">Reports</a></li>
+            </ul>
+            
+            <!-- Logout Form with the color style you requested -->
+            <form method="GET" action="/logout">
+                <button type="submit" class="logout">Logout</button>
+            </form>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <input type="text" placeholder="Search here..." />
+                <div class="nav-icons">
+                    <span>Support</span>
+                    <span>Settings</span>
+                    <span>Meow</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section class="content">
+                <!-- This content will be dynamically updated based on sidebar clicks -->
+            </section>
+        </main>
     </div>
 </body>
 </html>

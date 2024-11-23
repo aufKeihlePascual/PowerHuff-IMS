@@ -16,6 +16,7 @@ try {
 
     # Dashboard
     $router->get('/dashboard', '\App\Controllers\DashboardController@showDashboard');
+    $router->get('/dashboard/getDashboardContent', 'DashboardController@getDashboardContent');
     $router->get('/dashboard/content', '\App\Controllers\DashboardController@loadContent');
 
     $router->run();

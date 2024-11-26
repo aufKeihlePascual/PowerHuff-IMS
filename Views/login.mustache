@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/Views/style.css">
+    <style>
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .forgot-password {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -15,19 +31,48 @@
             
             <form method="POST" action="/login">
                 <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">LOGIN</button>
+                
+                <!-- Password field with see password feature -->
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <span class="toggle-password" onclick="togglePassword()">👁</span>
+                </div>
+                
                 <div class="options">
-                    <label><input type="checkbox"> Remember Me</label>
+                    <label>
+                        <input type="checkbox" name="remember"> Remember Me
+                    </label>
+                </div>
+
+                <button type="submit">LOGIN</button>
+                
+                <!-- Forgot password -->
+                <div class="forgot-password">
+                    <a href="#" onclick="forgotPassword()">Forgot Password?</a>
                 </div>
             </form>
         </div>
         
         <div class="info-container">
             <h2>Logo goes here</h2>
-            
         </div>
-        
     </div>
+
+    <script>
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const passwordFieldType = passwordField.getAttribute('type');
+            passwordField.setAttribute(
+                'type',
+                passwordFieldType === 'password' ? 'text' : 'password'
+            );
+        }
+
+        // Forgot password alert
+        function forgotPassword() {
+            alert('You have successfully submitted a reset password request to the admin.');
+        }
+    </script>
 </body>
 </html>

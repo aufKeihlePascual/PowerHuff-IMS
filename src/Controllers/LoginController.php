@@ -54,8 +54,16 @@ class LoginController extends BaseController
             $_SESSION['first_name'] = $user['first_name'];
             $_SESSION['last_name'] = $user['last_name'];
 
-            header('Location: /dashboard');
-            exit;
+            # ADMIN CHECK
+            if ($user['role'] === 'admin') {
+                header('Location: /dashboard');
+                exit;
+            } 
+            # Inventory Manager check
+            elseif ($user['role'] === 'inventory manager') {
+                header('Location: /inventory-manager-dashboard');
+                exit;
+            }
         } else {
             $_SESSION['login_attempts'] += 1;
 

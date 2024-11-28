@@ -97,6 +97,47 @@
                         </div>
                     </div>
 
+                    <div id="editUserModal" class="modal">
+                        <div class="modal-content">
+                            <span id="closeEditModalBtn" class="close-btn">&times;</span>
+                            <h2>Edit User</h2>
+                            <form action="/edit-user" method="POST" class="user-form">
+                                <!-- Hidden field to hold user_id -->
+                                <input type="text" id="editUserId" name="user_id" value="{{user_id}}" />
+                    
+                                <label for="edit_first_name">First Name</label>
+                                <input type="text" id="edit_first_name" name="first_name" value="{{first_name}}" required />
+                    
+                                <label for="edit_last_name">Last Name</label>
+                                <input type="text" id="edit_last_name" name="last_name" value="{{last_name}}" required />
+                    
+                                <label for="edit_username">Username</label>
+                                <input type="text" id="edit_username" name="username" value="{{username}}" required />
+                    
+                                <label for="password">Password (Leave blank to keep current password)</label>
+                                <input type="password" id="password" name="password" />
+                    
+                                <label for="edit_role">Role</label>
+                                <select id="edit_role" name="role" required>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Inventory_Manager">Inventory Manager</option>
+                                    <option value="Procurement_Manager">Procurement Manager</option>
+                                </select>
+                    
+                                <button type="submit" class="update-user">Update User</button>
+                            </form>
+                        </div>
+                    </div>
+
+                     <!-- Creation Confirmation Modal -->
+                    <div id="confirmationModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span id="closeConfirmationModal" class="close-btn">&times;</span>
+                            <h2>User created successfully!</h2>
+                            <button id="closeConfirmationBtn" class="confirm-close-btn">Close</button>
+                        </div>
+                    </div>
+
                     <!-- Delete Confirmation Modal -->
                     <div id="deleteUserModal" class="modal">
                         <div class="modal-content">
@@ -128,22 +169,27 @@
                                 <td>{{username}}</td>
                                 <td>{{first_name}}</td>
                                 <td>{{last_name}}</td>
-                                <td class="{{role_class}}">
-                                    {{role}}
-                                </td>
+                                <td>{{role}}</td>
                                 <td>
-                                    <a href="/update-user/{{user_id}}" class="update-user">Edit</a>
+                                    <form action="#" method="GET" style="display:inline;">
+                                        <button type="button" class="edit-user"
+                                                data-user-id="{{user_id}}"
+                                                data-first-name="{{first_name}}"
+                                                data-last-name="{{last_name}}"
+                                                data-username="{{username}}"
+                                                data-role="{{role}}">
+                                            Edit
+                                        </button>
+                                    </form>
                                     <form action="/delete-user/{{user_id}}" method="POST" style="display:inline;">
                                         <button type="submit" class="delete-user" data-user-id="{{user_id}}">Delete</button>
                                     </form>
-                                    
                                 </td>
                             </tr>
                             {{/users}}
                         </tbody>
                     </table>
                 </div>
-
             </section>
 
         </main>

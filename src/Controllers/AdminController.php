@@ -77,14 +77,14 @@ class AdminController extends BaseController
 
                 echo 'Role ' . $role;
 
-                $adminModel = new \App\Models\Admin();
-
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                
+                $adminModel = new \App\Models\Admin();
 
                 $userCreated = $adminModel->createUser($first_name, $last_name, $username, $passwordHash, $role);
 
                 if ($userCreated) {
-                    header('Location: /dashboard/users');
+                    header('Location: /dashboard/users?user_created=true');
                     exit();
                 } else {
                     echo 'There was an error in creating a new user.';
@@ -92,6 +92,44 @@ class AdminController extends BaseController
             } else {
                 echo 'Please fill in all fields.';
             }
+        }
+    }
+
+    public function editUser()
+    {
+        global $conn;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['user_id'], $_POST['first_name'], $_POST['last_name'], $_POST['username'], $_POST['role'])) {
+                // Get the POST data
+                $user_id = (int) $_POST['user_id'];  // Cast user_id to integer
+                $first_name = $_POST['first_name'];
+                $last_name = $_POST['last_name'];
+                $username = $_POST['username'];
+                $role = $_POST['role'];
+
+                // If a new password is provided, hash it
+                $password = isset($_POST['password']) && !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
+
+                // Call the model method to update the user
+                $adminModel = new \App\Models\Admin();
+                $updateSuccess = $adminModel->EditUser($user_id, $first_name, $last_name, $username, $role, $password);
+
+                if ($updateSuccess) {
+                    // Redirect to users list page
+                    header('Location: /dashboard/users?user_updated=true');
+                    exit();
+                } else {
+                    echo 'Error updating user.';
+                }
+            } else {
+                echo 'Missing fields.';
+            }
+
+            $user_id = $_POST['user_id'];
+
+            error_log("User ID being updated: " . $user_id);  // Log the user_id
+
         }
     }
 

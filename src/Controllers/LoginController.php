@@ -56,10 +56,10 @@ class LoginController extends BaseController
             $_SESSION['last_name'] = $user['last_name'];
             $_SESSION['role'] = $user['role'];
 
-            if ($user['role'] === 'admin') {
+            if ($user['role'] === 'Admin') {
                 header('Location: /admin-dashboard');
                 exit;
-            } elseif ($user['role'] === 'inventory manager') {
+            } elseif ($user['role'] === 'Inventory_Manager') {
                 header('Location: /inventory-manager-dashboard');
                 exit;
             }

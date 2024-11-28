@@ -5,9 +5,9 @@ namespace App\Controllers;
 use App\Models\User;
 use App\Models\Admin;
 
-class DashboardController extends BaseController
+abstract class DashboardController extends BaseController
 {
-    private $userModel, $adminModel;
+    protected $userModel, $adminModel;
 
     public function __construct()
     {
@@ -15,15 +15,15 @@ class DashboardController extends BaseController
         $this->adminModel = new Admin();
     }
 
-    public function showDashboard()
+    protected function isLoggedIn()
     {
-        if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
-            header('Location: /login');
-            exit;
-        }
+        return isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'];
+    }
 
-        #Default Dashboard Content
-        $dashboardContent = '
+    protected function renderDashboardContent()
+    {
+        // Default dashboard content
+        return '
             <div class="welcome-box">
                 <h2>Hello, ' . htmlspecialchars($_SESSION['first_name']) . ' ' . htmlspecialchars($_SESSION['last_name']) . '!</h2>
             </div>
@@ -42,10 +42,19 @@ class DashboardController extends BaseController
                 <h3>Computations</h3>
             </div>
         ';
+    }
 
-        // Prepare data for the view
+    public function showDashboard()
+    {
+        if (!$this->isLoggedIn()) {
+            header('Location: /login');
+            exit;
+        }
+
+        $dashboardContent = $this->renderDashboardContent();
+
         $data = [
-            'title' => 'Admin Dashboard',
+            'title' => 'Dashboard',
             'username' => $_SESSION['username'],
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],

@@ -60,4 +60,19 @@ class Admin extends BaseModel
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    // public function getAllUsers()
+    // {
+    //     global $conn;
+
+    //     $stmt = $conn->query("SELECT user_id, first_name, last_name, username, REPLACE(role, '_', ' ') AS role FROM users");
+    //     $stmt->execute();
+    //     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    //     $roleStyles = [
+    //         'admin' => 'role-admin',
+    //         'inventory-manager' => 'role-inventory-manager',
+    //         'procurement-manager' => 'role-procurement-manager'
+    //     ];
+    // }
 }

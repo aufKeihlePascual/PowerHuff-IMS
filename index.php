@@ -15,8 +15,8 @@ try {
     $router->get('/logout', '\App\Controllers\LoginController@logout');
 
     # Dashboard
-    $router->get('/admin-dashboard', '\App\Controllers\DashboardController@showDashboard');
-    $router->get('/dashboard/users', '\App\Controllers\DashboardController@showUserManagement');
+    $router->get('/admin-dashboard', '\App\Controllers\AdminController@showDashboard');
+    $router->get('/dashboard/users', '\App\Controllers\AdminController@showUserManagement');
     $router->post('/create-user', '\App\Controllers\AdminController@createUser');
     $router->post('/delete-user/(\d+)', '\App\Controllers\AdminController@deleteUser');
 

@@ -8,17 +8,45 @@
     <style>
         .password-container {
             position: relative;
+            width: 100%; /* Ensuring password field is the same size as username */
         }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
         .toggle-password {
             position: absolute;
-            right: 10px;
-            top: 50%;
+            right: 15px;
+            top: 45%;
             transform: translateY(-50%);
             cursor: pointer;
             font-size: 14px;
         }
+
+        /* Forgot password and Remember Me on the same line */
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .forgot-password {
-            margin-top: 10px;
+            margin-top: -10px;
+        }
+
+        /* Optional: Adjust the margin for the forgot password link */
+        .forgot-password a {
+            font-size: 0.9em;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -28,46 +56,76 @@
             <h2>Login</h2>
 
             {{#error}} <p class="error-message">{{error}}</p> {{/error}}
-            
+
             <form method="POST" action="/login">
-                <input type="text" name="username" placeholder="Username" required>
-                
+                <input type="text" name="username" placeholder="Username" id="username" required>
+
                 <!-- Password field with see password feature -->
                 <div class="password-container">
                     <input type="password" id="password" name="password" placeholder="Password" required>
                     <span class="toggle-password" onclick="togglePassword()">👁</span>
                 </div>
-                
+
+                <!-- Options section with Remember Me and Forgot Password on the same line -->
                 <div class="options">
                     <label>
-                        <input type="checkbox" name="remember"> Remember Me
+                        <input type="checkbox" name="remember" id="remember"> Remember Me
                     </label>
+                    <div class="forgot-password">
+                        <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+                    </div>
                 </div>
 
                 <button type="submit">LOGIN</button>
-                
-                <!-- Forgot password -->
-                <div class="forgot-password">
-                    <a href="#" onclick="forgotPassword()">Forgot Password?</a>
-                </div>
+
             </form>
         </div>
-        
+
         <div class="info-container">
-            <h2>Logo goes here</h2>
+            <!-- Replace the placeholder with your image -->
+            <img src="Logo.png" alt="Your Logo" style="max-width: 80%; height: auto;">
         </div>
     </div>
 
     <script>
+        // On page load, check cookies and auto-fill username and password
+        window.onload = function() {
+            const username = getCookie('username');
+            const password = getCookie('password');
+            if (username) document.getElementById('username').value = username;
+            if (password) document.getElementById('password').value = password;
+            if (username && password) document.getElementById('remember').checked = true;
+        };
+
+        // Get cookie value by name
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
         // Toggle password visibility
         function togglePassword() {
             const passwordField = document.getElementById('password');
-            const passwordFieldType = passwordField.getAttribute('type');
-            passwordField.setAttribute(
-                'type',
-                passwordFieldType === 'password' ? 'text' : 'password'
-            );
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
         }
+
+        // Handle Remember Me on form submission
+        const form = document.querySelector('form');
+        form.onsubmit = function() {
+            if (document.getElementById('remember').checked) {
+                document.cookie = "username=" + document.getElementById('username').value + "; max-age=" + 60 * 60 * 24 * 30;
+                document.cookie = "password=" + document.getElementById('password').value + "; max-age=" + 60 * 60 * 24 * 30;
+            } else {
+                document.cookie = "username=; max-age=0";
+                document.cookie = "password=; max-age=0";
+            }
+        };
 
         // Forgot password alert
         function forgotPassword() {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2024 at 10:36 AM
+-- Generation Time: Nov 28, 2024 at 02:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -299,7 +299,7 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password
 (1, 'Keihle', 'Pascual', 'KPascual', 'hashedpass1', 'Admin', '2024-11-24 22:18:14', NULL),
 (2, 'Samantha', 'Ticsay', 'STicsay', 'hashedpass2', 'Admin', '2024-11-24 22:18:14', NULL),
 (3, 'Janeil', 'Gonzales', 'JGonzales', 'hashedpass3', 'Inventory_Manager', '2024-11-24 22:18:14', NULL),
-(4, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-24 22:18:14', NULL);
+(10, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-28 20:22:19', NULL);
 
 --
 -- Indexes for dumped tables
@@ -481,7 +481,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

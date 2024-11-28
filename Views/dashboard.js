@@ -1,38 +1,114 @@
-$(document).ready(function () {
-    // Sidebar link click handler for dynamic content loading
-    $(".sidebar a").click(function (e) {
-        e.preventDefault();
-        var content = $(this).data("content");
-
-        if (content === "dashboard") {
-            // Replace content with server-rendered dashboard content
-            $(".main-content .content").html(DASHBOARD_CONTENT);
-        } else {
-            // Load other content dynamically
-            $.get("/dashboard/content", { content: content }, function (response) {
-                $(".main-content .content").html(response);
-            });
-        }
-
-        // Highlights clicked link
-        $(".sidebar a").removeClass("active");
-        $(this).addClass("active");
-    });
-
-    // Handler for logo click
+$(document).ready(function() {
     $("#logo").click(function () {
-        $(".main-content .content").html(DASHBOARD_CONTENT);
-        $(".sidebar a").removeClass("active"); // Highlight the "Dashboard" link
-        $(".sidebar a[data-content='dashboard']").addClass("active");
+        window.location.href = "/admin-dashboard";
+    });
+    
+    const deleteUserModal = document.getElementById('deleteUserModal');
+    const closeDeleteModal = document.getElementById('closeDeleteModal');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const deleteUserForm = document.getElementById('deleteUserForm');
+    const userIdToDelete = document.getElementById('userIdToDelete');
+
+     // When the "Delete" button is clicked (inside the user table row)
+    $('.delete-user').click(function(e) {
+        e.preventDefault();
+
+        const userId = $(this).data('user-id');
+
+        var form = $(this).closest("form");
+        form.attr("action", "/delete-user/" + userId);
+
+        form.submit();
     });
 
-    // Triggers click for the "Dashboard" link to show its content by default
-    $(".sidebar a[data-content='dashboard']").trigger("click");
-});
+    closeDeleteModal.onclick = function() {
+        deleteUserModal.style.display = 'none';
+    };
 
-// For when a card is clicked
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-        alert('Card clicked!');
+    cancelDeleteBtn.onclick = function() {
+        deleteUserModal.style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target === deleteUserModal) {
+            deleteUserModal.style.display = 'none';
+        }
+    };
+
+    deleteUserForm.onsubmit = function(e) {
+        e.preventDefault();  
+
+        const userId = userIdToDelete.value;
+
+        $.ajax({
+            url: '/delete-user/' + userId,  
+            method: 'POST', 
+            data: {
+                user_id: userId
+            },
+            success: function(response) {
+                alert('User deleted successfully!');
+                location.reload();  
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            }
+        });
+
+        deleteUserModal.style.display = 'none';
+    };
+
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", function () {
+        // Toggle the type attribute
+        const type = passwordInput.type === "password" ? "text" : "password";
+        passwordInput.type = type;
+
+        // Toggle the icon
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
     });
+
+    // Modal Toggle Functionality
+    const modal = document.getElementById('addUserModal');
+    const addUserBtn = document.getElementById('addUserBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Open Modal
+    addUserBtn.onclick = function() {
+        modal.style.display = 'block';
+    }
+
+    // Close modal
+    closeModalBtn.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    // Close modal if clicked outside of the modal
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Search User Filter
+    const searchInput = document.getElementById('searchUser');
+    searchInput.addEventListener('input', function() {
+        let filter = searchInput.value.toLowerCase();
+        let rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            let username = row.cells[1].textContent.toLowerCase(); // Assumes the username is in the second column
+            let role = row.cells[4].textContent.toLowerCase();    // Assumes the role is in the third column
+
+            if (username.includes(filter) || role.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
 });

@@ -286,7 +286,7 @@ CREATE TABLE `users` (
   `last_name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
-  `role` enum('admin','user','supplier') NOT NULL,
+  `role` enum('Admin','Inventory_Manager','Procurement_Manager') NOT NULL,
   `created_on` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_on` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -296,10 +296,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password_hash`, `role`, `created_on`, `updated_on`) VALUES
-(1, 'Keihle', 'Pascual', 'KPascual', 'hashedpass1', 'admin', '2024-11-24 22:18:14', NULL),
-(2, 'Samantha', 'Ticsay', 'STicsay', 'hashedpass2', 'admin', '2024-11-24 22:18:14', NULL),
-(3, 'Janeil', 'Gonzales', 'JGonzales', 'hashedpass3', '', '2024-11-24 22:18:14', NULL),
-(4, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', '', '2024-11-24 22:18:14', NULL);
+(1, 'Keihle', 'Pascual', 'KPascual', 'hashedpass1', 'Admin', '2024-11-24 22:18:14', NULL),
+(2, 'Samantha', 'Ticsay', 'STicsay', 'hashedpass2', 'Admin', '2024-11-24 22:18:14', NULL),
+(3, 'Janeil', 'Gonzales', 'JGonzales', 'hashedpass3', 'Inventory_Manager', '2024-11-24 22:18:14', NULL),
+(4, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-24 22:18:14', NULL);
 
 --
 -- Indexes for dumped tables

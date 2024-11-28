@@ -15,9 +15,10 @@ try {
     $router->get('/logout', '\App\Controllers\LoginController@logout');
 
     # Dashboard
-    $router->get('/dashboard', '\App\Controllers\DashboardController@showDashboard');
-    $router->get('/dashboard/getDashboardContent', 'DashboardController@getDashboardContent');
-    $router->get('/dashboard/content', '\App\Controllers\DashboardController@loadContent');
+    $router->get('/admin-dashboard', '\App\Controllers\DashboardController@showDashboard');
+    $router->get('/dashboard/users', '\App\Controllers\DashboardController@showUserManagement');
+    $router->post('/create-user', '\App\Controllers\AdminController@createUser');
+    $router->post('/delete-user/(\d+)', '\App\Controllers\AdminController@deleteUser');
 
     $router->run();
     } catch (Exception $e) {

@@ -304,3 +304,339 @@ button:hover {
     font-size: 12px;
     padding: 2px 6px;
 }
+
+
+/* USER MANAGEMENT */
+/* User Management Page Specific Styles */
+.user-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.user-form h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #122841;
+}
+
+.user-form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #122841;
+}
+
+.user-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.user-form input {
+    width: 96%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.user-form button {
+    padding: 10px;
+    background: #24486d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.user-form button:hover {
+    background: #1a3551;
+}
+
+.user-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-list th,
+.user-list td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-list th {
+    background-color: #24486d;
+    color: #fff;
+    font-size: 16px;
+}
+
+.user-list td {
+    font-size: 14px;
+    color: #122841;
+}
+
+.user-list a {
+    padding: 10px 10px;
+    background-color: #24486d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-list a:hover {
+    background-color: #1a3551;
+}
+
+.user-list .update-user {
+    background-color: #1ac043;
+}
+
+.user-list .update-user:hover {
+    background-color: #1b9c3b;
+}
+
+.user-list .delete-user {
+    background-color: #d9534f;
+}
+
+.user-list .delete-user:hover {
+    background-color: #c9302c;
+}
+
+.role-admin {
+    color: white;
+    background-color: #007bff; /* Blue for Admin */
+}
+
+.role-inventory-manager {
+    color: white;
+    background-color: #28a745; /* Green for Inventory Manager */
+}
+
+.role-procurement-manager {
+    color: white;
+    background-color: #ffc107; /* Yellow for Procurement Manager */
+}
+
+.role-default {
+    color: black;
+    background-color: #f8f9fa; /* Default role styling */
+}
+
+.add-user-btn-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    width: 100%;
+    margin-bottom: 20px; /* Optional, just to add some space below the button */
+}
+
+.add-user-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-user-btn:hover {
+    background-color: #0056b3;
+}
+
+.modal-content {
+    padding: 20px;
+    background-color: #fff;
+}
+
+.close-btn {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Ensure the modal is initially hidden */
+#addUserModal {
+    display: none; /* Modal is hidden initially */
+    position: fixed;
+    z-index: 1;
+    left: 30%;
+    top: 0;
+    width: 50%;
+    height: 50%;
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    /* padding-top: 60px; */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Close button */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#addUserModal .create-user {
+    background-color: #0b8b29;
+}
+
+#addUserModal .create-user:hover {
+    background-color: #0c6120;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    flex: 1; /* Allows the input field to take up available space */
+    /* padding-right: 35px; Makes space for the icon */
+}
+
+.password-wrapper #togglePassword {
+    position: absolute;
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.password-wrapper .fa-eye:hover {
+    color: #11c479;
+}
+
+.create-user {
+    margin-top: 20px;
+    background-color: #24486d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.create-user:hover {
+    background-color: #1a3551;
+}
+
+/* Main Header for User Management */
+.main-header {
+    font-size: 32px;
+    font-weight: bold;
+    color: #24486d;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 3px solid #24486d;
+    padding-bottom: 10px;
+}
+
+.sub-header {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a3551;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.main-header, .sub-header {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* DELETE MODAL */
+#deleteUserModal {
+    display: none; /* Modal is hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 30%;
+    top: auto;
+    bottom: auto;
+    width: 50%;
+    height: 40%;
+    padding-top: 20px; /* Optional, for spacing */
+    overflow-y: auto; /* To prevent modal overflow */
+}
+
+/* Modal Content */
+#deleteUserModal .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 5px;
+}
+
+/* Close button */
+#deleteUserModal .close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#deleteUserModal .close-btn:hover,
+#deleteUserModal .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#deleteUserModal .cancel-delete,
+#deleteUserModal .confirm-delete {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#deleteUserModal .cancel-delete {
+    background-color: #ccc;
+    color: #333;
+}
+
+#deleteUserModal .cancel-delete:hover {
+    background-color: #aaa;
+}
+
+#deleteUserModal .confirm-delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+#deleteUserModal .confirm-delete:hover {
+    background-color: #c9302c;
+}

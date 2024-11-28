@@ -8,22 +8,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/Views/dashboard.js"></script>
-    <script>
-        const DASHBOARD_CONTENT = {{{ dashboardContentJS }}}; // Pass dashboard content to dashboard.js | IGNORE error, it's a mustache-js thing
-    </script>
 </head>
 <body>
     <div class="dashboard-container">
         <!--------------------- Sidebar --------------------->
         <aside class="sidebar">
             <div class="brand">
-                <img src="logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
+                <img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
             </div>
             <ul class="menu">
-                <li><a href="#" data-content="dashboard" class="active">Dashboard</a></li>
+                <li><a href="/dashboard" data-content="dashboard" class="active">Dashboard</a></li>
                 <li><a href="#" data-content="order">Order</a></li>
                 <li><a href="#" data-content="suppliers">Suppliers</a></li>
-                <li><a href="#" data-content="users">Users</a></li>
+                <li><a href="/dashboard/users" data-content="users">Users</a></li>
                 <li><a href="#" data-content="products">Products</a></li>
                 <li><a href="#" data-content="stocks">Stocks</a></li>
                 <li><a href="#" data-content="reports">Reports</a></li>
@@ -46,15 +43,15 @@
                     <i class="fa-solid fa-bell" title="Notifications"></i>
                     <i class="fa-solid fa-circle-question" title="Support"></i>
                     <i class="fa-solid fa-gear" title="Settings"></i>
-                    <i class="profile" title="Profile">{{username}}</i>
-                    
+                    <i class="profile" title="Profile">{{ username }}</i>
                 </div>
             </header>
             
 
             <!--------------------- Dashboard Content --------------------->
             <section class="content">
-                {{{dashboardContent}}}
+                <!-- Dashboard content (e.g., user management) will be inserted here -->
+                {{{ dashboardContent }}}
             </section>
 
         </main>

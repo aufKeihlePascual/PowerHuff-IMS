@@ -121,3 +121,45 @@ button:hover {
 .forgot-password {
     margin-top: 10px;
 }
+
+/*----------------------- UPDATED CSS -----------------------*/
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 45%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-password {
+    margin-top: -10px;
+}
+
+.forgot-password a {
+    font-size: 0.9em;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}

@@ -140,23 +140,25 @@ class AdminController extends BaseController
             exit;
         }
 
-        // Get form data
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         $username = $_POST['username'];
-        $password_hash = $_POST['password_hash']; // Optional
+        $password = $_POST['password_hash'];
         $role = $_POST['role'];
 
-        // Handle empty fields and validation
 
-        // Call the model to update the user
-        $result = $this->adminModel->updateUser($user_id, [
+        $data = [
             'first_name' => $firstName,
             'last_name' => $lastName,
             'username' => $username,
             'role' => $role,
-            'password_hash' => !empty($password_hash) ? password_hash($password_hash, PASSWORD_DEFAULT) : null,
-        ]);
+        ];
+
+        if (!empty($password)) {
+            $data['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $result = $this->adminModel->updateUser($user_id, $data);
 
         if ($result) {
             header('Location: /dashboard/users');

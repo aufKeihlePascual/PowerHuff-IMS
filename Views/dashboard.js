@@ -3,47 +3,6 @@ $(document).ready(function() {
         window.location.href = "/admin-dashboard";
     });
 
-    const editUserModal = document.getElementById('editUserModal');
-    const closeEditModalBtn = document.getElementById('closeEditModalBtn');
-
-    // When the "Edit" button is clicked inside the user table
-    $(document).ready(function() {
-        $(document).on('click', '.edit-user', function() {
-            const userId = $(this).data('user-id');
-            const firstName = $(this).data('first-name');
-            const lastName = $(this).data('last-name');
-            const username = $(this).data('username');
-            const role = $(this).data('role');
-    
-            // Set the modal fields with the user data
-            $('#editUserId').val(userId);  // Make sure this is populated
-            $('#edit_first_name').val(firstName);
-            $('#edit_last_name').val(lastName);
-            $('#edit_username').val(username);
-            $('#edit_role').val(role);
-    
-            // Show the modal
-            $('#editUserModal').show();
-        });
-    
-        // Close modal logic
-        $('#closeEditModalBtn').click(function() {
-            $('#editUserModal').hide();
-        });
-    });
-    
-    // Close modal functionality when the close button is clicked
-    closeEditModalBtn.onclick = function() {
-        editUserModal.style.display = 'none';
-    };
-
-    // Close modal functionality when clicking outside the modal
-    window.onclick = function(event) {
-        if (event.target === editUserModal) {
-            editUserModal.style.display = 'none';
-        }
-    };
-    
     const deleteUserModal = document.getElementById('deleteUserModal');
     const closeDeleteModal = document.getElementById('closeDeleteModal');
     const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');

@@ -53,8 +53,19 @@ class AdminController extends BaseController
 
     public function showUserManagement()
     {
+        // if ($_SESSION['role'] !== 'Admin') {
+        //     header('Location: /dashboard');
+        //     exit;
+        // }
+
         $users = $this->userModel->getAllUsers(); 
 
+        foreach ($users as &$user) {
+            $user['selectedAdmin'] = $user['role'] === 'Admin' ? 'selected' : '';
+            $user['selectedInventoryManager'] = $user['role'] === 'Inventory_Manager' ? 'selected' : '';
+            $user['selectedProcurementManager'] = $user['role'] === 'Procurement_Manager' ? 'selected' : '';
+        }
+        
         $data = [
             'title' => 'User Management',
             'users' => $users
@@ -62,6 +73,34 @@ class AdminController extends BaseController
 
         return $this->render('user-management', $data);
         exit;
+    }
+
+    public function showEditUserPage($user_id)
+    {
+        // if ($_SESSION['role'] !== 'Admin' || $_SESSION['role'] !== 'admin')  {
+        //     header('Location: /dashboard');
+        //     exit;
+        // }
+
+        $user = $this->userModel->findByUserID($user_id);
+
+        if (!$user) {
+            echo 'User not found.';
+            exit;
+        }
+
+        $data = [
+            'title' => 'Edit User',
+            'user_id' => $user['user_id'],
+            'first_name' => $user['first_name'],
+            'last_name' => $user['last_name'],
+            'username' => $user['username'],
+            'selectedAdmin' => $user['role'] === 'Admin' ? 'selected' : '',
+            'selectedInventoryManager' => $user['role'] === 'Inventory_Manager' ? 'selected' : '',
+            'selectedProcurementManager' => $user['role'] === 'Procurement_Manager' ? 'selected' : '',
+        ];
+
+        return $this->render('edit-user-page', $data);
     }
 
     public function createUser()
@@ -73,7 +112,6 @@ class AdminController extends BaseController
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $role = $_POST['role'];
-                // $role = ucfirst(strtolower($_POST['role']));
 
                 echo 'Role ' . $role;
 
@@ -95,41 +133,36 @@ class AdminController extends BaseController
         }
     }
 
-    public function editUser()
+    public function updateUser($user_id)
     {
-        global $conn;
+        if ($_SESSION['role'] !== 'Admin') {
+            header('Location: /dashboard');
+            exit;
+        }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['user_id'], $_POST['first_name'], $_POST['last_name'], $_POST['username'], $_POST['role'])) {
-                // Get the POST data
-                $user_id = (int) $_POST['user_id'];  // Cast user_id to integer
-                $first_name = $_POST['first_name'];
-                $last_name = $_POST['last_name'];
-                $username = $_POST['username'];
-                $role = $_POST['role'];
+        // Get form data
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $username = $_POST['username'];
+        $password_hash = $_POST['password_hash']; // Optional
+        $role = $_POST['role'];
 
-                // If a new password is provided, hash it
-                $password = isset($_POST['password']) && !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
+        // Handle empty fields and validation
 
-                // Call the model method to update the user
-                $adminModel = new \App\Models\Admin();
-                $updateSuccess = $adminModel->EditUser($user_id, $first_name, $last_name, $username, $role, $password);
+        // Call the model to update the user
+        $result = $this->adminModel->updateUser($user_id, [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'username' => $username,
+            'role' => $role,
+            'password_hash' => !empty($password_hash) ? password_hash($password_hash, PASSWORD_DEFAULT) : null,
+        ]);
 
-                if ($updateSuccess) {
-                    // Redirect to users list page
-                    header('Location: /dashboard/users?user_updated=true');
-                    exit();
-                } else {
-                    echo 'Error updating user.';
-                }
-            } else {
-                echo 'Missing fields.';
-            }
-
-            $user_id = $_POST['user_id'];
-
-            error_log("User ID being updated: " . $user_id);  // Log the user_id
-
+        if ($result) {
+            header('Location: /dashboard/users');
+            exit;
+        } else {
+            echo 'Failed to update user.';
         }
     }
 

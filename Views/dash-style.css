@@ -704,19 +704,84 @@ button:hover {
 }
 
 /* Edit User Button */
-.edit-user {
+.admin-buttons a {
     background-color: #36a13a;
     color: white;
     border: none; 
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: medium;
 }
 
-.edit-user:hover {
+.admin-buttons a:hover {
     background-color: #206b24;
 }
 
 .update-user {
     background-color: #248b28;
+}
+
+form select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-container {
+    display: flex;
+    width: 50%;  /* Adjust width to fit your buttons */
+    margin: 50px auto 0;
+    gap: 20px;  /* Add gap between buttons (adjust as needed) */
+    justify-content: center; /* Center the buttons horizontally */
+}
+
+.update-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 30%;  
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;  
+    justify-content: center; 
+}
+
+.cancel-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 25%;  
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;  
+    justify-content: center; 
+}
+
+.update-btn {
+    background: #2ba148;
+    color: #fff;
+}
+
+.update-btn:hover {
+    background: #246d36;
+}
+
+.cancel-btn {
+    background: #9c1616;
+    color: #fff;
+    text-decoration: none;  /* Remove underline */
+}
+
+.cancel-btn:hover {
+    background: #7f1414;
 }

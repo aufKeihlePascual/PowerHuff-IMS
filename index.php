@@ -19,7 +19,8 @@ try {
     $router->get('/dashboard/users', '\App\Controllers\AdminController@showUserManagement');
     $router->post('/create-user', '\App\Controllers\AdminController@createUser');
     $router->post('/delete-user/(\d+)', '\App\Controllers\AdminController@deleteUser');
-    $router->post('/edit-user', '\App\Controllers\AdminController@editUser');
+    $router->get('/edit-user/{\d+}', '\App\Controllers\AdminController@showEditUserPage');
+    $router->post('/edit-user/{\d+}', '\App\Controllers\AdminController@updateUser');
 
 
     $router->run();

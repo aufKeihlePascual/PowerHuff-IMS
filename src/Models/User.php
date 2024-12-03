@@ -5,6 +5,7 @@ namespace App\Models;
 class User extends BaseModel
 {
     public $username, $password, $password_hash;
+    protected $table = 'users';
 
     public function login($username, $password)
     {
@@ -14,6 +15,15 @@ class User extends BaseModel
             return $userData;
         }
         return false;
+    }
+
+    public function findByUserID($user_id)
+    {
+        global $conn;
+
+        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     private function findByUsername($username)
@@ -31,13 +41,8 @@ class User extends BaseModel
 
         $stmt = $conn->query("SELECT user_id, first_name, last_name, username, REPLACE(role, '_', ' ') AS role FROM users");
         $stmt->execute();
+        
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-        $roleStyles = [
-            'admin' => 'role-admin',
-            'inventory-manager' => 'role-inventory-manager',
-            'procurement-manager' => 'role-procurement-manager'
-        ];
     }
 
     public function getUserByUsername($username)

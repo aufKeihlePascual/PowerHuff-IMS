@@ -28,6 +28,8 @@ class LoginController extends BaseController
 
     public function login()
     {
+        print_r($_SESSION);
+
         if (!isset($_SESSION['login_attempts'])) {
             $_SESSION['login_attempts'] = 0;
         }
@@ -40,13 +42,13 @@ class LoginController extends BaseController
             return $this->render('login', $data);
         }
 
-        $username = $_POST['username'] ?? '';
-        $password = $_POST['password'] ?? '';
+        $username = trim($_POST['username'] ?? '');
+        $password = trim($_POST['password'] ?? '');
 
         $user = $this->userModel->getUserByUsername($username);
 
-        // if ($user && password_verify($password, $user['password_hash'])) {
-        if ($user && $user['password_hash'] === $password) {
+        if ($user && password_verify($password, $user['password_hash'])) {
+        // if ($user && $user['password_hash'] === $password) { //testing for plain text passwords
             $_SESSION['login_attempts'] = 0;
 
             $_SESSION['is_logged_in'] = true;
@@ -76,6 +78,7 @@ class LoginController extends BaseController
 
     public function logout()
     {
+        $_SESSION = [];
         session_destroy();
         header('Location: /login');
         exit;

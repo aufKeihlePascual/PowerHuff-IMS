@@ -22,6 +22,11 @@ try {
     $router->get('/edit-user/{\d+}', '\App\Controllers\AdminController@showEditUserPage');
     $router->post('/edit-user/{\d+}', '\App\Controllers\AdminController@updateUser');
 
+    $router->get('/reset-login-attempts', function () {
+        $_SESSION['login_attempts'] = 0;
+        echo "Login attempts reset.";
+    });
+    
 
     $router->run();
     } catch (Exception $e) {

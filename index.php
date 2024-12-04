@@ -16,6 +16,9 @@ try {
 
     # Dashboard
     $router->get('/admin-dashboard', '\App\Controllers\AdminController@showDashboard');
+    $router->get('/inventory-manager-dashboard', '\App\Controllers\InventoryManagerController@showDashboard');
+    $router->get('/procurement-manager-dashboard', '\App\Controllers\ProcurementManagerController@showDashboard');
+
     $router->get('/dashboard/users', '\App\Controllers\AdminController@showUserManagement');
     $router->post('/create-user', '\App\Controllers\AdminController@createUser');
     $router->post('/delete-user/(\d+)', '\App\Controllers\AdminController@deleteUser');

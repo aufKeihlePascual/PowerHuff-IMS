@@ -2,15 +2,17 @@
 
 namespace App\Controllers;
 
-class AdminController extends BaseController
+class SupplierController extends BaseController
 {
 
-    protected $userModel, $adminModel;
+    protected $userModel, $adminModel, $supplierModel;
 
     public function __construct()
     {
         $this->userModel = new \App\Models\User();
         $this->adminModel = new \App\Models\Admin();
+        $this->supplierModel = new \App\Models\Admin();
+
     }
 
     public function showDashboard()
@@ -48,7 +50,17 @@ class AdminController extends BaseController
             'dashboardContent' => $dashboardContent
         ];
 
-        return $this->render('admin-dashboard', $data);
+        $users = $this->userModel->getAllUsers(); 
+
+        if ($_SESSION['role'] == 'Admin') {
+            return $this->render('admin-dashboard', $data);
+        }
+        elseif ($_SESSION['role'] == 'Inventory_Manager') {
+            return $this->render('inventory-manager-dashboard', $data);
+        } elseif ($_SESSION['role'] == 'Procurement_Manager') {
+            return $this->render('procurement-manager-dashboard', $data);
+        }
+
     }
 
     public function showUserManagement()
@@ -174,9 +186,7 @@ class AdminController extends BaseController
         error_log("Attempting to delete user with ID: $userId");
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $adminModel = new \App\Models\Admin();
-            
-            $userDeleted = $adminModel->deleteUser($userId);
+            $userDeleted = $this->adminModel->deleteUser($userId);
 
             if ($userDeleted) {
                 header('Location: /dashboard/users');

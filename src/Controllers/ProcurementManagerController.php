@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class InventoryManagerController extends BaseController
+class ProcurementManagerController extends BaseController
 {
     public function showDashboard()
     {
@@ -39,6 +39,6 @@ class InventoryManagerController extends BaseController
             'dashboardContent' => $dashboardContent,
         ];
 
-        return $this->render('inventory-manager-dashboard', $data);
+        return $this->render('procurement-manager-dashboard', $data);
     }
 }

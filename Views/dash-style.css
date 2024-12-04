@@ -17,10 +17,10 @@ body {
 }
 
 .brand .logo {
-    width: 150px;
+    width: 180px;
     height: auto;
     display: block;
-    margin: 0 auto;
+    margin: 30px auto -30px auto;
 }
 
 /* Existing sidebar styling */
@@ -428,7 +428,7 @@ button:hover {
 .user-list th,
 .user-list td {
     padding: 12px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 

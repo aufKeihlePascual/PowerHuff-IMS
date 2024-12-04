@@ -107,19 +107,19 @@ class AdminController extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_POST['first_name'], $_POST['last_name'], $_POST['username'], $_POST['password'], $_POST['role'])) {
-                $first_name = $_POST['first_name'];
-                $last_name = $_POST['last_name'];
-                $username = $_POST['username'];
-                $password = $_POST['password'];
+                $first_name = trim($_POST['first_name']);
+                $last_name = trim($_POST['last_name']);
+                $username = trim($_POST['username'] ?? '');
+                $password = trim($_POST['password'] ?? '');
                 $role = $_POST['role'];
 
                 echo 'Role ' . $role;
 
-                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                $password_hash = password_hash($password, PASSWORD_DEFAULT);
                 
                 $adminModel = new \App\Models\Admin();
 
-                $userCreated = $adminModel->createUser($first_name, $last_name, $username, $passwordHash, $role);
+                $userCreated = $adminModel->createUser($first_name, $last_name, $username, $password_hash, $role);
 
                 if ($userCreated) {
                     header('Location: /dashboard/users?user_created=true');

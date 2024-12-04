@@ -8,13 +8,13 @@ class Admin extends User
     {
         global $conn;
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, username, password_hash, role) VALUES (:first_name, :last_name, :username, :password_hash, :role)");
         $stmt->bindParam(':first_name', $first_name);
         $stmt->bindParam(':last_name', $last_name);
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password_hash', $passwordHash);
+        $stmt->bindParam(':password_hash', $password_hash);
         $stmt->bindParam(':role', $role);
 
         return $stmt->execute();

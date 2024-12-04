@@ -23,6 +23,7 @@ body {
     margin: 0 auto;
 }
 
+/* Existing sidebar styling */
 .sidebar {
     width: 250px;
     background: #24486d;
@@ -46,11 +47,26 @@ body {
     padding: 0;
 }
 
-.sidebar .menu li {
-    margin-bottom: 15px;
+.sidebar .sub-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Remove any margin */
+    display: none; /* Initially hide submenu */
+    background: #24486d;
+    width: 80%;
+    padding-left: 20px;
+    z-index: 1; /* Ensure submenu appears on top of other elements */
 }
 
-.sidebar .menu a {
+/* Make the li position relative for the submenu to be positioned below */
+.sidebar .menu li {
+    position: relative; /* For positioning submenu */
+    margin-bottom: 15px; /* Add space between menu items */
+}
+
+/* Menu links */
+.sidebar .menu a,
+.sidebar .sub-menu a {
     color: #fff;
     text-decoration: none;
     font-size: 16px;
@@ -60,9 +76,52 @@ body {
     transition: background 0.3s ease;
 }
 
+/* Hover and active states */
 .sidebar .menu a:hover,
-.sidebar .menu a.active {
+.sidebar .menu a.active,
+.sidebar .sub-menu a:hover,
+.sidebar .sub-menu a.active {
     background: #1a3551;
+}
+
+.sidebar .sub-menu a:hover,
+.sidebar .sub-menu a.active {
+    background: #4377af;
+}
+
+/* Submenu styling */
+.sidebar .sub-menu {
+    display: none; /* Hide the submenu by default */
+    background: #24486d; /* Same background as sidebar */
+    padding-left: 20px;
+    z-index: 1; /* Ensure it is on top */
+    margin-left: 20px; /* Add space to align the submenu */
+}
+
+.sidebar .sub-menu a {
+    background: #365f8b; /* Same background as sidebar */
+    
+}
+
+/* Show submenu when the parent list item is active */
+.sidebar .menu li.active .sub-menu {
+    display: block; /* Show the submenu */
+}
+
+/* Submenu items styling */
+.sidebar .sub-menu li {
+    margin-bottom: 10px; /* Remove extra margin for submenu items */
+}
+
+/* Prevent the submenu from overlapping other menu items */
+.sidebar .menu li {
+    position: relative; /* Ensures enough space for the submenu */
+}
+
+/* Ensure submenu takes up space and doesn't overlap */
+.sidebar .menu li.active .sub-menu {
+    display: block;
+    margin-top: 10px; /* Add margin above the submenu */
 }
 
 .sidebar .logout {

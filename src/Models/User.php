@@ -55,4 +55,5 @@ class User extends BaseModel
         
         return $stmt->fetch(\PDO::FETCH_ASSOC); 
     }
+
 }

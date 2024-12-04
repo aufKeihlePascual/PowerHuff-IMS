@@ -15,10 +15,10 @@
             {{#error}} <p class="error-message">{{error}}</p> {{/error}}
             
             <form method="POST" action="/login">
-                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="username" placeholder="Username" required autocomplete="username">
 
                 <div class="password-container">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required autocomplete="current-password">
                     <span class="toggle-password" onclick="togglePassword()">👁</span>
                 </div>
 

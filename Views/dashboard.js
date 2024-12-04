@@ -3,6 +3,27 @@ $(document).ready(function() {
         window.location.href = "/admin-dashboard";
     });
 
+    /****************  SHOW/HIDE PASSWORD  ****************/
+    $(window).on('load', function() {
+        // Ensure the elements are available before adding event listener
+        const togglePassword = $("#togglePassword");
+        const passwordInput = $("#password");
+    
+        // Check if both elements exist
+        if (togglePassword.length && passwordInput.length) {
+            togglePassword.on("click", function() {
+                // Toggle the type attribute
+                const type = passwordInput.attr("type") === "password" ? "text" : "password";
+                passwordInput.attr("type", type);
+    
+                // Toggle the icon
+                $(this).toggleClass("fa-eye fa-eye-slash");
+            });
+        } else {
+            console.error("Password input or toggle button not found.");
+        }
+    });
+
     /****************  SUBMENU TOGGLE  ****************/
     $(".sub-menu").hide();
 
@@ -117,19 +138,6 @@ $(document).ready(function() {
         // Close the modal after deletion
         deleteUserModal.style.display = 'none';
     };
-
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordInput = document.getElementById("password");
-
-    togglePassword.addEventListener("click", function () {
-        // Toggle the type attribute
-        const type = passwordInput.type === "password" ? "text" : "password";
-        passwordInput.type = type;
-
-        // Toggle the icon
-        this.classList.toggle("fa-eye");
-        this.classList.toggle("fa-eye-slash");
-    });
 
     // Modal Toggle Functionality
     const modal = document.getElementById('addUserModal');

@@ -575,6 +575,53 @@ button:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Table for the Dashboard (Inventory Manager) */
+.table-container {
+    overflow-x: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+#productsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#productsTable th,
+#productsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#productsTable th {
+    background-color: #f1f1f1;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#productsTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#productsTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+#productsTable .hover:bg-gray-50:hover {
+    background-color: #e0e0e0;
+}
+
+.edit-product,
+.delete-product {
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px;
+}
+
 /* DELETE MODAL */
 #deleteUserModal {
     display: none; /* Modal is hidden by default */

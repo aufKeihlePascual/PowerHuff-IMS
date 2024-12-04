@@ -9,7 +9,7 @@ $(document).ready(function() {
     const deleteUserForm = document.getElementById('deleteUserForm');
     const userIdToDelete = document.getElementById('userIdToDelete');
 
-     // When the "Delete" button is clicked (inside the user table row)
+    // When the "Delete" button is clicked (inside the user table row)
     $('.delete-user').click(function(e) {
         e.preventDefault();
 
@@ -111,4 +111,23 @@ $(document).ready(function() {
         });
     });
 
+    // New functionality for Products tab
+    $('.menu a').on('click', function(e) {
+        e.preventDefault();
+        $('.menu a').removeClass('active');
+        $(this).addClass('active');
+        
+        var content = $(this).data('content');
+        if (content === 'products') {
+            $('#content').show();
+        } else {
+            $('#content').hide();
+        }
+    });
+
+    // Initial load of products if on the products page
+    if ($('.menu a[data-content="products"]').hasClass('active')) {
+        $('#content').show();
+    }
 });
+

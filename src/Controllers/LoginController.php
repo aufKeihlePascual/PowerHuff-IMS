@@ -28,8 +28,6 @@ class LoginController extends BaseController
 
     public function login()
     {
-        print_r($_SESSION);
-
         if (!isset($_SESSION['login_attempts'])) {
             $_SESSION['login_attempts'] = 0;
         }
@@ -76,9 +74,51 @@ class LoginController extends BaseController
         }
     }
 
+    // public function login() {
+    //     global $conn;
+        
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $username = trim($_POST['username']);
+    //         $password = trim($_POST['password']);
+        
+    //         // Query to fetch the user record based on the username
+    //         $query = "SELECT username, password_hash FROM users WHERE username = :username";
+    //         $stmt = $conn->prepare($query);
+    //         $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+    //         $stmt->execute();
+    //         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        
+    //         if ($user) {
+    //             if (password_verify($password, $user['password_hash'])) {
+    //                 $_SESSION['user'] = $user['username'];
+    //                 header('Location: /dashboard');
+    //                 exit;
+    //             } else {
+    //                 $_SESSION['login_attempts'] += 1;
+        
+    //                 $data = [
+    //                     'title' => 'Login',
+    //                     'error' => "Login failed. Username or password is incorrect. Entered Username: $username. Password from DB: {$user['password_hash']}"
+    //                 ];
+    //                 return $this->render('login', $data);
+    //             }
+    //         } else {
+    //             // No user found
+    //             $_SESSION['login_attempts'] += 1;
+        
+    //             $data = [
+    //                 'title' => 'Login',
+    //                 'error' => "Login failed. No user found with the username: $username."
+    //             ];
+    //             return $this->render('login', $data);
+    //         }
+    //     }
+        
+    // }
+
     public function logout()
     {
-        $_SESSION = [];
+        session_unset();
         session_destroy();
         header('Location: /login');
         exit;

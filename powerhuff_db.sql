@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2024 at 02:08 PM
+-- Generation Time: Dec 04, 2024 at 04:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -296,10 +296,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password_hash`, `role`, `created_on`, `updated_on`) VALUES
-(1, 'Keihle', 'Pascual', 'KPascual', 'hashedpass1', 'Admin', '2024-11-24 22:18:14', NULL),
+(1, 'Keihle', 'Pascual', 'KPascual', '$2y$10$.ipZtpUQcuCxt5i.UqF.r.53TSZsRmxDdKxXOczi/9cjNr8YHzFF6', 'Admin', '2024-11-24 22:18:14', NULL),
 (2, 'Samantha', 'Ticsay', 'STicsay', 'hashedpass2', 'Admin', '2024-11-24 22:18:14', NULL),
-(3, 'Janeil', 'Gonzales', 'JGonzales', 'hashedpass3', 'Inventory_Manager', '2024-11-24 22:18:14', NULL),
-(10, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-28 20:22:19', NULL);
+(3, 'Janeil', 'Gonzales', 'JGonzales', '$2y$10$.ipZtpUQcuCxt5i.UqF.r.53TSZsRmxDdKxXOczi/9cjNr8YHzFF6', 'Admin', '2024-11-24 22:18:14', NULL),
+(4, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-28 20:22:19', NULL),
+(68, 'Mumei', 'Nanashi', 'Mooming', '$2y$10$7XIN/00qJft1gVbxPP4aXerlmoCUBUWW2K.W9Mq0GABIFMGEhw/B6', 'Admin', '2024-12-04 14:29:11', NULL),
+(69, 'Fauna', 'Ceres', 'FaunaMart', '$2y$10$H/n/ElwnAFoosdO6bnX72uciHals/XMjHi//2TY7CzSNQ9cv8qabK', 'Admin', '2024-12-04 14:44:38', NULL);
 
 --
 -- Indexes for dumped tables
@@ -481,7 +483,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Constraints for dumped tables

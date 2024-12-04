@@ -19,27 +19,21 @@ class User extends BaseModel
 
     public function findByUserID($user_id)
     {
-        global $conn;
-
-        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE user_id = ?");
         $stmt->execute([$user_id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     private function findByUsername($username)
     {
-        global $conn;
-
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
         return $stmt->fetch(); 
     }
 
     public function getAllUsers()
     {
-        global $conn;
-
-        $stmt = $conn->query("SELECT user_id, first_name, last_name, username, REPLACE(role, '_', ' ') AS role FROM users");
+        $stmt = $this->db->query("SELECT user_id, first_name, last_name, username, REPLACE(role, '_', ' ') AS role FROM users");
         $stmt->execute();
         
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -47,12 +41,11 @@ class User extends BaseModel
 
     public function getUserByUsername($username)
     {
-        global $conn;
-        
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         
         return $stmt->fetch(\PDO::FETCH_ASSOC); 
     }
+
 }

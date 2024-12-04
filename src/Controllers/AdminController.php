@@ -115,11 +115,16 @@ class AdminController extends BaseController
 
                 echo 'Role ' . $role;
 
-                $password_hash = password_hash($password, PASSWORD_DEFAULT);
+                $data = [
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'username' => $username,
+                    'password_hash' => password_hash($password, PASSWORD_DEFAULT),
+                    'role' => $role,
+                    'created_on' => date('Y-m-d H:i:s'),
+                ];
                 
-                $adminModel = new \App\Models\Admin();
-
-                $userCreated = $adminModel->createUser($first_name, $last_name, $username, $password_hash, $role);
+                $userCreated = $this->adminModel->createUser($data);
 
                 if ($userCreated) {
                     header('Location: /dashboard/users?user_created=true');

@@ -152,6 +152,7 @@ class AdminController extends BaseController
             'last_name' => $lastName,
             'username' => $username,
             'role' => $role,
+            'updated_on' => date('Y-m-d H:i:s'),
         ];
 
         if (!empty($password)) {

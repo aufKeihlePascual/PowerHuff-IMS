@@ -31,11 +31,17 @@ try {
     });
     
 
-    $router->run();
-    } catch (Exception $e) {
-        echo json_encode([
-            'error' => $e->getMessage()
-        ]);
-    }
+    # Inventory Manager
+    $router->get('/inventory-manager-dashboard', '\App\Controllers\InventoryManagerController@showDashboard');
+    $router->get('/api/products', '\App\Controllers\InventoryManagerController@getProducts');
+    $router->post('/api/products', '\App\Controllers\InventoryManagerController@addProduct');
+    $router->put('/api/products/(\d+)', '\App\Controllers\InventoryManagerController@updateProduct');
+    $router->delete('/api/products/(\d+)', '\App\Controllers\InventoryManagerController@deleteProduct');
 
-?>
+    $router->run();
+} catch (Exception $e) {
+    echo json_encode([
+        'error' => $e->getMessage()
+    ]);
+}
+

@@ -33,10 +33,9 @@ try {
 
     # Inventory Manager
     $router->get('/inventory-manager-dashboard', '\App\Controllers\InventoryManagerController@showDashboard');
-    $router->get('/api/products', '\App\Controllers\InventoryManagerController@getProducts');
-    $router->post('/api/products', '\App\Controllers\InventoryManagerController@addProduct');
-    $router->put('/api/products/(\d+)', '\App\Controllers\InventoryManagerController@updateProduct');
-    $router->delete('/api/products/(\d+)', '\App\Controllers\InventoryManagerController@deleteProduct');
+    $router->get('/dashboard/products', '\App\Controllers\InventoryManagerController@showAllProducts');
+    $router->get('/dashboard/categories', '\App\Controllers\InventoryManagerController@showCategories');
+    $router->get('/dashboard/product-items', '\App\Controllers\InventoryManagerController@showProductItems');
 
     $router->run();
 } catch (Exception $e) {

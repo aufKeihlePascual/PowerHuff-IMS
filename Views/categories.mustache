@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/Views/dash-style.css">
+    <link rel="stylesheet" href="/Views/products.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/Views/dashboard.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!--------------------- Sidebar --------------------->
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
+            </div>
+            <ul class="menu">
+                <li><a href="/inventory-manager-dashboard" data-content="dashboard">Dashboard</a></li>
+                <li><a href="#" data-content="order">Order</a></li>
+                <li><a href="#" data-content="suppliers">Suppliers</a></li>
+                <li>
+                    <a href="#" data-content="products" class="active">Products</a>
+                    <ul class="sub-menu">
+                        <li><a href="/dashboard/products" data-content="product-list">All Products</a></li>
+                        <li><a href="/dashboard/categories" data-content="product-categories" class="active">Categories</a></li>
+                        <li><a href="/dashboard/product-items" data-content="product-items">Product Items</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" data-content="reports">Reports</a></li>
+            </ul>
+        
+            <form method="GET" action="/logout">
+                <button type="submit" class="logout">Logout</button>
+            </form>
+        </aside>
+
+        <!--------------------- Main Content --------------------->
+        <main class="main-content">
+            <!--------------------- Top Navigation --------------------->
+            <header class="top-nav">
+                <div class="search-container">
+                    <input type="text" placeholder="Search here..." />
+                </div>
+                <div class="nav-icons">
+                    <i class="fa-solid fa-bell" title="Notifications"></i>
+                    <i class="fa-solid fa-circle-question" title="Support"></i>
+                    <i class="fa-solid fa-gear" title="Settings"></i>
+                    <i class="profile" title="Profile">{{ username }}</i>
+                </div>
+            </header>
+
+            <!--------------------- Categories Content --------------------->
+            <section class="content">
+                <h2>Categories</h2>
+                <div class="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Created On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#categories}}
+                        <tr>
+                            <td>{{Category_ID}}</td>
+                            <td>{{Name}}</td>
+                            <td>{{Created_On}}</td>
+                            <td>
+                                <a href="/edit-category/{{Category_ID}}" class="btn-edit">Edit</a>
+                                <a href="/delete-category/{{Category_ID}}" class="btn-delete">Delete</a>
+                            </td>
+                        </tr>
+                        {{/categories}}
+                    </tbody>
+                </table>
+                <a href="/add-category" class="btn-add">Add New Category</a>
+            </section>
+        </div>
+        </main>
+    </div>
+</body>
+</html>

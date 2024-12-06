@@ -57,6 +57,14 @@ try {
     $router->get('/edit-product-item/(\d+)', '\App\Controllers\InventoryManagerController@editProductItem');
     $router->post('/edit-product-item/(\d+)', '\App\Controllers\InventoryManagerController@editProductItem');
         
+    # Suppliers
+    $router->get('/dashboard/suppliers', '\App\Controllers\SupplierController@showSupplierManagement');
+    // In your routing or controller logic
+$router->get('/add-supplier', 'SupplierController@showAddSupplierForm');
+
+    $router->post('/create-supplier', '\App\Controllers\SupplierController@createSupplier');
+    $router->post('/update-supplier/(\d+)', '\App\Controllers\SupplierController@updateSupplier');
+    $router->post('/delete-supplier/(\d+)', '\App\Controllers\SupplierController@deleteSupplier');
     $router->run();
 } catch (Exception $e) {
     echo json_encode([

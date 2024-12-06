@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/Views/dash-style.css">
+    <link rel="stylesheet" href="/Views/products.css"> <!-- Linking the same CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/Views/dashboard.js"></script>
+    <script src="/Views/supplier.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
-        <!--------------------- Sidebar --------------------->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="brand">
                 <img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
@@ -19,7 +20,8 @@
             <ul class="menu">
                 <li><a href="/dashboard" data-content="dashboard" class="active">Dashboard</a></li>
                 <li><a href="#" data-content="order">Order</a></li>
-                <li><a href="/dashboard/suppliers" data-content="suppliers">Suppliers</a></li>
+                <li><a href="/dashboard/suppliers" data-content="suppliers" class="active">Suppliers</a></li>
+                <li><a href="/dashboard/users" data-content="users">Users</a></li>
                 <li>
                     <a href="#" data-content="products">Products</a>
                     <ul class="sub-menu">
@@ -36,13 +38,12 @@
             </form>
         </aside>
 
-        <!--------------------- Main Content --------------------->
+        <!-- Main Content -->
         <main class="main-content">
-
-            <!--------------------- Top Navigation --------------------->
+            <!-- Top Navigation -->
             <header class="top-nav">
                 <div class="search-container">
-                    <input type="text" placeholder="Search here..." />
+                    <input type="text" id="searchSupplier" placeholder="Search suppliers..." />
                 </div>
                 <div class="nav-icons">
                     <i class="fa-solid fa-bell" title="Notifications"></i>
@@ -52,10 +53,37 @@
                 </div>
             </header>
             
-
-            <!--------------------- Dashboard Content --------------------->
+            <!-- Add Supplier Form -->
             <section class="content">
-                {{{ dashboardContent }}}
+                <div class="header">
+                    <h1 class="main-header">Add New Supplier</h1>
+                </div>
+
+                <div class="form-container">
+                    <form action="/create-supplier" method="POST">
+                        <div class="form-group">
+                            <label for="supplier_name">Supplier Name</label>
+                            <input type="text" id="supplier_name" name="supplier_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_categoryID">Product Category</label>
+                            <input type="text" id="product_categoryID" name="product_categoryID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact_number">Contact Number</label>
+                            <input type="text" id="contact_number" name="contact_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Add Supplier</button>
+                    </form>
+                </div>
             </section>
 
         </main>

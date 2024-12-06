@@ -7,60 +7,48 @@ class Supplier extends User
     public function createSupplier($data)
     {
         $stmt = $this->db->prepare(
-                "INSERT INTO suppliers (supplier_name, product_categoryID, contact_number, email, address, created_on) 
-                VALUES (:supplier_name, :product_categoryID, :contact_number, :password_hash, :role, :created_on)"
-            );
+            "INSERT INTO suppliers (supplier_name, product_categoryID, contact_number, email, address, created_on) 
+            VALUES (:supplier_name, :product_categoryID, :contact_number, :email, :address, :created_on)"
+        );
 
-        $stmt->bindParam(':first_name', $data['first_name']);
-        $stmt->bindParam(':last_name', $data['last_name']);
-        $stmt->bindParam(':username', $data['username']);
-        $stmt->bindParam(':password_hash', $data['password_hash']);
-        $stmt->bindParam(':role', $data['role']);
+        $stmt->bindParam(':supplier_name', $data['supplier_name']);
+        $stmt->bindParam(':product_categoryID', $data['product_categoryID']);
+        $stmt->bindParam(':contact_number', $data['contact_number']);
+        $stmt->bindParam(':email', $data['email']);
+        $stmt->bindParam(':address', $data['address']);
         $stmt->bindParam(':created_on', $data['created_on']);
 
         return $stmt->execute();
     }
 
-    public function updateUser($user_id, $data)
+    public function getAllSuppliers()
     {
-        $setClause = [];
-        $values = [];
-
-        foreach ($data as $key => $value) {
-            $setClause[] = "$key = ?";
-            $values[] = $value;
-        }
-
-        $values[] = $user_id;
-
-        $sql = "UPDATE users SET " . implode(', ', $setClause) . " WHERE user_id = ?";
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute($values);
-    }
-
-    public function deleteUser($userId)
-    {
-        $stmt = $this->db->prepare("SELECT COUNT(*) FROM users WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->execute();
-        $userExists = $stmt->fetchColumn();
-
-        if ($userExists == 0) {
-            return false;
-        }
-
-        $stmt = $this->db->prepare("DELETE FROM users WHERE user_id = :user_id");
-        $stmt->bindParam(':user_id', $userId);
-
-        return $stmt->execute();
-    }
-
-    public function getAllUsers()
-    {
-        $stmt = $this->db->query("SELECT user_id, username, role FROM users");
-        $stmt->execute();
-
+        $stmt = $this->db->query("SELECT * FROM suppliers");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+
+    public function updateSupplier($supplier_id, $data)
+    {
+        $sql = "UPDATE suppliers SET supplier_name = ?, product_categoryID = ?, contact_number = ?, email = ?, address = ? WHERE supplier_id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $data['supplier_name'],
+            $data['product_categoryID'],
+            $data['contact_number'],
+            $data['email'],
+            $data['address'],
+            $supplier_id
+        ]);
+        
+        return $stmt->rowCount() > 0;
+    }
+
+    public function deleteSupplier($supplierId)
+    {
+        $stmt = $this->db->prepare("DELETE FROM suppliers WHERE supplier_id = :supplier_id");
+        $stmt->bindParam(':supplier_id', $supplierId);
+
+        return $stmt->execute();
+    }
 }

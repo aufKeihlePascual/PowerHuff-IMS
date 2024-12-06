@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 04:23 PM
+-- Generation Time: Dec 06, 2024 at 01:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -163,11 +163,11 @@ CREATE TABLE `product_category` (
 --
 
 INSERT INTO `product_category` (`category_id`, `product_id`, `name`, `description`) VALUES
-(1, 1, 'Devices', NULL),
-(1, 4, 'Devices', NULL),
-(2, 2, 'E-liquids', NULL),
-(3, 3, 'Parts', NULL),
-(3, 5, 'Parts', NULL);
+(1, 1, 'Pod Systems', NULL),
+(1, 4, 'Starter Kits', NULL),
+(2, 2, 'Fruity Flavor', NULL),
+(3, 3, 'Pod Systems', NULL),
+(3, 5, 'Nicotine-Free', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,7 +195,8 @@ INSERT INTO `product_items` (`product_item_id`, `product_id`, `size`, `color`, `
 (2, 2, NULL, NULL, 250.00, 50, '2024-11-24 22:18:42', '2024-11-24 22:18:42'),
 (3, 3, NULL, NULL, 400.00, 45, '2024-11-24 22:18:42', '2024-11-24 22:18:42'),
 (4, 4, NULL, NULL, 250.00, 40, '2024-11-24 22:18:42', '2024-11-24 22:18:42'),
-(5, 5, NULL, NULL, 400.00, 30, '2024-11-24 22:18:42', '2024-11-24 22:18:42');
+(5, 5, NULL, NULL, 400.00, 30, '2024-11-24 22:18:42', '2024-11-24 22:18:42'),
+(6, 1, NULL, NULL, 11.00, 10, '2024-12-06 19:17:07', '2024-12-06 19:17:07');
 
 -- --------------------------------------------------------
 
@@ -296,9 +297,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password_hash`, `role`, `created_on`, `updated_on`) VALUES
-(1, 'Keihle', 'Pascual', 'KPascual', '$2y$10$.ipZtpUQcuCxt5i.UqF.r.53TSZsRmxDdKxXOczi/9cjNr8YHzFF6', 'Admin', '2024-11-24 22:18:14', NULL),
-(2, 'Samantha', 'Ticsay', 'STicsay', 'hashedpass2', 'Admin', '2024-11-24 22:18:14', NULL),
-(3, 'Janeil', 'Gonzales', 'JGonzales', '$2y$10$.ipZtpUQcuCxt5i.UqF.r.53TSZsRmxDdKxXOczi/9cjNr8YHzFF6', 'Admin', '2024-11-24 22:18:14', NULL),
+(1, 'Maris', 'Racal', 'admin123', '$2y$10$GSWWVi.qjjVEFtSGkM6DCO5ZAtlTw2pfen2v.17lawImXbPFzlvEe', 'Admin', '2024-11-24 22:18:14', '2024-12-05 17:24:04'),
+(2, 'Samantha', 'Ticsay', 'STicsay', '$2y$10$CR7l3wdB0yw1VxJ/ftbnoOaXPnRXUZ1H5C285AMiAwHv.ivW9JKWG', 'Admin', '2024-11-24 22:18:14', '2024-12-05 15:54:26'),
+(3, 'Janeil', 'Gonzales', 'JGonzales', '$2y$10$Jv.1o3VvWHRd3IxDldNG7eYsC1ardq3k10bujNOdq4svHg7qoT7zu', 'Inventory_Manager', '2024-11-24 22:18:14', '2024-12-05 15:58:49'),
 (4, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-28 20:22:19', NULL),
 (68, 'Mumei', 'Nanashi', 'Mooming', '$2y$10$7XIN/00qJft1gVbxPP4aXerlmoCUBUWW2K.W9Mq0GABIFMGEhw/B6', 'Admin', '2024-12-04 14:29:11', NULL),
 (69, 'Fauna', 'Ceres', 'FaunaMart', '$2y$10$H/n/ElwnAFoosdO6bnX72uciHals/XMjHi//2TY7CzSNQ9cv8qabK', 'Admin', '2024-12-04 14:44:38', NULL);
@@ -459,7 +460,7 @@ ALTER TABLE `product_activity`
 -- AUTO_INCREMENT for table `product_items`
 --
 ALTER TABLE `product_items`
-  MODIFY `product_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `product_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `report`

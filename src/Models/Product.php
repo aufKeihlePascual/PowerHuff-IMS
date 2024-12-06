@@ -19,13 +19,13 @@ class Product extends BaseModel
                 c.Name AS Category_Name,
                 pc.Name AS Product_Category_Name
             FROM 
-                powerhuff_db.PRODUCTS p
+                products p
             LEFT JOIN 
-                powerhuff_db.PRODUCT_CATEGORY pc ON p.Product_ID = pc.Product_ID
+                product_category pc ON p.Product_ID = pc.Product_ID
             LEFT JOIN 
-                powerhuff_db.CATEGORIES c ON pc.Category_ID = c.Category_ID
+                categories c ON pc.Category_ID = c.Category_ID
             LEFT JOIN
-                powerhuff_db.SUPPLIERS s ON p.Supplier_ID = s.Supplier_ID
+                suppliers s ON p.Supplier_ID = s.Supplier_ID
         ");
 
         $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -47,8 +47,8 @@ class Product extends BaseModel
     {
         $stmt = $this->db->query("
             SELECT p.Product_Name, pi.Price, pi.Stock_Quantity, pi.Created_On, pi.Updated_On
-            FROM powerhuff_db.PRODUCT_ITEMS pi
-            JOIN powerhuff_db.PRODUCTS p ON pi.Product_ID = p.Product_ID
+            FROM product_items pi
+            JOIN products p ON pi.Product_ID = p.Product_ID
         ");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -103,7 +103,7 @@ class Product extends BaseModel
 
     public function getCategoryById($id)
     {
-        $stmt = $this->db->prepare("SELECT Category_ID, Name, Description, Created_On FROM powerhuff_db.CATEGORIES WHERE Category_ID = :id");
+        $stmt = $this->db->prepare("SELECT Category_ID, Name, Description, Created_On FROM categories WHERE Category_ID = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -114,8 +114,8 @@ class Product extends BaseModel
     {
         $stmt = $this->db->prepare("
             SELECT pi.Item_ID, pi.Product_ID, p.Product_Name, pi.Price, pi.Stock_Quantity, pi.Created_On 
-            FROM powerhuff_db.PRODUCT_ITEMS pi
-            JOIN powerhuff_db.PRODUCTS p ON pi.Product_ID = p.Product_ID
+            FROM product_items pi
+            JOIN products p ON pi.Product_ID = p.Product_ID
             WHERE pi.Item_ID = :id
         ");
         $stmt->bindParam(':id', $id);

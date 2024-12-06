@@ -25,16 +25,12 @@ try {
     $router->post('/edit-user/{\d+}', '\App\Controllers\AdminController@updateUser');
     $router->post('/delete-user/(\d+)', '\App\Controllers\AdminController@deleteUser');
 
-    $router->get('/reset-login-attempts', function () {
-        $_SESSION['login_attempts'] = 0;
-        echo "Login attempts reset.";
-    });
-    
     # PRODUCT MANAGEMENT VIEWS
     $router->get('/dashboard/products', '\App\Controllers\InventoryManagerController@showAllProducts');
     $router->get('/dashboard/categories', '\App\Controllers\InventoryManagerController@showCategories');
+    $router->get('/dashboard/product-categories', '\App\Controllers\InventoryManagerController@showProductCategories');
     $router->get('/dashboard/product-items', '\App\Controllers\InventoryManagerController@showProductItems');
-
+    
     # PRODUCT MANAGEMENT
     $router->get('/add-product', '\App\Controllers\InventoryManagerController@addProduct');
     $router->post('/add-product', '\App\Controllers\InventoryManagerController@addProduct');
@@ -63,7 +59,11 @@ try {
     $router->post('/update-supplier/(\d+)', '\App\Controllers\SupplierController@updateSupplier');
     $router->post('/delete-supplier/(\d+)', '\App\Controllers\SupplierController@deleteSupplier');
     
-    
+    $router->get('/reset-login-attempts', function () {
+        $_SESSION['login_attempts'] = 0;
+        echo "Login attempts reset.";
+    });
+
     $router->run();
 
 } catch (Exception $e) {

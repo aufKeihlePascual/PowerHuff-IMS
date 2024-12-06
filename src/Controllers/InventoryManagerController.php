@@ -43,10 +43,28 @@ class InventoryManagerController extends DashboardController
         $data = [
             'title' => 'Categories',
             'username' => $_SESSION['username'],
-            'categories' => $categories, 
+            'categories' => $categories,
         ];
     
         return $this->render('categories', $data);
+    }
+
+    public function showProductCategories()
+    {
+        if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
+            header('Location: /login');
+            exit;
+        }
+
+        $product_categories = $this->categoryModel->getAllProductCategories();
+
+        $data = [
+            'title' => 'Product Categories',
+            'username' => $_SESSION['username'],
+            'product_categories' => $product_categories,
+        ];
+    
+        return $this->render('product-categories', $data);
     }
 
     public function showProductItems()

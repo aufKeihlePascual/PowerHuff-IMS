@@ -63,7 +63,8 @@ class AdminController extends BaseController
         
         $data = [
             'title' => 'User Management',
-            'users' => $users
+            'users' => $users,
+            'user_name' => $_SESSION['username'],
         ];
 
         return $this->render('user-management', $data);

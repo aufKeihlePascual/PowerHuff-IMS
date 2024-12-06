@@ -37,6 +37,26 @@ try {
     $router->get('/dashboard/categories', '\App\Controllers\InventoryManagerController@showCategories');
     $router->get('/dashboard/product-items', '\App\Controllers\InventoryManagerController@showProductItems');
 
+    # Product
+    $router->get('/add-product', '\App\Controllers\InventoryManagerController@addProduct');
+    $router->post('/add-product', '\App\Controllers\InventoryManagerController@addProduct');
+    $router->get('/edit-product/(\d+)', '\App\Controllers\InventoryManagerController@editProduct');
+    $router->post('/edit-product/(\d+)', '\App\Controllers\InventoryManagerController@editProduct');
+    // $router->post('/delete-product/(\d+)', '\App\Controllers\InventoryManagerController@deleteProduct');
+
+    # Categories
+    $router->get('/add-category', '\App\Controllers\InventoryManagerController@addCategory');
+    $router->post('/add-category', '\App\Controllers\InventoryManagerController@addCategory');
+    $router->get('/edit-category/(\d+)', '\App\Controllers\InventoryManagerController@editCategory');
+    $router->post('/edit-category/(\d+)', '\App\Controllers\InventoryManagerController@editCategory');
+    // $router->post('/delete-category/(\d+)', '\App\Controllers\InventoryManagerController@deleteCategory');
+
+    # Product Items
+    $router->get('/add-product-item', '\App\Controllers\InventoryManagerController@addProductItem');
+    $router->post('/add-product-item', '\App\Controllers\InventoryManagerController@addProductItem');
+    $router->get('/edit-product-item/(\d+)', '\App\Controllers\InventoryManagerController@editProductItem');
+    $router->post('/edit-product-item/(\d+)', '\App\Controllers\InventoryManagerController@editProductItem');
+        
     $router->run();
 } catch (Exception $e) {
     echo json_encode([

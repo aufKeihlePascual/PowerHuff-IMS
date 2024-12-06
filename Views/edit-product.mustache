@@ -55,56 +55,43 @@
 
             <!--------------------- Products Content --------------------->
             <section class="content">
-    <h2>All Products</h2>
-    {{#success_message}}
-        <div class="alert alert-success">{{success_message}}</div>
-    {{/success_message}}
-    {{#error_message}}
-        <div class="alert alert-error">{{error_message}}</div>
-    {{/error_message}}
-    <div class="table">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock Quantity</th>
-                    <th>Lowstock Threshold</th>
-                    <th>Supplier Name</th>
-                    <th>Created On</th>
-                    <th>Category</th>
-                    <th>Product Category</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#products}}
-                <tr>
-                    <td>{{Product_ID}}</td>
-                    <td>{{Product_Name}}</td>
-                    <td>{{Product_Description}}</td>
-                    <td>{{Price}}</td>
-                    <td>{{Stock_Quantity}}</td>
-                    <td>{{Lowstock_Threshold}}</td>
-                    <td>{{Supplier_Name}}</td>
-                    <td>{{Created_On}}</td>
-                    <td>{{Category_Name}}</td>
-                    <td>{{Product_Category_Name}}</td>
-                    <td>
-                        <a href="/edit-product/{{Product_ID}}" class="btn-edit">Edit</a>
-                        <form action="/delete-product/{{Product_ID}}" method="POST" style="display: inline;">
-                            <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {{/products}}
-            </tbody>
-        </table>
-    </div>
-    <a href="/add-product" class="btn-add">Add New Product</a>
-</section>
+                <h2>Edit Product</h2>
+                <form action="/edit-product/{{product.Product_ID}}" method="POST">
+                    <div class="form-group">
+                        <label for="product_name">Product Name:</label>
+                        <input type="text" id="product_name" name="product_name" value="{{product.Product_Name}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" step="0.01" value="{{product.Price}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock_quantity">Stock Quantity:</label>
+                        <input type="number" id="stock_quantity" name="stock_quantity" value="{{product.Stock_Quantity}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lowstock_threshold">Lowstock Threshold:</label>
+                        <input type="number" id="lowstock_threshold" name="lowstock_threshold" value="{{product.Lowstock_Threshold}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="supplier_id">Supplier:</label>
+                        <select id="supplier_id" name="supplier_id" required>
+                            {{#suppliers}}
+                                <option value="{{Supplier_ID}}" {{#selected}}selected{{/selected}}>{{Supplier_Name}}</option>
+                            {{/suppliers}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id">Category:</label>
+                        <select id="category_id" name="category_id" required>
+                            {{#categories}}
+                                <option value="{{Category_ID}}" {{#selected}}selected{{/selected}}>{{Name}}</option>
+                            {{/categories}}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-edit">Update Product</button>
+                </form>
+            </section>
         </main>
     </div>
 </body>

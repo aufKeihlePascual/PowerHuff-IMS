@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/Views/dashboard.js"></script>
 </head>
-
 <body>
     <div class="dashboard-container">
         <!--------------------- Sidebar --------------------->
@@ -27,14 +25,13 @@
                     <a href="#" data-content="products" class="active">Products</a>
                     <ul class="sub-menu">
                         <li><a href="/dashboard/products" data-content="product-list">All Products</a></li>
-                        <li><a href="/dashboard/categories" data-content="product-categories">Categories</a></li>
-                        <li><a href="/dashboard/product-items" data-content="product-items" class="active">Product
-                                Items</a></li>
+                        <li><a href="/dashboard/categories" data-content="product-categories" class="active">Categories</a></li>
+                        <li><a href="/dashboard/product-items" data-content="product-items">Product Items</a></li>
                     </ul>
                 </li>
                 <li><a href="#" data-content="reports">Reports</a></li>
             </ul>
-
+        
             <form method="GET" action="/logout">
                 <button type="submit" class="logout">Logout</button>
             </form>
@@ -54,46 +51,21 @@
                     <i class="profile" title="Profile">{{ username }}</i>
                 </div>
             </header>
-            
-            <!--------------------- Product Items Content --------------------->
+
+            <!--------------------- Categories Content --------------------->
             <section class="content">
-                <h2>Product Items</h2>
-                {{#success_message}}
-                    <div class="alert alert-success">{{success_message}}</div>
-                {{/success_message}}
-                {{#error_message}}
-                    <div class="alert alert-error">{{error_message}}</div>
-                {{/error_message}}
-                <div class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Price</th>
-                                <th>Stock Quantity</th>
-                                <th>Created On</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#productItems}}
-                            <tr>
-                                <td>{{Product_Name}}</td>
-                                <td>{{Price}}</td>
-                                <td>{{Stock_Quantity}}</td>
-                                <td>{{Created_On}}</td>
-                                <td>
-                                    <a href="/edit-product-item/{{Item_ID}}" class="btn-edit">Edit</a>
-                                    <form action="/delete-product-item/{{Item_ID}}" method="POST" style="display: inline;">
-                                        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this product item?')">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {{/productItems}}
-                        </tbody>
-                    </table>
-                </div>
-                <a href="/add-product-item" class="btn-add">Add New Product Item</a>
+                <h2>Add New Category</h2>
+                <form action="/add-category" method="POST">
+                    <div class="form-group">
+                        <label for="category_name">Category Name:</label>
+                        <input type="text" id="category_name" name="category_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn-add">Add Category</button>
+                </form>
             </section>
         </main>
     </div>

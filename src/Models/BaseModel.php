@@ -26,11 +26,4 @@ class BaseModel
         }
     }
 
-    public function find($table, $id)
-    {
-        $sql = "SELECT * FROM $table WHERE id = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$id]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
 }

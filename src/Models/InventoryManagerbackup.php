@@ -8,7 +8,7 @@ class InventoryManager extends BaseModel
     public function addProduct($product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO powerhuff_db.PRODUCTS (Product_Name, Price, Stock_Quantity, Lowstock_Threshold, Supplier_ID, Category_ID, Created_On)
+            INSERT INTO products (Product_Name, Price, Stock_Quantity, Lowstock_Threshold, Supplier_ID, Category_ID, Created_On)
             VALUES (:product_name, :price, :stock_quantity, :lowstock_threshold, :supplier_id, :category_id, CURRENT_TIMESTAMP)
         ");
 
@@ -25,7 +25,7 @@ class InventoryManager extends BaseModel
     public function updateProduct($id, $product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id)
     {
         $stmt = $this->db->prepare("
-            UPDATE powerhuff_db.PRODUCTS 
+            UPDATE products
             SET Product_Name = :product_name, 
                 Price = :price, 
                 Stock_Quantity = :stock_quantity, 
@@ -48,17 +48,16 @@ class InventoryManager extends BaseModel
 
     public function deleteProduct($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM powerhuff_db.PRODUCTS WHERE Product_ID = :id");
+        $stmt = $this->db->prepare("DELETE FROM products WHERE Product_ID = :id");
         $stmt->bindParam(':id', $id);
 
         return $stmt->execute();
     }
 
-
     public function addCategory($category_name, $description)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO powerhuff_db.CATEGORIES (Category_Name, Description, Created_On)
+            INSERT INTO categories (Category_Name, Description, Created_On)
             VALUES (:category_name, :description, CURRENT_TIMESTAMP)
         ");
         $stmt->bindParam(':category_name', $category_name);
@@ -70,7 +69,7 @@ class InventoryManager extends BaseModel
     public function updateCategory($id, $category_name, $description)
     {
         $stmt = $this->db->prepare("
-            UPDATE powerhuff_db.CATEGORIES 
+            UPDATE categories
             SET Category_Name = :category_name, 
                 Description = :description
             WHERE Category_ID = :id
@@ -84,12 +83,11 @@ class InventoryManager extends BaseModel
 
     public function deleteCategory($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM powerhuff_db.CATEGORIES WHERE Category_ID = :id");
+        $stmt = $this->db->prepare("DELETE FROM categories WHERE Category_ID = :id");
         $stmt->bindParam(':id', $id);
 
         return $stmt->execute();
     }
-
 
     public function addProductItem($product_id, $price, $stock_quantity)
     {

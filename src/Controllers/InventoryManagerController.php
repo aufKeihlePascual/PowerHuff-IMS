@@ -2,74 +2,34 @@
 
 namespace App\Controllers;
 
-use App\Models\InventoryManager;
-
-class InventoryManagerController extends BaseController
+class InventoryManagerController extends DashboardController
 {
-    private $inventoryManager;
+    protected $productModel, $categoryModel, $inventoryManager, $supplierModel;
 
     public function __construct()
     {
-        $this->inventoryManager = new InventoryManager();
+        $this->inventoryManager = new \App\Models\InventoryManager();
+        $this->productModel = new \App\Models\Product();
+        $this->categoryModel = new \App\Models\Category();
     }
 
-    public function showDashboard()
+    public function showAllProducts()
     {
         if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
             header('Location: /login');
             exit;
         }
 
-        $dashboardContent = '
-            <div class="welcome-box">
-                <h2>Hello, ' . htmlspecialchars($_SESSION['first_name']) . ' ' . htmlspecialchars($_SESSION['last_name']) . '!</h2>
-            </div>
-            <div class="overview">
-                <div class="overview-card">
-                    <h3>Last week overview</h3>
-                    <p>$120,537.90</p>
-                    <small>▼ 9.5%</small>
-                    <div class="chart-line"></div>
-                </div>
-                <div class="overview-card">
-                    <div class="chart-bar"></div>
-                </div>
-            </div>
-            <div class="computations">
-                <h3>Computations</h3>
-            </div>
-        ';
+        $products = $this->productModel->getAllProducts();
 
         $data = [
-            'title' => 'Inventory Dashboard',
-            'first_name' => $_SESSION['first_name'],
-            'last_name' => $_SESSION['last_name'],
+            'title' => 'Products',
             'username' => $_SESSION['username'],
-            'dashboardContent' => $dashboardContent,
+            'products' => $products,
         ];
 
-        return $this->render('inventory-manager-dashboard', $data);
+        return $this->render('products', $data);
     }
-
-    public function showAllProducts()
-{
-    if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
-        header('Location: /login');
-        exit;
-    }
-
-    $products = $this->inventoryManager->getAllProducts();
-
-    $data = [
-        'title' => 'All Products',
-        'first_name' => $_SESSION['first_name'],
-        'last_name' => $_SESSION['last_name'],
-        'username' => $_SESSION['username'],
-        'products' => $products,
-    ];
-
-    return $this->render('products', $data);
-}
 
     public function showCategories()
     {
@@ -78,12 +38,10 @@ class InventoryManagerController extends BaseController
             exit;
         }
 
-        $categories = $this->inventoryManager->getAllCategories();
+        $categories = $this->categoryModel->getAllCategories();
 
         $data = [
             'title' => 'Categories',
-            'first_name' => $_SESSION['first_name'],
-            'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
             'categories' => $categories, 
         ];
@@ -98,7 +56,7 @@ class InventoryManagerController extends BaseController
             exit;
         }
 
-        $productItems = $this->inventoryManager->getAllProductItems();
+        $productItems = $this->productModel->getAllProductItems();
 
         $data = [
             'title' => 'Product Items',
@@ -133,8 +91,8 @@ class InventoryManagerController extends BaseController
         exit;
     }
 
-    $suppliers = $this->inventoryManager->getAllSuppliers();
-    $categories = $this->inventoryManager->getAllCategories();
+    $suppliers = $this->supplierModel->getAllSuppliers();
+    $categories = $this->categoryModel->getAllCategories();
 
     $data = [
         'title' => 'Add New Product',
@@ -150,6 +108,10 @@ class InventoryManagerController extends BaseController
 
 public function editProduct($id)
 {
+    $product = $this->productModel->getProductById($id);
+    $suppliers = $this->supplierModel->getAllSuppliers();
+    $categories = $this->categoryModel->getAllCategories();
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_name = $_POST['product_name'];
         $price = $_POST['price'];
@@ -169,10 +131,6 @@ public function editProduct($id)
         header('Location: /dashboard/products');
         exit;
     }
-
-    $product = $this->inventoryManager->getProductById($id);
-    $suppliers = $this->inventoryManager->getAllSuppliers();
-    $categories = $this->inventoryManager->getAllCategories();
 
     $data = [
         'title' => 'Edit Product',
@@ -247,7 +205,7 @@ public function editCategory($id)
         exit;
     }
 
-    $category = $this->inventoryManager->getCategoryById($id);
+    $category = $this->categoryModel->getCategoryById($id);
 
     $data = [
         'title' => 'Edit Category',
@@ -293,7 +251,7 @@ public function addProductItem()
         exit;
     }
 
-    $products = $this->inventoryManager->getAllProducts();
+    $products = $this->productModel->getAllProducts();
 
     $data = [
         'title' => 'Add New Product Item',
@@ -325,8 +283,8 @@ public function editProductItem($id)
         exit;
     }
 
-    $productItem = $this->inventoryManager->getProductItemById($id);
-    $products = $this->inventoryManager->getAllProducts();
+    $productItem = $this->productModel->getProductItemById($id);
+    $products = $this->productModel->getAllProducts();
 
     // Mark the current product as selected
     foreach ($products as &$product) {

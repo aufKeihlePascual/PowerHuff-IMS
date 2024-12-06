@@ -16,7 +16,7 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="brand">
-                <img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
+                <a href="/dashboard"><img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo"></a>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard" data-content="dashboard" class="active">Dashboard</a></li>
@@ -65,6 +65,7 @@
                         <thead>
                             <tr>
                                 <th>Supplier Name</th>
+                                <th>Category</th>
                                 <th>Product Category</th>
                                 <th>Contact Number</th>
                                 <th>Created On</th>
@@ -74,8 +75,9 @@
                         <tbody>
                             {{#suppliers}}
                             <tr>
-                                <td>{{supplier_name}}</td> 
-                                <td>{{product_categoryID}}</td> 
+                                <td>{{supplier_name}}</td>
+                                <td>{{category_name}}</td>
+                                <td>{{name}}</td> 
                                 <td>{{contact_number}}</td> 
                                 <td>{{created_on}}</td> 
                                 <td>

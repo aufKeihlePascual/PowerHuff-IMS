@@ -11,6 +11,11 @@ class HomeController extends BaseController
 
     public function index()
     {
+        if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']) {
+            header('Location: /dashboard');
+            exit;
+        }
+
         $template = 'login'; 
         $data = [
             'title' => 'Login',

@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    $("#logo").click(function () {
-        window.location.href = "/admin-dashboard";
-    });
+    // $("#logo").click(function () {
+    //     window.location.href = "/dashboard";
+    // });
 
     /****************  SHOW/HIDE PASSWORD  ****************/
     $(window).on('load', function() {

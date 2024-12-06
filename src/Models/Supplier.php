@@ -23,15 +23,37 @@ class Supplier extends User
 
     public function getAllSuppliers()
     {
-        $stmt = $this->db->query("SELECT * FROM suppliers");
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt = $this->db->query("
+            SELECT
+                s.supplier_id,
+                s.supplier_name,
+                s.contact_number,
+                DATE_FORMAT(s.created_on, '%b %d, %Y %h:%i %p') AS created_on, 
+                c.name AS category_name,
+                pc.name AS name
+            FROM suppliers AS s JOIN product_supplier AS ps
+            ON s.supplier_id = ps.supplier_id
+            JOIN products AS p
+            ON ps.product_id = p.product_id
+            JOIN product_category AS pc
+            ON p.product_id = pc.product_id
+            JOIN categories AS c
+            ON pc.category_id = c.category_id
+        ");
+
+        $suppliers = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        foreach ($suppliers as &$supplier) {
+            $supplier['supplier_name'] = ucwords(strtolower($supplier['supplier_name']));
+        }
+
+        return $suppliers;
     }
 
 
     public function updateSupplier($supplier_id, $data)
     {
-        $sql = "UPDATE suppliers SET supplier_name = ?, product_categoryID = ?, contact_number = ?, email = ?, address = ? WHERE supplier_id = ?";
-        $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare("UPDATE suppliers SET supplier_name = ?, product_categoryID = ?, contact_number = ?, email = ?, address = ? WHERE supplier_id = ?");
         $stmt->execute([
             $data['supplier_name'],
             $data['product_categoryID'],
@@ -52,21 +74,12 @@ class Supplier extends User
         return $stmt->execute();
     }
 
-
     public function findBySupplierID($supplier_id)
     {
         $stmt = $this->db->prepare("SELECT * FROM suppliers WHERE supplier_id = ?");
         $stmt->execute([$supplier_id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-
-    private function findBySupplierName($supplier_name)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM suppliers WHERE supplier_name = ?");
-        $stmt->execute([$supplier_name]);
-        return $stmt->fetch(); 
-    }
-
 
     public function getSupplierBySupplierName($supplier_name)
     {

@@ -17,12 +17,12 @@
         <!--------------------- Sidebar --------------------->
         <aside class="sidebar">
             <div class="brand">
-                <img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
+                <a href="/dashboard"><img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo"></a>
             </div>
             <ul class="menu">
-                <li><a href="/inventory-manager-dashboard" data-content="dashboard">Dashboard</a></li>
+                <li><a href="/dashboard" data-content="dashboard">Dashboard</a></li>
                 <li><a href="#" data-content="order">Order</a></li>
-                <li><a href="#" data-content="suppliers">Suppliers</a></li>
+                <li><a href="/dashboard/suppliers" data-content="suppliers">Suppliers</a></li>
                 <li>
                     <a href="#" data-content="products" class="active">Products</a>
                     <ul class="sub-menu">
@@ -57,7 +57,9 @@
             
             <!--------------------- Product Items Content --------------------->
             <section class="content">
-                <h2>Product Items</h2>
+                <div class="header">
+                    <h1 class="main-header">{{title}}</h1>
+                </div>
                 {{#success_message}}
                     <div class="alert alert-success">{{success_message}}</div>
                 {{/success_message}}
@@ -71,7 +73,7 @@
                                 <th>Product Name</th>
                                 <th>Price</th>
                                 <th>Stock Quantity</th>
-                                <th>Created On</th>
+                                <th>Updated</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -79,9 +81,9 @@
                             {{#productItems}}
                             <tr>
                                 <td>{{Product_Name}}</td>
-                                <td>{{Price}}</td>
+                                <td>₱ {{Price}}</td>
                                 <td>{{Stock_Quantity}}</td>
-                                <td>{{Created_On}}</td>
+                                <td>{{Updated_On}}</td>
                                 <td>
                                     <a href="/edit-product-item/{{Item_ID}}" class="btn-edit">Edit</a>
                                     <form action="/delete-product-item/{{Item_ID}}" method="POST" style="display: inline;">

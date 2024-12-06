@@ -15,15 +15,22 @@ abstract class DashboardController extends BaseController
         $this->adminModel = new Admin();
     }
 
-    protected function isLoggedIn()
+    public function showDashboard()
     {
-        return isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'];
-    }
+        if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
+            header('Location: /login');
+            exit;
+        }
+        
+        if ($_SESSION['role'] == 'Admin') {
+            $dashboard = 'admin-dashboard';
+        } elseif ($_SESSION['role'] == 'Inventory_Manager') {
+            $dashboard = 'inventory-manager-dashboard';
+        } elseif ($_SESSION['role'] == 'Procurement_Manager') {
+            $dashboard = 'procurement-manager-dashboard';
+        }
 
-    protected function renderDashboardContent()
-    {
-        // Default dashboard content
-        return '
+        $dashboardContent = '
             <div class="welcome-box">
                 <h2>Hello, ' . htmlspecialchars($_SESSION['first_name']) . ' ' . htmlspecialchars($_SESSION['last_name']) . '!</h2>
             </div>
@@ -42,42 +49,16 @@ abstract class DashboardController extends BaseController
                 <h3>Computations</h3>
             </div>
         ';
-    }
-
-    public function showDashboard()
-    {
-        if (!$this->isLoggedIn()) {
-            header('Location: /login');
-            exit;
-        }
-
-        $dashboardContent = $this->renderDashboardContent();
 
         $data = [
-            'title' => 'Dashboard',
-            'username' => $_SESSION['username'],
+            'title' => 'Admin Dashboard',
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],
+            'username' => $_SESSION['username'],
             'dashboardContent' => $dashboardContent
         ];
 
-        return $this->render('admin-dashboard', $data);
+        return $this->render($dashboard, $data);
     }
 
-    public function showUserManagement()
-    {
-        if ($_SESSION['role'] !== 'admin') {
-            header('Location: /login');
-            exit;
-        }
-
-        $users = $this->userModel->getAllUsers();
-
-        $data = [
-            'title' => 'User Management',
-            'users' => $users
-        ];
-
-        return $this->render('user-management', $data);
-    }
 }

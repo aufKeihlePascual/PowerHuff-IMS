@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/Views/dash-style.css">
-    <link rel="stylesheet" href="/Views/products.css"> <!-- Linking the same CSS -->
+    <link rel="stylesheet" href="/Views/products.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/Views/supplier.js"></script>
+    <script>var userRole = "<?php echo $_SESSION['role']; ?>";</script>
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="brand">
-                <img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo">
+                <a href="/dashboard"><img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo"></a>
             </div>
             <ul class="menu">
                 <li><a href="/dashboard" data-content="dashboard" class="active">Dashboard</a></li>
@@ -53,7 +53,6 @@
                 </div>
             </header>
             
-            <!-- Supplier Management Content -->
             <section class="content">
                 <form action="/create-supplier" method="POST">
                     <label for="supplier_name">Supplier Name:</label>
@@ -71,7 +70,12 @@
                     <label for="address">Address:</label>
                     <input type="text" name="address" required>
 
-                    <button type="submit">Add Supplier</button>
+                    <!-- <button type="submit">Add Supplier</button>
+                    <button type="submit">Cancel</button> -->
+                    <div class="button-container">
+                        <a href="/dashboard/suppliers" class="cancel-btn">Cancel</a>
+                        <button type="submit" class="update-btn">Add Supplier</button>
+                    </div>
                 </form>
             </section>
         </main>

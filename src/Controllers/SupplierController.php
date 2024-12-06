@@ -4,16 +4,21 @@ namespace App\Controllers;
 
 class SupplierController extends BaseController
 {
-    protected $supplierModel;
+    protected $userModel, $supplierModel;
 
     public function __construct()
     {
         $this->supplierModel = new \App\Models\Supplier();
+        $this->userModel = new \App\Models\User();
     }
 
     public function showSupplierManagement()
     {
-        // Fetch all suppliers
+        if ($_SESSION['role'] == 'Procurement_Manager') {
+            header('Location: /procurement-manager-dashboard');
+            exit;
+        }
+        
         $suppliers = $this->supplierModel->getAllSuppliers();
         $data = [
             'title' => 'Suppliers',
@@ -25,10 +30,8 @@ class SupplierController extends BaseController
         exit;
     }
 
-
     public function createSupplier()
     {
-        // Get the data from the form (assuming data is sent via POST)
         $data = [
             'supplier_name' => $_POST['supplier_name'],
             'product_categoryID' => $_POST['product_categoryID'],
@@ -74,17 +77,12 @@ class SupplierController extends BaseController
 
     public function showAddSupplierPage()
     {
-        $supplier = $this->supplierModel->findBySupplierID($supplier_id);
-        $supplier = $this->supplierModel->findBySupplierID($supplier_id);
-        
         $data = [
-            'title' => 'Add Supplier',
-            //'supplier_id' => $supplier['supplier_id'],
-            //'supplier_name' => $supplier['supplier_name'],
-
+            'title' => 'Create Supplier',
             'username' => $_SESSION['username'],
         ];
-        return $this->render('add-supplier', $data);  // Render the add-supplier view
+
+        return $this->render('add-supplier', $data);
     }
 
     public function showEditUserPage($user_id)

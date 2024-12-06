@@ -59,8 +59,7 @@ try {
         
     # Suppliers
     $router->get('/dashboard/suppliers', '\App\Controllers\SupplierController@showSupplierManagement');
-    // In your routing or controller logic
-$router->get('/add-supplier', 'SupplierController@showAddSupplierForm');
+    $router->get('/add-supplier', 'SupplierController@addSupplierForm');
 
     $router->post('/create-supplier', '\App\Controllers\SupplierController@createSupplier');
     $router->post('/update-supplier/(\d+)', '\App\Controllers\SupplierController@updateSupplier');

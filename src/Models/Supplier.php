@@ -51,4 +51,29 @@ class Supplier extends User
 
         return $stmt->execute();
     }
+
+
+    public function findBySupplierID($supplier_id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM suppliers WHERE supplier_id = ?");
+        $stmt->execute([$supplier_id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    private function findBySupplierName($supplier_name)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM suppliers WHERE supplier_name = ?");
+        $stmt->execute([$supplier_name]);
+        return $stmt->fetch(); 
+    }
+
+
+    public function getSupplierBySupplierName($supplier_name)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM suppliers WHERE supplier_name = :supplier_name");
+        $stmt->bindParam(':supplier_name', $supplier_name);
+        $stmt->execute();
+        
+        return $stmt->fetch(\PDO::FETCH_ASSOC); 
+    }
 }

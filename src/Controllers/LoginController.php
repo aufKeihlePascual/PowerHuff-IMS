@@ -62,6 +62,9 @@ class LoginController extends BaseController
             } elseif ($user['role'] === 'Inventory_Manager') {
                 header('Location: /inventory-manager-dashboard');
                 exit;
+            } elseif ($user['role'] === 'Procurement_Manager') {
+                header('Location: /procurement-manager-dashboard');
+                exit;
             }
         } else {
             $_SESSION['login_attempts'] += 1;

@@ -39,17 +39,17 @@ try {
     $router->post('/delete-product/(\d+)', '\App\Controllers\ProductController@deleteProduct');
 
     # CATEGORY MANAGEMENT
-    $router->get('/add-category', '\App\Controllers\InventoryManagerController@addCategory');
-    $router->post('/add-category', '\App\Controllers\InventoryManagerController@addCategory');
-    $router->get('/edit-category/(\d+)', '\App\Controllers\InventoryManagerController@editCategory');
-    $router->post('/edit-category/(\d+)', '\App\Controllers\InventoryManagerController@editCategory');
+    $router->get('/add-category', '\App\Controllers\CategoryController@addCategory');
+    $router->post('/add-category', '\App\Controllers\CategoryController@addCategory');
+    $router->get('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
+    $router->post('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
     // $router->post('/delete-category/(\d+)', '\App\Controllers\InventoryManagerController@deleteCategory');
 
     # PRODUCT ITEM MANAGEMENT
-    $router->get('/add-product-item', '\App\Controllers\InventoryManagerController@addProductItem');
-    $router->post('/add-product-item', '\App\Controllers\InventoryManagerController@addProductItem');
-    $router->get('/edit-product-item/(\d+)', '\App\Controllers\InventoryManagerController@editProductItem');
-    $router->post('/edit-product-item/(\d+)', '\App\Controllers\InventoryManagerController@editProductItem');
+    $router->get('/add-product-item', '\App\Controllers\ProductItemController@addProductItem');
+    $router->post('/add-product-item', '\App\Controllers\ProductItemController@addProductItem');
+    $router->get('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
+    $router->post('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
         
     # SUPPLIER MANAGEMENT
     $router->get('/dashboard/suppliers', '\App\Controllers\SupplierController@showSupplierManagement');

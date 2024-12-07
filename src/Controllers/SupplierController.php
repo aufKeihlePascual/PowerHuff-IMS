@@ -14,8 +14,8 @@ class SupplierController extends BaseController
 
     public function showSupplierManagement()
     {
-        if ($_SESSION['role'] == 'Procurement_Manager') {
-            header('Location: /procurement-manager-dashboard');
+        if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
+            header('Location: /login');
             exit;
         }
         

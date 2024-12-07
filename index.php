@@ -38,12 +38,20 @@ try {
     $router->post('/edit-product/(\d+)', '\App\Controllers\ProductController@editProduct');
     $router->post('/delete-product/(\d+)', '\App\Controllers\ProductController@deleteProduct');
 
+    # PRODUCT ITEMS MANAGEMENT
+    $router->get('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
+    $router->post('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
+
     # CATEGORY MANAGEMENT
     $router->get('/add-category', '\App\Controllers\CategoryController@addCategory');
     $router->post('/add-category', '\App\Controllers\CategoryController@addCategory');
     $router->get('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
     $router->post('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
     // $router->post('/delete-category/(\d+)', '\App\Controllers\InventoryManagerController@deleteCategory');
+
+    # PRODUCT CATEGORY MANAGEMENT
+    $router->get('/add-product-category', '\App\Controllers\ProductCategoryController@addProductCategory');
+    $router->post('/add-product-category', '\App\Controllers\ProductCategoryController@addProductCategory'); 
 
     # PRODUCT ITEM MANAGEMENT
     $router->get('/add-product-item', '\App\Controllers\ProductItemController@addProductItem');

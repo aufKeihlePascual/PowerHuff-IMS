@@ -46,7 +46,6 @@ class LoginController extends BaseController
         $user = $this->userModel->getUserByUsername($username);
 
         if ($user && password_verify($password, $user['password_hash'])) {
-        // if ($user && $user['password_hash'] === $password) { //testing for plain text passwords
             $_SESSION['login_attempts'] = 0;
 
             $_SESSION['is_logged_in'] = true;

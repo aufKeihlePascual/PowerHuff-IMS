@@ -33,7 +33,7 @@ class User extends BaseModel
     public function getAllUsers()
     {
         $stmt = $this->db->query("
-            SELECT user_id, first_name, last_name, username, REPLACE(role, '_', ' ') AS role, DATE_FORMAT(created_on, '%b %d, %Y %h:%i %p') AS created_on, 
+            SELECT user_id, first_name, last_name, username, role, DATE_FORMAT(created_on, '%b %d, %Y %h:%i %p') AS created_on, 
             DATE_FORMAT(updated_on, '%b %d, %Y %h:%i %p') AS updated_on FROM users
         ");
         $stmt->execute();

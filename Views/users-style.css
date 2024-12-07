@@ -1,0 +1,272 @@
+/* USER MANAGEMENT */
+.user-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.user-form h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #122841;
+}
+
+.user-form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #122841;
+}
+
+.user-form select {
+    width: 99%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.user-form textarea {
+    width: 96%; 
+    height: 100px; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.user-form input {
+    width: 96%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.user-form button {
+    padding: 10px;
+    background: #24486d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.user-form button:hover {
+    background: #1a3551;
+}
+
+.user-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-list th,
+.user-list td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-list th {
+    background-color: #24486d;
+    color: #fff;
+    font-size: 18px;
+}
+
+.user-list td {
+    font-size: 16px;
+    color: #122841;
+}
+
+.user-list a {
+    padding: 10px 10px;
+    background-color: #24486d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-list a:hover {
+    background-color: #1a3551;
+}
+
+.user-list .update-user {
+    background-color: #1ac043;
+}
+
+.user-list .update-user:hover {
+    background-color: #1b9c3b;
+}
+
+.user-list .delete-user {
+    background-color: #d9534f;
+}
+
+.user-list .delete-user:hover {
+    background-color: #c9302c;
+}
+
+/* Edit User Button */
+.admin-buttons a {
+    background-color: #36a13a;
+    color: white;
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: medium;
+}
+
+.admin-buttons a:hover {
+    background-color: #206b24;
+}
+
+.role-admin {
+    color: #ffffff;
+    background-color: #eb9f3d;
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.role-inventory-manager {
+    color: #ffffff;
+    background-color: #7c1ec9;
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.role-procurement-manager {
+    color: #ffffff;
+    background-color: #d13da5;
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.role-default {
+    color: #000000;
+    background-color: #cccccc;
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+/* Ensure the modal is initially hidden */
+#addUserModal {
+    display: none; /* Modal is hidden initially */
+    position: fixed;
+    z-index: 1;
+    left: 30%;
+    top: 0;
+    width: 50%;
+    height: 50%;
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    /* padding-top: 60px; */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Close button */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#addUserModal .create-user {
+    background-color: #0b8b29;
+}
+
+#addUserModal .create-user:hover {
+    background-color: #0c6120;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 99.3%;
+}
+
+.password-wrapper input {
+    flex: 1;
+    /* padding-right: 35px; */
+}
+
+.password-wrapper #togglePassword {
+    position: absolute;
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    right: 30px;
+    bottom: 25px;
+}
+
+.password-wrapper .fa-eye:hover {
+    color: #11c479;
+}
+
+.input-password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 100px;
+    top: 51.3%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+#togglePassword:hover {
+    color: #24486d;
+}
+
+.create-user {
+    margin-top: 20px;
+    background-color: #24486d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.create-user:hover {
+    background-color: #1a3551;
+}

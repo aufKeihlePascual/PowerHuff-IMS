@@ -61,9 +61,12 @@ try {
     
     # ORDER MANAGEMENT
     $router->get('/dashboard/orders', '\App\Controllers\OrderController@showOrdersPage');
-    
-    
-    
+    $router->post('/create-order', '\App\Controllers\OrderController@createOrder');
+    $router->get('/edit-order/{\d+}', '\App\Controllers\OrderController@showEditOrderPage');
+    $router->post('/edit-order/{\d+}', '\App\Controllers\OrderController@updateOrder');
+    $router->post('/delete-order/{\d+}', '\App\Controllers\OrderController@deleteOrder');
+
+
     
     $router->get('/reset-login-attempts', function () {
         $_SESSION['login_attempts'] = 0;

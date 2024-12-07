@@ -15,8 +15,7 @@ $(document).ready(function() {
                 supplierName.includes(filter) ||
                 categoryName.includes(filter) ||
                 productCategory.includes(filter) ||
-                contactNumber.includes(filter) ||
-                createdOn.includes(filter)
+                contactNumber.includes(filter)
             ) {
                 row.style.display = ''; 
             } else {

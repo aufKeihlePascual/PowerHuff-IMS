@@ -1,63 +1,44 @@
 $(document).ready(function() {
-
-    /****************  SHOW/HIDE PASSWORD  ****************/
-    $(window).on('load', function() {
-        const togglePassword = $("#togglePassword");
-        const passwordInput = $("#password");
     
-        if (togglePassword.length && passwordInput.length) {
-            togglePassword.on("click", function() {
-                const type = passwordInput.attr("type") === "password" ? "text" : "password";
-                passwordInput.attr("type", type);
-    
-                $(this).toggleClass("fa-eye fa-eye-slash");
-            });
-        } else {
-            console.error("Password input or toggle button not found.");
-        }
-    });
-    
-    /****************  USER MANAGEMENT DELETE  ****************/
-    const deleteUserModal = document.getElementById('deleteUserModal');
+    /****************  ORDER MANAGEMENT DELETE  ****************/
+    const deleteOrderModal = document.getElementById('deleteUserModal');
     const closeDeleteModal = document.getElementById('closeDeleteModal');
     const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-    const deleteUserForm = document.getElementById('deleteUserForm');
-    const userIdToDelete = document.getElementById('userIdToDelete');
+    const deleteOrderForm = document.getElementById('deleteUserForm');
+    const orderIdToDelete = document.getElementById('orderIdToDelete');
 
     $('.delete-user').click(function(e) {
         e.preventDefault();
 
-        const userId = $(this).data('user-id');
-        
-        userIdToDelete.value = userId;
-        
-        deleteUserModal.style.display = 'block';
+        const orderId = $(this).data('order-id');
+        orderIdToDelete.value = orderId;
+        deleteOrderModal.style.display = 'block';
     });
 
     closeDeleteModal.onclick = function() {
-        deleteUserModal.style.display = 'none';
+        deleteOrderModal.style.display = 'none';
     };
 
     cancelDeleteBtn.onclick = function() {
-        deleteUserModal.style.display = 'none';
+        deleteOrderModal.style.display = 'none';
     };
 
     window.onclick = function(event) {
-        if (event.target === deleteUserModal) {
-            deleteUserModal.style.display = 'none';
+        if (event.target === deleteOrderModal) {
+            deleteOrderModal.style.display = 'none';
         }
     };
 
-    deleteUserForm.onsubmit = function(e) {
+    deleteOrderForm.onsubmit = function(e) {
         e.preventDefault();
 
-        const userId = userIdToDelete.value;
+        const orderId = orderIdToDelete.value;
 
         $.ajax({
-            url: '/delete-user/' + userId,
+            url: '/delete-order/' + orderId,
             method: 'POST',
             data: {
-                user_id: userId
+                order_id: orderId
             },
             success: function(response) {
                 location.reload();
@@ -66,11 +47,11 @@ $(document).ready(function() {
                 alert('Error: ' + error);
             }
         });
-
-        deleteUserModal.style.display = 'none';
+        
+        deleteOrderModal.style.display = 'none';
     };
 
-    /****************  USER MANAGEMENT ADD ****************/
+    /****************  ORDER MANAGEMENT ADD ****************/
     const modal = document.getElementById('addUserModal');
     const addUserBtn = document.getElementById('addUserBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
@@ -89,13 +70,12 @@ $(document).ready(function() {
         }
     }
 
-    // $("#confirmationModal").hide(); // Initially hide the confirmation modal
     $(".user-form").submit(function(event) {
         event.preventDefault();
 
         const form = $(this);
         $.ajax({
-            url: '/create-user',
+            url: '/create-order',
             method: 'POST',
             data: form.serialize(),
             success: function(response) {
@@ -110,28 +90,29 @@ $(document).ready(function() {
 
     $("#closeConfirmationModal").click(function() {
         $("#confirmationModal").hide();
-        window.location.href = '/dashboard/users';
+        window.location.href = '/dashboard/orders'; 
     });
 
     $("#closeConfirmationBtn").click(function() {
         $("#confirmationModal").hide();
-        window.location.href = '/dashboard/users';
+        window.location.href = '/dashboard/orders'; 
     });
 
-    /****************  SEARCH USER FILTER  ****************/
+    /****************  SEARCH ORDER FILTER  ****************/
     const searchInput = document.getElementById('searchBar');
     searchInput.addEventListener('input', function() {
         let filter = searchInput.value.toLowerCase();
         let rows = document.querySelectorAll('tbody tr');
 
         rows.forEach(row => {
-            let username = row.cells[0].textContent.toLowerCase(); 
-            let first_name = row.cells[1].textContent.toLowerCase();
-            let last_name = row.cells[2].textContent.toLowerCase();
-            let role = row.cells[3].textContent.toLowerCase();
-            
+            let orderName = row.cells[0].textContent.toLowerCase();
+            let date = row.cells[2].textContent.toLowerCase();
+            let status = row.cells[3].textContent.toLowerCase();
+            let supplier = row.cells[4].textContent.toLowerCase();
+            let user = row.cells[5].textContent.toLowerCase();
 
-            if (username.includes(filter) || role.includes(filter) || first_name.includes(filter) || last_name.includes(filter)) {
+
+            if (orderName.includes(filter) || date.includes(filter) || status.includes(filter) || supplier.includes(filter) || user.includes(filter)) {
                 row.style.display = '';
             } else {
                 row.style.display = 'none';
@@ -139,8 +120,5 @@ $(document).ready(function() {
         });
     });
 
-    
-
-    
 });
 

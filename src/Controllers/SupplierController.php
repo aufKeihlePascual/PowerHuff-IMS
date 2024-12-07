@@ -23,7 +23,7 @@ class SupplierController extends BaseController
         $role = $_SESSION['role'];
 
         $data = [
-            'title' => 'Suppliers',
+            'title' => 'Supplier Management',
             'suppliers' => $suppliers,
             'username' => $_SESSION['username'],
             

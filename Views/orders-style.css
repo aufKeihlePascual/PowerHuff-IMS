@@ -1,0 +1,387 @@
+/* ORDER MANAGEMENT */
+.order-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.order-form h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #122841;
+}
+
+.order-form label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #122841;
+}
+
+.order-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.order-form textarea {
+    width: 98.5%; 
+    height: 100px; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.order-form input {
+    width: 98.5%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.order-form button {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.order-form button:hover {
+    background: #1a3551;
+}
+
+.order-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-list th,
+.order-list td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-list th {
+    background-color: #24486d;
+    color: #fff;
+    font-size: 18px;
+}
+
+.order-list td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #122841;
+    max-width: 120px; /* Specify the maximum width for cells */
+    word-wrap: break-word; /* Allow long words to wrap to the next line */
+    white-space: normal; /* Ensure text wraps within the cell */
+    overflow-wrap: break-word;
+    line-height: 1.6;
+}
+
+.order-list td:nth-child(1) {
+    text-align: left;
+}
+
+.order-list td:nth-child(2) {
+    text-align: justify;
+    max-width: 130px;
+}
+
+.order-list a {
+    padding: 10px 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.order-list a:hover {
+    background-color: #1a3551;
+}
+
+.order-list .update-user {
+    background-color: #1ac043;
+}
+
+.order-list .update-user:hover {
+    background-color: #1b9c3b;
+}
+
+.order-list .delete-user {
+    background-color: #d9534f;
+}
+
+.order-list .delete-user:hover {
+    background-color: #c9302c;
+}
+
+/* Edit Order Button */
+.order-buttons a {
+    background-color: #36a13a;
+    color: white;
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: medium;
+}
+
+.order-buttons a:hover {
+    background-color: #206b24;
+}
+
+/* Ensure the modal is initially hidden */
+#addUserModal {
+    display: none; /* Modal is hidden initially */
+    position: fixed;
+    z-index: 1;
+    left: 30%;
+    top: 0;
+    width: 50%;
+    height: 50%;
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    /* padding-top: 60px; */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Close button */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#addUserModal .create-user {
+    background-color: #0b8b29;
+}
+
+#addUserModal .create-user:hover {
+    background-color: #0c6120;
+}
+
+.create-order {
+    margin-top: 20px;
+    background-color: #24486d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.create-order:hover {
+    background-color: #1a3551;
+}
+
+/* Modal Content */
+#deleteUserModal .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 5px;
+}
+
+/* Close button */
+#deleteUserModal .close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#deleteUserModal .close-btn:hover,
+#deleteUserModal .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#deleteUserModal .cancel-delete,
+#deleteUserModal .confirm-delete {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#deleteUserModal .cancel-delete {
+    background-color: #ccc;
+    color: #333;
+}
+
+#deleteUserModal .cancel-delete:hover {
+    background-color: #aaa;
+}
+
+#deleteUserModal .confirm-delete {
+    background-color: #d9534f;
+    color: white;
+}
+
+#deleteUserModal .confirm-delete:hover {
+    background-color: #c9302c;
+}
+
+
+#confirmationModal {
+    /* display: none; Modal is hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 5%;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    height: 80%;
+    padding-top: 20px; /* Optional, for spacing */
+    overflow-y: auto;
+}
+
+/* Styling for the confirmation modal */
+#confirmationModal .modal-content {
+    position: relative;
+    padding: 20px;
+    width: 500px;
+    text-align: center; /* Center the content inside the modal */
+}
+
+/* Center the close button */
+#confirmationModal .confirm-close-btn {
+    display: inline-block;
+    margin-top: 20px; /* Space between the message and the button */
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Button background color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#confirmationModal .confirm-close-btn:hover {
+    background-color: #45a049; 
+}
+
+.update-user {
+    background-color: #248b28;
+}
+
+form select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.button-container {
+    display: flex;
+    width: 50%;
+    margin: 50px auto 0;
+    gap: 20px; 
+    justify-content: center;
+}
+
+#update-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 30%;  
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    background: #2ba148;
+    color: #fff;
+}
+
+#update-btn:hover {
+    background: #246d36;
+}
+
+#cancel-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 25%;  
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;  
+    justify-content: center; 
+    background: #c71f1f;
+    color: #fff;
+    text-decoration: none;
+}
+
+#cancel-btn:hover {
+    background: #9c1616;
+}
+
+.status-pending {
+    color: #fff;
+    background-color: #f39c12;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.status-received {
+    color: #fff;
+    background-color: #27ae60;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.status-cancelled {
+    color: #fff;
+    background-color: #e74c3c;
+    padding: 4px 8px;
+    border-radius: 5px;
+}
+
+.status-default {
+    color: #fff;
+    background-color: #7f8c8d;
+    padding: 4px 8px;
+    border-radius: 5px;
+}

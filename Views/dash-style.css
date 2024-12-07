@@ -161,6 +161,7 @@ body {
     flex-grow: 1;
     display: flex;
     justify-content: center;
+    margin-left: 120px;
 }
 
 .top-nav input {
@@ -362,137 +363,6 @@ button:hover {
     border-radius: 50%;
     font-size: 12px;
     padding: 2px 6px;
-}
-
-
-/* USER MANAGEMENT */
-/* User Management Page Specific Styles */
-.user-form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-.user-form h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #122841;
-}
-
-.user-form label {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #122841;
-}
-
-.user-form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.user-form input {
-    width: 96%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.user-form button {
-    padding: 10px;
-    background: #24486d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.user-form button:hover {
-    background: #1a3551;
-}
-
-.user-list table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.user-list th,
-.user-list td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-.user-list th {
-    background-color: #24486d;
-    color: #fff;
-    font-size: 16px;
-}
-
-.user-list td {
-    font-size: 14px;
-    color: #122841;
-}
-
-.user-list a {
-    padding: 10px 10px;
-    background-color: #24486d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.user-list a:hover {
-    background-color: #1a3551;
-}
-
-.user-list .update-user {
-    background-color: #1ac043;
-}
-
-.user-list .update-user:hover {
-    background-color: #1b9c3b;
-}
-
-.user-list .delete-user {
-    background-color: #d9534f;
-}
-
-.user-list .delete-user:hover {
-    background-color: #c9302c;
-}
-
-.role-admin {
-    color: white;
-    background-color: #007bff; /* Blue for Admin */
-}
-
-.role-inventory-manager {
-    color: white;
-    background-color: #28a745; /* Green for Inventory Manager */
-}
-
-.role-procurement-manager {
-    color: white;
-    background-color: #ffc107; /* Yellow for Procurement Manager */
-}
-
-.role-default {
-    color: black;
-    background-color: #f8f9fa; /* Default role styling */
 }
 
 .add-user-btn-wrapper {
@@ -837,21 +707,6 @@ input[type="password"] {
     width: 50%;
     border-radius: 5px;
     z-index: 1001; /* Make sure the content is on top of the background */
-}
-
-/* Edit User Button */
-.admin-buttons a {
-    background-color: #36a13a;
-    color: white;
-    border: none; 
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: medium;
-}
-
-.admin-buttons a:hover {
-    background-color: #206b24;
 }
 
 .update-user {

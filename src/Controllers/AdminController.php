@@ -16,18 +16,28 @@ class AdminController extends BaseController
     {
         $users = $this->userModel->getAllUsers(); 
 
+        $roleClasses = [
+            'Admin' => 'role-admin',
+            'Inventory_Manager' => 'role-inventory-manager',
+            'Procurement_Manager' => 'role-procurement-manager',
+        ];
+
         foreach ($users as &$user) {
             $user['selectedAdmin'] = $user['role'] === 'Admin' ? 'selected' : '';
             $user['selectedInventoryManager'] = $user['role'] === 'Inventory_Manager' ? 'selected' : '';
             $user['selectedProcurementManager'] = $user['role'] === 'Procurement_Manager' ? 'selected' : '';
+
+            $user['role_display'] = str_replace('_', ' ', $user['role']);
+            $user['role_class'] = $roleClasses[$user['role']] ?? 'role-default';
         }
 
         $role = $_SESSION['role'];
         
+        
         $data = [
             'title' => 'User Management',
             'users' => $users,
-            'user_name' => $_SESSION['username'],
+            'username' => $_SESSION['username'],
             
             'role' => $role,
             'isAdmin' => $role === 'Admin',
@@ -49,6 +59,8 @@ class AdminController extends BaseController
             exit;
         }
 
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Edit User',
             'user_id' => $user['user_id'],
@@ -58,6 +70,12 @@ class AdminController extends BaseController
             'selectedAdmin' => $user['role'] === 'Admin' ? 'selected' : '',
             'selectedInventoryManager' => $user['role'] === 'Inventory_Manager' ? 'selected' : '',
             'selectedProcurementManager' => $user['role'] === 'Procurement_Manager' ? 'selected' : '',
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('edit-user-page', $data);
@@ -144,9 +162,8 @@ class AdminController extends BaseController
         error_log("Attempting to delete user with ID: $userId");
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $adminModel = new \App\Models\Admin();
             
-            $userDeleted = $adminModel->deleteUser($userId);
+            $userDeleted = $this->adminModel->deleteUser($userId);
 
             if ($userDeleted) {
                 header('Location: /dashboard/users');

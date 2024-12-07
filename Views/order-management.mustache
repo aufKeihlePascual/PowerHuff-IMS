@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="/Views/dash-style.css">
+    <link rel="stylesheet" href="/Views/orders-style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/Views/dashboard.js"></script>
-    <script src="/Views/user.js"></script>
+    <script src="/Views/order.js"></script>
     
 </head>
 <body>
@@ -24,10 +25,9 @@
                     <h1 class="main-header">{{title}}</h1>
                 </div>
 
-                <div class="user-list">
-                    <div class="user-list-header">
+                <div class="order-list">
+                    <div class="order-list-header">
                         
-                        <!-- Modal Button Trigger -->
                         <div class="add-user-btn-wrapper">
                             <button id="addUserBtn" class="add-user-btn">Create Order</button>
                         </div>
@@ -38,11 +38,14 @@
                         <div class="modal-content">
                             <span id="closeModalBtn" class="close-btn">&times;</span>
                             <h2>Create Order</h2>
-                            <form action="/create-order" method="POST" class="user-form">
+                            <form action="/create-order" method="POST" class="order-form">
                                 <input type="hidden" name="user_id" value="{{user_id}}" /> <!-- Hidden field to send the user_id of the current user -->
 
                                 <label for="order_name">Order Name</label>
                                 <input type="text" id="order_name" name="order_name" required />
+
+                                <label for="description">Description (Optional)</label>
+                                <textarea id="description" name="description"></textarea>
 
                                 <label for="order_date">Order Date</label>
                                 <input type="date" id="order_date" name="order_date" required />
@@ -56,9 +59,9 @@
 
                                 <label for="supplier_id">Supplier</label>
                                 <select id="supplier_id" name="supplier_id" required>
-                                    {{#suppliers}}
-                                    <option value="{{supplier_id}}">{{supplier_name}}</option> <!-- Supplier options will be dynamically populated -->
-                                    {{/suppliers}}
+                                    {{#distinctSuppliers}}
+                                        <option value="{{supplier_id}}">{{supplier_name}}</option>
+                                    {{/distinctSuppliers}}
                                 </select>
 
                                 <button type="submit" class="create-user">Create Order</button>
@@ -79,9 +82,9 @@
                     <div id="deleteUserModal" class="modal">
                         <div class="modal-content">
                             <span id="closeDeleteModal" class="close-btn">&times;</span>
-                            <h2>Are you sure you want to delete this user?</h2>
+                            <h2>Are you sure you want to delete this order?</h2>
                             <form id="deleteUserForm" method="POST">
-                                <input type="hidden" id="userIdToDelete" name="user_id" />
+                                <input type="hidden" id="orderIdToDelete" name="order_id" />
                                 <button type="submit" class="confirm-delete">Delete</button>
                                 <button type="button" id="cancelDeleteBtn" class="cancel-delete">Cancel</button>
                             </form>
@@ -91,9 +94,11 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>Order Name</th>
+                                <th>Description</th>
                                 <th>Order Date</th>
                                 <th>Status</th>
-                                <th>Supplier Name</th>
+                                <th>Supplier</th>
                                 <th>Ordered By</th>
                                 <th>Actions</th>
                             </tr>
@@ -101,15 +106,17 @@
                         <tbody>
                             {{#orders}}
                             <tr>
-                                <td>{{order_date}}</td>
-                                <td>{{status}}</td>
+                                <td>{{order_name}}</td>
+                                <td>{{description}}</td>
+                                <td>{{formatted_order_date}}</td>
+                                <td><span class="{{status_class}}">{{status}}</td>
                                 <td>{{supplier_name}}</td>
                                 <td>{{user_name}}</td>
-                                <td class="admin-buttons">
-                                    <a href="/edit-user/{{user_id}}" class="edit-button">Edit</a>
+                                <td class="order-buttons">
+                                    <a href="/edit-order/{{order_id}}" class="edit-button">Edit</a>
 
-                                    <form action="/delete-user/{{user_id}}" method="POST" style="display:inline;">
-                                        <button type="submit" class="delete-user" data-user-id="{{user_id}}">Delete</button>
+                                    <form action="/delete-order/{{order_id}}" method="POST" style="display:inline;">
+                                        <button type="submit" class="delete-user" data-order-id="{{order_id}}">Delete</button>
                                     </form>
                                 </td>
                             </tr>

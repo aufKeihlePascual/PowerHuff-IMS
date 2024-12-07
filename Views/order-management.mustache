@@ -29,39 +29,39 @@
                         
                         <!-- Modal Button Trigger -->
                         <div class="add-user-btn-wrapper">
-                            <button id="addUserBtn" class="add-user-btn">Add User</button>
+                            <button id="addUserBtn" class="add-user-btn">Create Order</button>
                         </div>
                     </div>
 
-                    <!-- Create User Modal -->
+                    <!--------------------- CREATE ORDER MODAL --------------------->
                     <div id="addUserModal" class="modal">
                         <div class="modal-content">
                             <span id="closeModalBtn" class="close-btn">&times;</span>
-                            <h2>Create User</h2>
-                            <form action="/create-user" method="POST" class="user-form">
-                                <label for="first_name">First Name</label>
-                                <input type="text" id="first_name" name="first_name" required />
+                            <h2>Create Order</h2>
+                            <form action="/create-order" method="POST" class="user-form">
+                                <input type="hidden" name="user_id" value="{{user_id}}" /> <!-- Hidden field to send the user_id of the current user -->
 
-                                <label for="last_name">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" required />
+                                <label for="order_name">Order Name</label>
+                                <input type="text" id="order_name" name="order_name" required />
 
-                                <label for="username">Username</label>
-                                <input type="text" id="username" name="username" required />
+                                <label for="order_date">Order Date</label>
+                                <input type="date" id="order_date" name="order_date" required />
 
-                                <label for="password">Password</label>
-                                <div class="password-wrapper">
-                                    <input type="password" id="password" name="password" required>
-                                    <i class="fa fa-eye" id="togglePassword" title="Show/Hide Password"></i>
-                                </div>
-
-                                <label for="role">Role</label>
-                                <select id="role" name="role" required>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Inventory_Manager">Inventory Manager</option>
-                                    <option value="Procurement_Manager">Procurement Manager</option>
+                                <label for="status">Status</label>
+                                <select id="status" name="status" required>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Shipped">Shipped</option>
                                 </select>
 
-                                <button type="submit" class="create-user">Create User</button>
+                                <label for="supplier_id">Supplier</label>
+                                <select id="supplier_id" name="supplier_id" required>
+                                    {{#suppliers}}
+                                    <option value="{{supplier_id}}">{{supplier_name}}</option> <!-- Supplier options will be dynamically populated -->
+                                    {{/suppliers}}
+                                </select>
+
+                                <button type="submit" class="create-user">Create Order</button>
                             </form>
                         </div>
                     </div>

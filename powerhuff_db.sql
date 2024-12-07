@@ -79,13 +79,19 @@ CREATE TABLE `notifications` (
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
-  `order_date` datetime NOT NULL,
-  `status` enum('pending','completed','cancelled') NOT NULL,
-  `supplier_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_name VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    order_date DATE NOT NULL,
+    status ENUM('Pending', 'Cancelled', 'Received') NOT NULL,
+    supplier_id INT NOT NULL,
+    user_id INT NOT NULL,
+    updated_on TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id), 
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

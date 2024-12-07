@@ -13,46 +13,9 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <!--------------------- Sidebar --------------------->
-        <aside class="sidebar">
-            <div class="brand">
-                <a href="/dashboard"><img src="../logo.png" alt="PowerPuff Vape Logo" class="logo" id="logo"></a>
-            </div>
-            <ul class="menu">
-                <li><a href="/dashboard" data-content="dashboard">Dashboard</a></li>
-                <li><a href="#" data-content="order">Order</a></li>
-                <li><a href="/dashboard/suppliers" data-content="suppliers">Suppliers</a></li>
-                <li>
-                    <a href="#" data-content="products" class="active">Products</a>
-                    <ul class="sub-menu">
-                        <li><a href="/dashboard/products" data-content="product-list">All Products</a></li>
-                        <li><a href="/dashboard/categories" data-content="categories" class="active">Categories</a></li>
-                        <li><a href="/dashboard/product-categories" data-content="product-categories" class="active">Product Categories</a></li>
-                        <li><a href="/dashboard/product-items" data-content="product-items">Product Items</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" data-content="reports">Reports</a></li>
-            </ul>
-        
-            <form method="GET" action="/logout">
-                <button type="submit" class="logout">Logout</button>
-            </form>
-        </aside>
-
-        <!--------------------- Main Content --------------------->
+        {{> sidebar}}
         <main class="main-content">
-            <!--------------------- Top Navigation --------------------->
-            <header class="top-nav">
-                <div class="search-container">
-                    <input type="text" placeholder="Search here..." />
-                </div>
-                <div class="nav-icons">
-                    <i class="fa-solid fa-bell" title="Notifications"></i>
-                    <i class="fa-solid fa-circle-question" title="Support"></i>
-                    <i class="fa-solid fa-gear" title="Settings"></i>
-                    <i class="profile" title="Profile">{{ username }}</i>
-                </div>
-            </header>
+            {{> top-nav}}
 
             <!--------------------- Products Content --------------------->
             <section class="content">

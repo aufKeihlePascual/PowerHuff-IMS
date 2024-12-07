@@ -36,12 +36,6 @@ class Category extends BaseModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getAllProductCategories()
-    {
-        $stmt = $this->db->query("SELECT name, description FROM product_category");
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
     public function addCategory($category_name, $description)
     {
         $stmt = $this->db->prepare("

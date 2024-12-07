@@ -31,6 +31,12 @@ class CategoryController extends BaseController
             'isInventoryManager' => $role === 'Inventory_Manager',
             'isProcurementManager' => $role === 'Procurement_Manager',
             'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('categories', $data);
@@ -50,17 +56,23 @@ class CategoryController extends BaseController
                 $_SESSION['error_message'] = "Failed to add category.";
             }
 
-            // Redirect to categories page after adding the category
             header('Location: /dashboard/categories');
             exit;
         }
 
-        // Render add-category view
+        $role = $_SESSION['role'];
+        
         $data = [
             'title' => 'Add New Category',
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('add-category', $data);

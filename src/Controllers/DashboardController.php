@@ -58,4 +58,14 @@ class DashboardController extends BaseController
         return $this->render('dashboard', $data);
     }
 
+    public function index()
+    {
+        if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']) {
+            header('Location: /dashboard');
+            exit;
+        }
+
+        return $this->render('login');
+    }
+
 }

@@ -37,10 +37,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#product_categories}}
+                            {{#product_category}}
                             <tr>
-                                <td>{{name}}</td>
-                                <td>{{description}}</td>
+                                <td>{{Name}}</td>
+                                <td>{{Description}}</td>
                                 <td>
                                     <a href="/edit-category/{{Category_ID}}" class="btn-edit">Edit</a>
                                     <form action="/delete-category/{{Category_ID}}" method="POST" style="display: inline;">
@@ -48,14 +48,13 @@
                                     </form>
                                 </td>
                             </tr>
-                            {{/product_categories}}
+                            {{/product_category}}
                         </tbody>
                     </table>
                 </div>
-                <a href="/add-category" class="btn-add">Add New Category</a>
+                <a href="/add-product-category" class="btn-add">Add New Product Category</a>
             </section>
         </div>
-        </main>
-    </div>
+    </main>
 </body>
 </html>

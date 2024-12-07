@@ -192,23 +192,40 @@ $(document).ready(function() {
         window.location.href = '/dashboard/users'; // Redirect to users list or any other page
     });
 
-    // Search User Filter
-    const searchInput = document.getElementById('searchUser');
-    searchInput.addEventListener('input', function() {
-        let filter = searchInput.value.toLowerCase();
-        let rows = document.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            let username = row.cells[1].textContent.toLowerCase(); // Assumes the username is in the second column
-            let role = row.cells[4].textContent.toLowerCase();    // Assumes the role is in the third column
-
-            if (username.includes(filter) || role.includes(filter)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+    /****************  SEARCH USER FILTER  ****************/
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('searchUser');
+        const currentPage = document.body.getAttribute('data-title').toLowerCase(); // Get title from data attribute
+    
+        if (!searchInput) return; // Exit if search bar is not found
+    
+        // Add event listener for input search filter
+        searchInput.addEventListener('input', function() {
+            let filter = searchInput.value.toLowerCase();
+            let rows = document.querySelectorAll('tbody tr');
+    
+            rows.forEach(row => {
+                let col1, col2;
+    
+                if (currentPage.includes("user management")) {
+                    // For User Management page (assuming username is in the first column, and role is in the fourth)
+                    col1 = row.cells[0].textContent.toLowerCase();  // Username
+                    col2 = row.cells[3].textContent.toLowerCase();  // Role
+                } else if (currentPage.includes("supplier management")) {
+                    // For Supplier Management page (assuming supplier name is in the first column, and category is in the second)
+                    col1 = row.cells[0].textContent.toLowerCase();  // Supplier Name
+                    col2 = row.cells[1].textContent.toLowerCase();  // Category
+                }
+    
+                if (col1.includes(filter) || col2.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         });
     });
+    
 
     // New functionality for Products tab
     $('.menu a').on('click', function(e) {

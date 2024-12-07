@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-class CategoryController extends BaseController
+class ProductCategoryController extends BaseController
 {
-    protected $categoryModel;
+    protected $categoryModel, $productCategoryModel;
 
     public function __construct()
     {
         $this->categoryModel = new \App\Models\Category();
+        $this->productCategoryModel = new \App\Models\ProductCategory();
     }
 
     public function showCategories()
@@ -27,24 +28,6 @@ class CategoryController extends BaseController
         ];
     
         return $this->render('categories', $data);
-    }
-
-    public function showProductCategories()
-    {
-        if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
-            header('Location: /login');
-            exit;
-        }
-
-        $product_categories = $this->categoryModel->getAllProductCategories();
-
-        $data = [
-            'title' => 'Product Categories',
-            'username' => $_SESSION['username'],
-            'product_categories' => $product_categories,
-        ];
-    
-        return $this->render('product-categories', $data);
     }
 
     public function addCategory()

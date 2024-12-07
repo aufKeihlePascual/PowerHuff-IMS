@@ -67,6 +67,12 @@ try {
     $router->post('/update-supplier/(\d+)', '\App\Controllers\SupplierController@updateSupplier');
     $router->post('/delete-supplier/(\d+)', '\App\Controllers\SupplierController@deleteSupplier');
     
+    # ORDER MANAGEMENT
+    $router->get('/dashboard/orders', '\App\Controllers\OrderController@showOrdersPage');
+    
+    
+    
+    
     $router->get('/reset-login-attempts', function () {
         $_SESSION['login_attempts'] = 0;
         echo "Login attempts reset.";

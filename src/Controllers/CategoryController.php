@@ -84,6 +84,7 @@ class CategoryController extends BaseController
         }
 
         $category = $this->categoryModel->getCategoryById($id);
+        $role = $_SESSION['role'];
 
         $data = [
             'title' => 'Edit Category',
@@ -91,10 +92,16 @@ class CategoryController extends BaseController
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
             'category' => $category,
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('edit-category', $data);
     }
+
 
     public function deleteCategory($id)
     {

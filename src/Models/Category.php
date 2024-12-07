@@ -7,10 +7,19 @@ class Category extends BaseModel
 
     public function getAllCategories()
     {
-        $stmt = $this->db->query("SELECT name, description, DATE_FORMAT(created_on, '%b %d, %Y %h:%i %p') AS created_on, DATE_FORMAT(updated_on, '%b %d, %Y %h:%i %p') AS updated_on FROM categories");
+        $stmt = $this->db->query("
+            SELECT 
+                Category_ID, 
+                Name AS name, 
+                Description AS description, 
+                DATE_FORMAT(Created_On, '%b %d, %Y %h:%i %p') AS created_on, 
+                DATE_FORMAT(Updated_On, '%b %d, %Y %h:%i %p') AS updated_on 
+            FROM categories
+        ");
         
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
 
     public function getProductsByCategory($category_id)
     {

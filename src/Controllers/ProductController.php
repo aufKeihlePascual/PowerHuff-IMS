@@ -10,6 +10,7 @@ class ProductController extends BaseController
     {
         $this->productModel = new \App\Models\Product();
         $this->categoryModel = new \App\Models\Category();
+        $this->supplierModel = new \App\Models\Supplier();
     }
 
     public function showAllProducts()
@@ -36,6 +37,7 @@ class ProductController extends BaseController
 
         return $this->render('products', $data);
     }
+    
 
     public function addProduct()
     {

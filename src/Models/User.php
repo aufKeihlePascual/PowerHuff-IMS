@@ -5,7 +5,6 @@ namespace App\Models;
 class User extends BaseModel
 {
     public $username, $password, $password_hash;
-    protected $table = 'users';
 
     public function login($username, $password)
     {

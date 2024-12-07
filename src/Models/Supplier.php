@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Supplier extends User
+class Supplier extends BaseModel
 {
     public function createSupplier($data)
     {

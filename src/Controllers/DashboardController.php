@@ -2,17 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Models\User;
-use App\Models\Admin;
-
-abstract class DashboardController extends BaseController
+class DashboardController extends BaseController
 {
     protected $userModel, $adminModel;
 
     public function __construct()
     {
-        $this->userModel = new User();
-        $this->adminModel = new Admin();
+        $this->userModel = new \App\Models\User();
+        $this->adminModel = new \App\Models\Admin();
     }
 
     public function showDashboard()

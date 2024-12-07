@@ -8,7 +8,7 @@ global $conn;
 try {
     $router = new \Bramus\Router\Router();
 
-    $router->get('/', '\App\Controllers\HomeController@index');
+    $router->get('/', '\App\Controllers\DashboardController@index');
     
     # LOGIN
     $router->get('/login', '\App\Controllers\LoginController@showLoginForm');
@@ -16,27 +16,27 @@ try {
     $router->get('/logout', '\App\Controllers\LoginController@logout');
 
     # DASHBOARD
-    $router->get('/dashboard', '\App\Controllers\AdminController@showDashboard');
-    $router->get('/dashboard/users', '\App\Controllers\AdminController@showUserManagement');
-
+    $router->get('/dashboard', '\App\Controllers\DashboardController@showDashboard');
+    
     # USER MANAGEMENT
+    $router->get('/dashboard/users', '\App\Controllers\AdminController@showUserManagement');
     $router->post('/create-user', '\App\Controllers\AdminController@createUser');
     $router->get('/edit-user/{\d+}', '\App\Controllers\AdminController@showEditUserPage');
     $router->post('/edit-user/{\d+}', '\App\Controllers\AdminController@updateUser');
     $router->post('/delete-user/(\d+)', '\App\Controllers\AdminController@deleteUser');
 
     # PRODUCT MANAGEMENT VIEWS
-    $router->get('/dashboard/products', '\App\Controllers\InventoryManagerController@showAllProducts');
-    $router->get('/dashboard/categories', '\App\Controllers\InventoryManagerController@showCategories');
-    $router->get('/dashboard/product-categories', '\App\Controllers\InventoryManagerController@showProductCategories');
-    $router->get('/dashboard/product-items', '\App\Controllers\InventoryManagerController@showProductItems');
+    $router->get('/dashboard/products', '\App\Controllers\ProductController@showAllProducts');
+    $router->get('/dashboard/categories', '\App\Controllers\CategoryController@showCategories');
+    $router->get('/dashboard/product-categories', '\App\Controllers\ProductcategoryController@showProductCategories');
+    $router->get('/dashboard/product-items', '\App\Controllers\ProductItemController@showProductItems');
     
     # PRODUCT MANAGEMENT
-    $router->get('/add-product', '\App\Controllers\InventoryManagerController@addProduct');
-    $router->post('/add-product', '\App\Controllers\InventoryManagerController@addProduct');
-    $router->get('/edit-product/(\d+)', '\App\Controllers\InventoryManagerController@editProduct');
-    $router->post('/edit-product/(\d+)', '\App\Controllers\InventoryManagerController@editProduct');
-    // $router->post('/delete-product/(\d+)', '\App\Controllers\InventoryManagerController@deleteProduct');
+    $router->get('/add-product', '\App\Controllers\ProductController@addProduct');
+    $router->post('/add-product', '\App\Controllers\ProductController@addProduct');
+    $router->get('/edit-product/(\d+)', '\App\Controllers\ProductController@editProduct');
+    $router->post('/edit-product/(\d+)', '\App\Controllers\ProductController@editProduct');
+    $router->post('/delete-product/(\d+)', '\App\Controllers\ProductController@deleteProduct');
 
     # CATEGORY MANAGEMENT
     $router->get('/add-category', '\App\Controllers\InventoryManagerController@addCategory');

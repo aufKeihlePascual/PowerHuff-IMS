@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class AdminController extends DashboardController
+class AdminController extends BaseController
 {
     protected $userModel, $adminModel;
 
@@ -21,11 +21,19 @@ class AdminController extends DashboardController
             $user['selectedInventoryManager'] = $user['role'] === 'Inventory_Manager' ? 'selected' : '';
             $user['selectedProcurementManager'] = $user['role'] === 'Procurement_Manager' ? 'selected' : '';
         }
+
+        $role = $_SESSION['role'];
         
         $data = [
             'title' => 'User Management',
             'users' => $users,
             'user_name' => $_SESSION['username'],
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('user-management', $data);

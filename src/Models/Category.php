@@ -4,12 +4,6 @@ namespace App\Models;
 
 class Category extends BaseModel
 {
-    protected $categoryModel;
-
-    public function __construct()
-    {
-        $this->categoryModel = new \App\Models\Category();
-    }
 
     public function getAllCategories()
     {
@@ -65,17 +59,10 @@ class Category extends BaseModel
 
     public function deleteCategory($id)
     {
-        $result = $this->categoryModel->deleteCategory($id);
+        $stmt = $this->db->prepare("DELETE FROM categories WHERE Category_ID = :id");
+        $stmt->bindParam(':id', $id);
 
-
-        if ($result) {
-            $_SESSION['success_message'] = "Category deleted successfully.";
-        } else {
-            $_SESSION['error_message'] = "Failed to delete category.";
-        }
-
-        header('Location: /dashboard/categories');
-        exit;
+        return $stmt->execute();
     }
 
 }

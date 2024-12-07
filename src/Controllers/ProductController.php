@@ -20,11 +20,18 @@ class ProductController extends BaseController
         }
 
         $products = $this->productModel->getAllProducts();
+        $role = $_SESSION['role'];
 
         $data = [
             'title' => 'Products',
             'username' => $_SESSION['username'],
             'products' => $products,
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('products', $data);

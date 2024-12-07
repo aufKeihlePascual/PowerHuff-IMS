@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class ProductCategoryController extends BaseController
+class CategoryController extends BaseController
 {
     protected $categoryModel, $productCategoryModel;
 
@@ -20,11 +20,18 @@ class ProductCategoryController extends BaseController
         }
 
         $categories = $this->categoryModel->getAllCategories();
+        $role = $_SESSION['role'];
 
         $data = [
             'title' => 'Categories',
             'username' => $_SESSION['username'],
             'categories' => $categories,
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
     
         return $this->render('categories', $data);

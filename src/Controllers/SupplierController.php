@@ -20,10 +20,18 @@ class SupplierController extends BaseController
         }
         
         $suppliers = $this->supplierModel->getAllSuppliers();
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Suppliers',
             'suppliers' => $suppliers,
             'username' => $_SESSION['username'],
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
 
         ];
         return $this->render('supplier-management', $data);

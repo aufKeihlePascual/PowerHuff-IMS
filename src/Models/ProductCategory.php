@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Product extends BaseModel
+class ProductCategory extends BaseModel
 {
         public function getProductsByCategory($category_id)
     {
@@ -13,6 +13,4 @@ class Product extends BaseModel
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    
-   
 }

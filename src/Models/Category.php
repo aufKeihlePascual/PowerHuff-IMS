@@ -4,6 +4,12 @@ namespace App\Models;
 
 class Category extends BaseModel
 {
+    protected $categoryModel;
+
+    public function __construct()
+    {
+        $this->categoryModel = new \App\Models\Category();
+    }
 
     public function getAllCategories()
     {
@@ -34,6 +40,48 @@ class Category extends BaseModel
     {
         $stmt = $this->db->query("SELECT name, description FROM product_category");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function addCategory($category_name, $description)
+    {
+        $stmt = $this->db->prepare("
+            INSERT INTO powerhuff_db.CATEGORIES (Category_Name, Description, Created_On)
+            VALUES (:category_name, :description, CURRENT_TIMESTAMP)
+        ");
+        $stmt->bindParam(':category_name', $category_name);
+        $stmt->bindParam(':description', $description);
+
+        return $stmt->execute();
+    }
+
+    public function updateCategory($id, $category_name, $description)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE powerhuff_db.CATEGORIES 
+            SET Category_Name = :category_name, 
+                Description = :description
+            WHERE Category_ID = :id
+        ");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':category_name', $category_name);
+        $stmt->bindParam(':description', $description);
+
+        return $stmt->execute();
+    }
+
+    public function deleteCategory($id)
+    {
+        $result = $this->categoryModel->deleteCategory($id);
+
+
+        if ($result) {
+            $_SESSION['success_message'] = "Category deleted successfully.";
+        } else {
+            $_SESSION['error_message'] = "Failed to delete category.";
+        }
+
+        header('Location: /dashboard/categories');
+        exit;
     }
 
 }

@@ -37,37 +37,6 @@ class Product extends BaseModel
         return $products;
     }
 
-    public function getAllCategories()
-    {
-        $stmt = $this->db->query("SELECT Category_ID, Name, Created_On FROM powerhuff_db.CATEGORIES");
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function getAllProductItems()
-    {
-        $stmt = $this->db->query("
-            SELECT p.Product_Name, pi.Price, pi.Stock_Quantity, pi.Created_On, pi.Updated_On
-            FROM product_items pi
-            JOIN products p ON pi.Product_ID = p.Product_ID
-        ");
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-    
-    public function getProductsByCategory($category_id)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE Category_ID = :category_id");
-        $stmt->bindParam(':category_id', $category_id);
-        $stmt->execute();
-
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function getLowStockProducts()
-    {
-        $stmt = $this->db->query("SELECT * FROM products WHERE Stock_Quantity <= Lowstock_Threshold");
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
     public function getProductById($id)
     {
         $stmt = $this->db->prepare("
@@ -101,26 +70,59 @@ class Product extends BaseModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function getCategoryById($id)
-    {
-        $stmt = $this->db->prepare("SELECT Category_ID, Name, Description, Created_On FROM categories WHERE Category_ID = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
-
-    public function getProductItemById($id)
+    public function addProduct($product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id)
     {
         $stmt = $this->db->prepare("
-            SELECT pi.Item_ID, pi.Product_ID, p.Product_Name, pi.Price, pi.Stock_Quantity, pi.Created_On 
-            FROM product_items pi
-            JOIN products p ON pi.Product_ID = p.Product_ID
-            WHERE pi.Item_ID = :id
+            INSERT INTO powerhuff_db.PRODUCTS (Product_Name, Price, Stock_Quantity, Lowstock_Threshold, Supplier_ID, Category_ID, Created_On)
+            VALUES (:product_name, :price, :stock_quantity, :lowstock_threshold, :supplier_id, :category_id, CURRENT_TIMESTAMP)
         ");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
 
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        $stmt->bindParam(':product_name', $product_name);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':stock_quantity', $stock_quantity);
+        $stmt->bindParam(':lowstock_threshold', $lowstock_threshold);
+        $stmt->bindParam(':supplier_id', $supplier_id);
+        $stmt->bindParam(':category_id', $category_id);
+
+        return $stmt->execute();
     }
+
+    public function updateProduct($id, $product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE powerhuff_db.PRODUCTS 
+            SET Product_Name = :product_name, 
+                Price = :price, 
+                Stock_Quantity = :stock_quantity, 
+                Lowstock_Threshold = :lowstock_threshold, 
+                Supplier_ID = :supplier_id,
+                Category_ID = :category_id
+            WHERE Product_ID = :id
+        ");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':product_name', $product_name);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':stock_quantity', $stock_quantity);
+        $stmt->bindParam(':lowstock_threshold', $lowstock_threshold);
+        $stmt->bindParam(':supplier_id', $supplier_id);
+        $stmt->bindParam(':category_id', $category_id);
+
+        return $stmt->execute();
+    }
+
+    public function deleteProduct($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM powerhuff_db.PRODUCTS WHERE Product_ID = :id");
+        $stmt->bindParam(':id', $id);
+
+        return $stmt->execute();
+    }
+
+    public function getLowStockProducts()
+    {
+        $stmt = $this->db->query("SELECT * FROM products WHERE Stock_Quantity <= Lowstock_Threshold");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
 }

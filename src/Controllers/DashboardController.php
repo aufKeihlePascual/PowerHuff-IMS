@@ -22,13 +22,7 @@ abstract class DashboardController extends BaseController
             exit;
         }
         
-        if ($_SESSION['role'] == 'Admin') {
-            $dashboard = 'admin-dashboard';
-        } elseif ($_SESSION['role'] == 'Inventory_Manager') {
-            $dashboard = 'inventory-manager-dashboard';
-        } elseif ($_SESSION['role'] == 'Procurement_Manager') {
-            $dashboard = 'procurement-manager-dashboard';
-        }
+        $role = $_SESSION['role'];
 
         $dashboardContent = '
             <div class="welcome-box">
@@ -51,14 +45,20 @@ abstract class DashboardController extends BaseController
         ';
 
         $data = [
-            'title' => 'Admin Dashboard',
+            'title' => ucfirst($role) . ' Dashboard',
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
-            'dashboardContent' => $dashboardContent
+            'dashboardContent' => $dashboardContent,
+
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
-        return $this->render($dashboard, $data);
+        return $this->render('dashboard', $data);
     }
 
 }

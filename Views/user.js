@@ -140,7 +140,7 @@ $(document).ready(function() {
     });
 
     /****************  SEARCH USER FILTER  ****************/
-    const searchInput = document.getElementById('searchUser');
+    const searchInput = document.getElementById('searchBar');
     searchInput.addEventListener('input', function() {
         let filter = searchInput.value.toLowerCase();
         let rows = document.querySelectorAll('tbody tr');

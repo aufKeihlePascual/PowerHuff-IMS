@@ -85,9 +85,17 @@ class SupplierController extends BaseController
 
     public function showAddSupplierPage()
     {
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Create Supplier',
             'username' => $_SESSION['username'],
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('add-supplier', $data);
@@ -102,6 +110,8 @@ class SupplierController extends BaseController
             exit;
         }
 
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Edit User',
             'user_id' => $user['user_id'],
@@ -111,6 +121,12 @@ class SupplierController extends BaseController
             'selectedAdmin' => $user['role'] === 'Admin' ? 'selected' : '',
             'selectedInventoryManager' => $user['role'] === 'Inventory_Manager' ? 'selected' : '',
             'selectedProcurementManager' => $user['role'] === 'Procurement_Manager' ? 'selected' : '',
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('edit-user-page', $data);

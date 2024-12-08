@@ -392,8 +392,4 @@ class OrderController extends BaseController
         exit;
     }
 
-
-
-
-
 }

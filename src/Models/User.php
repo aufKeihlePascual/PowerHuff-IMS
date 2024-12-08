@@ -38,8 +38,8 @@ class User extends BaseModel
                 CONCAT(first_name, ' ', last_name) AS full_name, 
                 u.username, 
                 u.role, 
-                DATE_FORMAT(u.created_on, '%b %d, %Y %h:%i %p') AS created_on, 
-                DATE_FORMAT(u.updated_on, '%b %d, %Y %h:%i %p') AS updated_on,
+                DATE_FORMAT(u.created_on, '%b %d, %Y %h:%i:%s %p') AS created_on, 
+                DATE_FORMAT(u.updated_on, '%b %d, %Y %h:%i:%s %p') AS updated_on,
                 (SELECT logged_time 
                 FROM login_activity 
                 WHERE user_id = u.user_id AND activity_type = 'login' 

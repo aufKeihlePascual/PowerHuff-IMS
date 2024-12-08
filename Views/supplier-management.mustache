@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
     <link rel="stylesheet" href="/Views/css/dash-style.css">
-    <link rel="stylesheet" href="/Views/css/products.css">
+    <link rel="stylesheet" href="/Views/css/suppliers.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/Views/js/dashboard.js"></script>
@@ -28,8 +28,6 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Category</th>
-                                <th>Product Category</th>
                                 <th>Contact Number</th>
                                 <th>Email</th>
                                 <th>Address</th>
@@ -40,8 +38,6 @@
                             {{#suppliers}}
                             <tr>
                                 <td>{{supplier_name}}</td>
-                                <td>{{category_name}}</td>
-                                <td>{{name}}</td> 
                                 <td>{{contact_number}}</td> 
                                 <td>{{email}}</td> 
                                 <td>{{address}}</td> 

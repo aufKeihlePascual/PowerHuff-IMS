@@ -54,15 +54,13 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const togglePassword = document.getElementById("togglePassword");
-            const passwordInput = document.getElementById("password_hash"); // Updated to match input id
+            const passwordInput = document.getElementById("password_hash");
     
             if (togglePassword && passwordInput) {
                 togglePassword.addEventListener("click", function () {
-                    // Toggle the type attribute
                     const type = passwordInput.type === "password" ? "text" : "password";
                     passwordInput.type = type;
     
-                    // Toggle the icon
                     this.classList.toggle("fa-eye");
                     this.classList.toggle("fa-eye-slash");
                 });

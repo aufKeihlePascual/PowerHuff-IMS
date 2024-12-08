@@ -116,6 +116,16 @@ class OrderController extends BaseController
         $orderTotalFormatted = number_format($orderTotal, 2);
         $data['orderTotal'] = $orderTotalFormatted;
 
+        $statusClasses = [
+            'Pending' => 'status-pending',
+            'Cancelled' => 'status-cancelled',
+            'Received' => 'status-received'
+        ];
+
+        $statusClass = isset($statusClasses[$order['status']]) ? $statusClasses[$order['status']] : 'status-default';
+
+        $order['statusClass'] = $statusClass;
+
         $role = $_SESSION['role'];
 
         $data = [
@@ -124,6 +134,7 @@ class OrderController extends BaseController
             'order' => $order,
             'orderItems' => $orderItems,
             'orderTotal' => $data['orderTotal'],
+            'statusClass' => $statusClass,
             
             'role' => $role,
             'isAdmin' => $role === 'Admin',

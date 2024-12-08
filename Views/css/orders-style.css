@@ -394,6 +394,9 @@ form select {
     border-radius: 5px;
 }
 
+span {
+    margin-left: 5px;
+}
 
 /* Order Details Section */
 .order-details-container {
@@ -466,7 +469,7 @@ form select {
 }
 
 .order-total {
-    margin-top: 20px;
+    margin-top: 5px;
     padding: 15px;
     /* background-color: #f8f9fa;
     border: 2px solid #dee2e6; */
@@ -488,4 +491,32 @@ form select {
     padding: 10px;
     border-radius: 6px;
     display: inline-block;
+}
+
+.generate-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 150%;  
+    transition: background 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    background: #2ba148;
+    color: #fff;
+}
+
+.generate-btn:hover {
+    background: #246d36;
+}
+
+.generate-container {
+    display: flex;
+    width: 50%;
+    margin: 10px auto 0;
+    gap: 20px; 
+    justify-content: center;
 }

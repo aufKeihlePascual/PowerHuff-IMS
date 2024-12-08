@@ -22,18 +22,16 @@
             <!--------------------- Order Details Content ---------------------->
             <section class="content">
                 <div class="header">
-                    <h1 class="main-header">{{title}}</h1>
+                    <h1 class="main-header">Order #{{order.order_id}} Details</h1>
                 </div>
 
                 <div class="order-details-container">
                     <div class="order-summary">
-                        <h2>Order Summary</h2>
                         <ul>
-                            <li><strong>Order ID:</strong> {{order.order_id}}</li>
                             <li><strong>Order Name:</strong> {{order.order_name}}</li>
                             <li><strong>Description:</strong> {{order.description}}</li>
                             <li><strong>Order Date:</strong> {{order.formatted_order_date}}</li>
-                            <li><strong>Status:</strong><span class="status{{order.status_class}}">{{order.status}}</span></li>
+                            <li><strong>Status:  </strong><span class="status {{order.statusClass}} ">{{order.status}}</span></li>
                             <li><strong>Supplier:</strong> {{order.supplier_name}}</li>
                             <li><strong>Ordered By:</strong> {{order.user_name}}</li>
                         </ul>
@@ -69,10 +67,13 @@
                             <p class="order-total-amount">₱ {{orderTotal}}</p>
                         </div>
 
-                        <form action="/generate-pdf-order" method="POST" id="generatePdfForm">
-                            <input type="hidden" name="order_id" value="{{order.order_id}}">
-                            <button type="submit">Generate PDF</button>
-                        </form>
+                        <div class="generate-container">
+                            <a href="/dashboard/orders" class="cancel-btn" id="cancel-btn">Cancel</a>
+                            <form action="/generate-pdf-order" method="POST" id="generatePdfForm">
+                                <input type="hidden" name="order_id" value="{{order.order_id}}">
+                                <button type="submit" class="generate-btn" id="generate-btn">Generate PDF</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

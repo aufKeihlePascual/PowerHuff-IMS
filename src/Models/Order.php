@@ -40,13 +40,8 @@ class Order extends BaseModel
     {
         $stmt = $this->db->prepare("
             SELECT 
-                o.order_id,
-                o.order_name,
-                o.description,
-                o.order_date,
-                o.status, 
-                s.supplier_name, 
-                CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+                o.order_id, o.order_name, o.description, o.order_date, o.status,
+                s.supplier_name, CONCAT(u.first_name, ' ', u.last_name) AS user_name,
                 o.updated_on
             FROM 
                 orders o
@@ -54,8 +49,8 @@ class Order extends BaseModel
                 suppliers s ON o.supplier_id = s.supplier_id
             JOIN 
                 users u ON o.user_id = u.user_id
-            WHERE
-                o.order_id = :order_id
+            WHERE 
+                o.order_id = :order_id;
         ");
         
         $stmt->bindParam(':order_id', $orderId, \PDO::PARAM_INT);
@@ -69,6 +64,30 @@ class Order extends BaseModel
         }
 
         return $order;
+    }
+
+    public function getOrderItems($orderId)
+    {
+        $stmt = $this->db->prepare("
+            SELECT 
+                oi.order_itemID, 
+                oi.order_id, 
+                oi.quantity, 
+                oi.price, 
+                p.product_name, 
+                p.description AS product_description 
+            FROM 
+                order_item oi
+            JOIN 
+                products p ON oi.product_id = p.product_id
+            WHERE 
+                oi.order_id = :order_id
+        ");
+        
+        $stmt->bindParam(':order_id', $orderId, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function getAllSuppliers()

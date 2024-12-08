@@ -29,6 +29,14 @@ class AdminController extends BaseController
 
             $user['role_display'] = str_replace('_', ' ', $user['role']);
             $user['role_class'] = $roleClasses[$user['role']] ?? 'role-default';
+
+            $user['last_login_display'] = $user['last_login'] 
+            ? date('M d, Y h:i A', strtotime($user['last_login'])) 
+            : 'Never';
+
+            $user['last_logout_display'] = $user['last_logout'] 
+                ? date('M d, Y h:i A', strtotime($user['last_logout'])) 
+                : 'Never';
         }
 
         $role = $_SESSION['role'];

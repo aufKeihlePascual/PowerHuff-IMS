@@ -113,6 +113,7 @@
                                 <td>{{supplier_name}}</td>
                                 <td>{{user_name}}</td>
                                 <td class="order-buttons">
+                                    <a href="/view-order/{{order_id}}" class="view-button" id="view-button">View</a>
                                     <a href="/edit-order/{{order_id}}" class="edit-button">Edit</a>
 
                                     <form action="/delete-order/{{order_id}}" method="POST" style="display:inline;">

@@ -2,6 +2,10 @@
 
 namespace App\Controllers;
 
+require 'vendor/autoload.php';
+
+use \Fpdf\Fpdf;
+
 class OrderController extends BaseController
 {
     protected $orderModel, $supplierModel;
@@ -87,6 +91,50 @@ class OrderController extends BaseController
         }
     }
 
+    public function showOrderDetails($orderId)
+    {
+        if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
+            header('Location: /login');
+            exit;
+        }
+
+        $order = $this->orderModel->getOrderById($orderId);
+        
+        if (!$order) {
+            echo "Order not found.";
+            return;
+        }
+
+        $orderItems = $this->orderModel->getOrderItems($orderId);
+
+        $orderTotal = 0;
+        foreach ($orderItems as &$item) {
+            $item['total'] = $item['quantity'] * $item['price'];
+            $orderTotal += $item['total'];
+        }
+
+        $orderTotalFormatted = number_format($orderTotal, 2);
+        $data['orderTotal'] = $orderTotalFormatted;
+
+        $role = $_SESSION['role'];
+
+        $data = [
+            'title' => 'Order Details',
+            'username' => $_SESSION['username'],
+            'order' => $order,
+            'orderItems' => $orderItems,
+            'orderTotal' => $data['orderTotal'],
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
+        ];
+
+        return $this->render('order-details', $data);
+    }
+
     public function showEditOrderPage($orderId)
     {
         if (!isset($_SESSION['is_logged_in']) || !$_SESSION['is_logged_in']) {
@@ -134,7 +182,6 @@ class OrderController extends BaseController
 
         return $this->render('edit-order-page', $data);
     }
-
 
     public function updateOrder($orderId)
     {
@@ -190,6 +237,152 @@ class OrderController extends BaseController
             }
         }
     }
+
+    public function generatePdf()
+    {
+        if (!isset($_POST['order_id'])) {
+            echo "Order ID is required!";
+            exit;
+        }
+
+        $orderId = $_POST['order_id'];
+
+        $order = $this->orderModel->getOrderById($orderId);
+        
+        if (!$order) {
+            echo "Order not found!";
+            exit;
+        }
+
+        $orderItems = $this->orderModel->getOrderItems($orderId);
+
+        $orderTotal = 0;
+        foreach ($orderItems as &$item) {
+            $item['total'] = $item['quantity'] * $item['price'];
+            $orderTotal += $item['total'];
+        }
+
+        $orderTotalFormatted = number_format($orderTotal, 2);
+
+        $pdf = new \Fpdf\Fpdf();
+        $pdf->AddPage();
+
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(190, 10, 'Order Details', 0, 1, 'C');
+        $pdf->Ln(10);
+
+        $pdf->SetFont('Arial', 'B', 12);
+
+        // Print titles
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Order ID: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['order_id'], 0, 1);
+
+        // Repeat for other fields
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Order Name: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['order_name'], 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Description: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['description'], 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Order Date: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['formatted_order_date'], 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Status: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['status'], 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Supplier: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['supplier_name'], 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Ordered By: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['user_name'], 0, 1);
+
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(50, 10, 'Last Updated: ', 0, 0);
+        $pdf->Ln(6);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->SetX($pdf->GetX() + 10);
+        $pdf->Cell(50, 10, $order['updated_on'], 0, 1);
+
+        $pdf->Ln(10);
+
+        // Order items section
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(190, 10, 'Order Items', 0, 1, 'C');
+        $pdf->Ln(6);
+        
+        
+        $tableWidth = 60 + 30 + 30 + 30;
+        $xOffset = ($pdf->GetPageWidth() - $tableWidth) / 2;
+        $pdf->SetX($xOffset);
+
+        // Table header
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(60, 10, 'Product Name', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Quantity', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Price', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Total', 1, 1, 'C');
+
+        // Table content
+        $pdf->SetFont('Arial', '', 12);
+        $rowCount = 0;
+        foreach ($orderItems as $item) {
+            if ($rowCount % 2 == 0) {
+                $pdf->SetFillColor(216,191,216); 
+            } else {
+                $pdf->SetFillColor(173,216,230);
+            }
+
+            $pdf->SetX($xOffset);
+
+            $pdf->Cell(60, 10, $item['product_name'], 1, 0, 'C', true);
+            $pdf->Cell(30, 10, $item['quantity'], 1, 0, 'C', true);
+            $pdf->Cell(30, 10, 'PHP ' . number_format($item['price'], 2), 1, 0, 'C', true);
+            $pdf->Cell(40, 10, 'PHP ' . number_format($item['total'], 2), 1, 1, 'C', true);
+            $rowCount++;
+        }
+
+        $pdf->Ln(10);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetX(50);
+        $pdf->Cell(40, 10, 'Total Price: ', 0);
+        $pdf->SetTextColor(46, 139, 87);
+        $pdf->SetFont('Arial', 'B', 18);
+        $pdf->Cell(70, 10, 'PHP ' . $orderTotalFormatted, 0, 1, 'R');
+
+        $pdf->Output('D', 'order_' . $orderId . '_details.pdf');
+        exit;
+    }
+
+
+
 
 
 }

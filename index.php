@@ -70,10 +70,15 @@ try {
     # ORDER MANAGEMENT
     $router->get('/dashboard/orders', '\App\Controllers\OrderController@showOrdersPage');
     $router->post('/create-order', '\App\Controllers\OrderController@createOrder');
+    $router->get('/view-order/{id}', '\App\Controllers\OrderController@showOrderDetails');
+
     $router->get('/edit-order/{\d+}', '\App\Controllers\OrderController@showEditOrderPage');
     $router->post('/edit-order/{\d+}', '\App\Controllers\OrderController@updateOrder');
     $router->post('/delete-order/{\d+}', '\App\Controllers\OrderController@deleteOrder');
 
+    $router->post('/generate-pdf-order', '\App\Controllers\OrderController@generatePdf');
+
+    # ACTIVITIES
 
     
     $router->get('/reset-login-attempts', function () {

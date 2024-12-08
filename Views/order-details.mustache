@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/Views/css/dash-style.css">
+    <link rel="stylesheet" href="/Views/css/orders-style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/Views/js/dashboard.js"></script>
+    <script src="/Views/js/order.js"></script>
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        {{> sidebar}}
+        <main class="main-content">
+            {{> top-nav}}
+            
+            <!--------------------- Order Details Content ---------------------->
+            <section class="content">
+                <div class="header">
+                    <h1 class="main-header">{{title}}</h1>
+                </div>
+
+                <div class="order-details-container">
+                    <div class="order-summary">
+                        <h2>Order Summary</h2>
+                        <ul>
+                            <li><strong>Order ID:</strong> {{order.order_id}}</li>
+                            <li><strong>Order Name:</strong> {{order.order_name}}</li>
+                            <li><strong>Description:</strong> {{order.description}}</li>
+                            <li><strong>Order Date:</strong> {{order.formatted_order_date}}</li>
+                            <li><strong>Status:</strong><span class="status{{order.status_class}}">{{order.status}}</span></li>
+                            <li><strong>Supplier:</strong> {{order.supplier_name}}</li>
+                            <li><strong>Ordered By:</strong> {{order.user_name}}</li>
+                        </ul>
+                    </div>
+
+                    <div class="order-items">
+                        <h2>Order Items</h2>
+                        <table class="order-items-table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#orderItems}}
+                                <tr>
+                                    <td>{{product_name}}</td>
+                                    <td>{{quantity}}</td>
+                                    <td>₱ {{price}}</td>
+                                    <td>₱ {{orderTotal}}</td>
+                                </tr>
+                                {{/orderItems}}
+                                {{^orderItems}}
+                                <p>No items found for this order.</p>
+                                {{/orderItems}}
+                            </tbody>
+                        </table>
+                        <div class="order-total">
+                            <h3>Total Price:</h3>
+                            <p class="order-total-amount">₱ {{orderTotal}}</p>
+                        </div>
+
+                        <form action="/generate-pdf-order" method="POST" id="generatePdfForm">
+                            <input type="hidden" name="order_id" value="{{order.order_id}}">
+                            <button type="submit">Generate PDF</button>
+                        </form>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

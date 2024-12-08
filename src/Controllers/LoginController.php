@@ -55,6 +55,8 @@ class LoginController extends BaseController
             $_SESSION['last_name'] = $user['last_name'];
             $_SESSION['role'] = $user['role'];
 
+            $this->userModel->logActivity($user['user_id'], 'login');
+
             header('Location: /dashboard');
             exit;
             
@@ -71,6 +73,10 @@ class LoginController extends BaseController
 
     public function logout()
     {
+        if (isset($_SESSION['user_id'])) {
+            $this->userModel->logActivity($_SESSION['user_id'], 'logout');
+        }
+
         session_unset();
         session_destroy();
         header('Location: /login');

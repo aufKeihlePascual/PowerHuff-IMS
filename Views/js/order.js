@@ -27,6 +27,9 @@ $(document).ready(function() {
         if (event.target === deleteOrderModal) {
             deleteOrderModal.style.display = 'none';
         }
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
     };
 
     deleteOrderForm.onsubmit = function(e) {
@@ -64,11 +67,11 @@ $(document).ready(function() {
         modal.style.display = 'none';
     }
 
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    }
+    // window.onclick = function(event) {
+    //     if (event.target === modal) {
+    //         modal.style.display = 'none';
+    //     }
+    // }
 
     $(".user-form").submit(function(event) {
         event.preventDefault();
@@ -97,6 +100,41 @@ $(document).ready(function() {
         $("#confirmationModal").hide();
         window.location.href = '/dashboard/orders'; 
     });
+
+    /****************  GENERATE PDF  ****************/
+    document.addEventListener('DOMContentLoaded', function () {
+        const generatePdfButton = document.getElementById('generatePdf'); // Get the button element by its ID
+    
+        if (generatePdfButton) {
+            // Add event listener to the button
+            generatePdfButton.addEventListener('click', function () {
+                const orderId = generatePdfButton.getAttribute('data-order-id'); // Get the order_id from the button's data attribute
+                console.log('Order ID:', orderId);
+    
+                // Now you can proceed with the AJAX request
+                $.ajax({
+                    url: '/generate-pdf-order',
+                    method: 'POST',
+                    data: { order_id: orderId },
+                    success: function (response) {
+                        console.log(response);
+                        if (response.success) {
+                            alert('PDF generated successfully');
+                        } else {
+                            alert('Error generating PDF');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                        alert('Error generating PDF: ' + error);
+                    }
+                });
+            });
+        } else {
+            console.log('Generate PDF button not found!');
+        }
+    });
+    
 
     /****************  SEARCH ORDER FILTER  ****************/
     const searchInput = document.getElementById('searchBar');

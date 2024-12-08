@@ -82,6 +82,14 @@ try {
     $router->post('/generate-pdf-order', '\App\Controllers\OrderController@generatePdf');
 
     # ACTIVITIES
+    $router->get('/dashboard/product-activity', '\App\Controllers\ActivityController@showProductActivity');
+    $router->get('/dashboard/stock-activity', '\App\Controllers\ActivityController@showStockActivity');
+
+    $router->post('/generate-pdf/{type}', function ($type) {
+        $controller = new \App\Controllers\GeneratePDFController();
+        $controller->handlePdfRequest($type);
+    });
+
 
     
     $router->get('/reset-login-attempts', function () {

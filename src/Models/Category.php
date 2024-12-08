@@ -33,4 +33,27 @@ class Category extends BaseModel
 
         return $stmt->execute();
     }
+
+    public function getCategoryById($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM categories WHERE category_id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function updateCategory($id, $name, $description)
+    {
+        $stmt = $this->db->prepare(
+            "UPDATE categories 
+            SET name = :name, description = :description, updated_on = CURRENT_TIMESTAMP 
+            WHERE category_id = :id"
+        );
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':description', $description);
+
+        return $stmt->execute();
+    }
 }

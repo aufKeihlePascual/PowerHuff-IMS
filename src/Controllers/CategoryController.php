@@ -91,4 +91,41 @@ class CategoryController extends BaseController
         header('Location: /dashboard/categories');
         exit;
     }
+
+    public function editCategory($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $category_name = $_POST['category_name'];
+            $description = $_POST['description'];
+
+            // Update the category in the database
+            $result = $this->categoryModel->updateCategory($id, $category_name, $description);
+
+            if ($result) {
+                $_SESSION['success_message'] = "Category updated successfully.";
+            } else {
+                $_SESSION['error_message'] = "Failed to update category.";
+            }
+
+            // Redirect to the categories page
+            header('Location: /dashboard/categories');
+            exit;
+        }
+
+        // If GET request, fetch category details and render the edit page
+        $category = $this->categoryModel->getCategoryById($id);
+        $role = $_SESSION['role'];
+
+        $data = [
+            'title' => 'Edit Category',
+            'category' => $category,
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
+        ];
+
+        return $this->render('edit-category', $data);
+    }
 }

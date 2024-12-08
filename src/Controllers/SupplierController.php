@@ -19,7 +19,7 @@ class SupplierController extends BaseController
             exit;
         }
         
-        $suppliers = $this->supplierModel->getAllSuppliers();
+        $suppliers = $this->supplierModel->getSuppliers();
         $role = $_SESSION['role'];
 
         $data = [

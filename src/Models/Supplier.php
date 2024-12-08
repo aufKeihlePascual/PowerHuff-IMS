@@ -21,6 +21,19 @@ class Supplier extends BaseModel
         return $stmt->execute();
     }
 
+    public function getSuppliers() {
+        $stmt = $this->db->query("
+            SELECT * FROM suppliers");
+
+        $suppliers = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        foreach ($suppliers as &$supplier) {
+            $supplier['supplier_name'] = ucwords(strtolower($supplier['supplier_name']));
+        }
+
+        return $suppliers;
+    }
+
     public function getAllSuppliers()
     {
         $stmt = $this->db->query("

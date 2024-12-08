@@ -45,13 +45,16 @@ try {
     # CATEGORY MANAGEMENT
     $router->get('/add-category', '\App\Controllers\CategoryController@addCategory');
     $router->post('/add-category', '\App\Controllers\CategoryController@addCategory');
-    $router->get('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
-    $router->post('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
+    $router->get('/edit-category/(\d+)', '\App\Controllers\ProductCategoryController@editProductCategory');
+    $router->post('/edit-category/(\d+)', '\App\Controllers\ProductCategoryController@editProductCategory');
+
     // $router->post('/delete-category/(\d+)', '\App\Controllers\InventoryManagerController@deleteCategory');
 
     # PRODUCT CATEGORY MANAGEMENT
     $router->get('/add-product-category', '\App\Controllers\ProductCategoryController@addProductCategory');
     $router->post('/add-product-category', '\App\Controllers\ProductCategoryController@addProductCategory'); 
+    $router->get('/dashboard/edit-product-category/(\d+)', '\App\Controllers\ProductCategoryController@editProductCategory');
+    $router->post('/dashboard/edit-product-category/(\d+)', '\App\Controllers\ProductCategoryController@editProductCategory');
 
     # PRODUCT ITEM MANAGEMENT
     $router->get('/add-product-item', '\App\Controllers\ProductItemController@addProductItem');

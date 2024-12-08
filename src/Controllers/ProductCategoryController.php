@@ -38,10 +38,19 @@ class ProductCategoryController extends BaseController
     public function addProductCategory()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $category_name = $_POST['category_name'];
-            $category_description = $_POST['category_description'];
+            // Get form data
+            $category_name = trim($_POST['category_name']);
+            $description = trim($_POST['description']);
 
-            $result = $this->productCategoryModel->addProductCategory($category_name, $category_description);
+            // Validate inputs (add further validation as needed)
+            if (empty($category_name)) {
+                $_SESSION['error_message'] = "Category name is required.";
+                header('Location: /dashboard/add-product-category');
+                exit;
+            }
+
+            // Insert into database
+            $result = $this->productCategoryModel->insertProductCategory($category_name, $description);
 
             if ($result) {
                 $_SESSION['success_message'] = "Product category added successfully.";
@@ -53,14 +62,15 @@ class ProductCategoryController extends BaseController
             exit;
         }
 
+        // For GET requests, load the form
         $role = $_SESSION['role'];
-
+        
         $data = [
-            'title' => 'Add New Product Category',
+            'title' => 'Add New Category',
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
-
+            
             'role' => $role,
             'isAdmin' => $role === 'Admin',
             'isInventoryManager' => $role === 'Inventory_Manager',
@@ -68,6 +78,52 @@ class ProductCategoryController extends BaseController
             'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
-        return $this->render('add-product-category', $data);
+        return $this->render('add-category', $data);
     }
+
+
+    public function editProductCategory($id)
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Get form data
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+
+        // Update the database
+        $result = $this->productCategoryModel->updateProductCategory($id, $name, $description);
+
+        if ($result) {
+            $_SESSION['success_message'] = "Product category updated successfully.";
+        } else {
+            $_SESSION['error_message'] = "Failed to update product category.";
+        }
+
+        header('Location: /dashboard/product-categories');
+        exit;
+    }
+
+    // For GET request, fetch category details
+    $category = $this->productCategoryModel->getCategoryById($id);
+
+    if (!$category) {
+        $_SESSION['error_message'] = "Product category not found.";
+        header('Location: /dashboard/product-categories');
+        exit;
+    }
+
+    $role = $_SESSION['role'];
+    $data = [
+        'title' => 'Edit Category',
+        'category' => $category,
+        'username' => $_SESSION['username'],
+        'role' => $role,
+        'isAdmin' => $role === 'Admin',
+        'isInventoryManager' => $role === 'Inventory_Manager',
+        'isProcurementManager' => $role === 'Procurement_Manager',
+        'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
+    ];
+
+    return $this->render('edit-category', $data);
+}
+
 }

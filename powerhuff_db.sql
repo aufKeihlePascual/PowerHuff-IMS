@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 01:38 PM
+-- Generation Time: Dec 08, 2024 at 01:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -79,19 +79,27 @@ CREATE TABLE `notifications` (
 -- Table structure for table `orders`
 --
 
-CREATE TABLE orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_name VARCHAR(255) NOT NULL,
-    description TEXT NULL,
-    order_date DATE NOT NULL,
-    status ENUM('Pending', 'Cancelled', 'Received') NOT NULL,
-    supplier_id INT NOT NULL,
-    user_id INT NOT NULL,
-    updated_on TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id), 
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `order_name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `order_date` datetime NOT NULL,
+  `status` enum('Pending','Cancelled','Received') NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `updated_on` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `order_name`, `description`, `order_date`, `status`, `supplier_id`, `user_id`, `updated_on`) VALUES
+(6, 'Vape Kit Restock October 2024', 'Reorder of essential vaping kits and accessories.', '2024-12-01 10:15:00', 'Pending', 1, 1, '2024-12-07 17:13:16'),
+(7, 'E-Liquid Bulk Order - CloudVape', 'Monthly stock replenishment of e-liquids', '2024-12-02 12:30:00', 'Cancelled', 2, 2, '2024-12-07 17:13:16'),
+(8, 'VapePro Flavors - New Line', 'Procured flavored e-liquids from VapePro for the new product line', '2024-12-03 14:45:00', 'Received', 3, 69, '2024-12-07 17:13:16'),
+(9, 'Starter Kit Bulk Reorder', 'Bulk restock order for starter kits.', '2024-12-04 16:00:00', 'Pending', 1, 4, '2024-12-07 17:13:16'),
+(10, 'Premium Vape Mods Order', NULL, '2024-12-05 18:20:00', 'Received', 2, 68, '2024-12-07 17:13:16');
 
 -- --------------------------------------------------------
 
@@ -306,7 +314,7 @@ INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `username`, `password
 (1, 'Maris', 'Racal', 'admin123', '$2y$10$GSWWVi.qjjVEFtSGkM6DCO5ZAtlTw2pfen2v.17lawImXbPFzlvEe', 'Admin', '2024-11-24 22:18:14', '2024-12-05 17:24:04'),
 (2, 'Samantha', 'Ticsay', 'STicsay', '$2y$10$CR7l3wdB0yw1VxJ/ftbnoOaXPnRXUZ1H5C285AMiAwHv.ivW9JKWG', 'Admin', '2024-11-24 22:18:14', '2024-12-05 15:54:26'),
 (3, 'Janeil', 'Gonzales', 'JGonzales', '$2y$10$Jv.1o3VvWHRd3IxDldNG7eYsC1ardq3k10bujNOdq4svHg7qoT7zu', 'Inventory_Manager', '2024-11-24 22:18:14', '2024-12-05 15:58:49'),
-(4, 'Patricia', 'Santos', 'PSantos', 'hashedpass4', 'Procurement_Manager', '2024-11-28 20:22:19', NULL),
+(4, 'Patricia', 'Santos', 'PSantos', '$2y$10$1xMmSNBWVlYIAuMXqfOGpOMoDjgVrgKMESR3pMEZ59LErro118O5y', 'Procurement_Manager', '2024-11-28 20:22:19', '2024-12-06 17:00:28'),
 (68, 'Mumei', 'Nanashi', 'Mooming', '$2y$10$7XIN/00qJft1gVbxPP4aXerlmoCUBUWW2K.W9Mq0GABIFMGEhw/B6', 'Admin', '2024-12-04 14:29:11', NULL),
 (69, 'Fauna', 'Ceres', 'FaunaMart', '$2y$10$H/n/ElwnAFoosdO6bnX72uciHals/XMjHi//2TY7CzSNQ9cv8qabK', 'Admin', '2024-12-04 14:44:38', NULL);
 
@@ -442,7 +450,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `order_item`
@@ -490,7 +498,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- Constraints for dumped tables

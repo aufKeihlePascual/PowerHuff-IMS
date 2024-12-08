@@ -63,7 +63,7 @@ class OrderController extends BaseController
                 $order_name = $_POST['order_name'];
                 $description = isset($_POST['description']) ? $_POST['description'] : null;
                 $order_date = $_POST['order_date'];
-                $status = $_POST['status'];
+                $status = 'Pending';
                 $supplier_id = $_POST['supplier_id'];
 
                 $user_id = $_SESSION['user_id'];

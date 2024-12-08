@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/Views/css/dash-style.css">
+    <link rel="stylesheet" href="/Views/css/activity-style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/Views/js/dashboard.js"></script>
+    <script src="/Views/js/activity.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        {{> sidebar}}
+        <main class="main-content">
+            {{> top-nav}}
+
+            <section class="content">
+                <div class="header">
+                    <h1 class="main-header">{{title}}</h1>
+                </div>
+
+                <div class="generate-container">
+                    <form action="/generate-pdf/stock_activity" method="POST" id="generateStockPdfForm">
+                        <input type="hidden" name="generate_pdf" value="true">
+                        <button type="submit" class="btn btn-secondary">Download</button>
+                    </form>
+                </div>
+                
+
+                <div class="activity-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Change Type</th>
+                                <th>Qty</th>
+                                <th>Logged On</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#activities}}
+                            <tr>
+                                <td>{{username}}</td>
+                                <td>{{product_name}}</td>
+                                <td>{{category_name}}</td>
+                                <td>{{stock_change_type}}</td>
+                                <td>{{stock_change_quantity}}</td>
+                                <td>{{stock_logged_on}}</td>
+                            </tr>
+                            {{/activities}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

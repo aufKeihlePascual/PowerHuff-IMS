@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 class ProductController extends BaseController
 {
-    protected $productModel, $categoryModel, $supplierModel;
+    protected $productModel, $categoryModel, $supplierModel, $productCategoryModel;
 
     public function __construct()
     {
         $this->productModel = new \App\Models\Product();
+        $this->productCategoryModel = new \App\Models\ProductCategory();
         $this->categoryModel = new \App\Models\Category();
         $this->supplierModel = new \App\Models\Supplier();
     }
@@ -21,12 +22,14 @@ class ProductController extends BaseController
         }
 
         $products = $this->productModel->getAllProducts();
+        $productCategories = $this->productCategoryModel->getAllProductCategories();
         $role = $_SESSION['role'];
 
         $data = [
             'title' => 'Products',
             'username' => $_SESSION['username'],
             'products' => $products,
+            'productCategories' => $productCategories,
             
             'role' => $role,
             'isAdmin' => $role === 'Admin',
@@ -40,6 +43,9 @@ class ProductController extends BaseController
 
     public function addProduct()
     {
+        $suppliers = $this->supplierModel->getDistinctSuppliers();
+        $categories = $this->categoryModel->getAllCategories();
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product_name = $_POST['product_name'];
             $price = $_POST['price'];
@@ -59,9 +65,6 @@ class ProductController extends BaseController
             header('Location: /dashboard/products');
             exit;
         }
-
-        $suppliers = $this->supplierModel->getAllSuppliers();
-        $categories = $this->categoryModel->getAllCategories();
 
         $role = $_SESSION['role'];
 
@@ -143,5 +146,26 @@ class ProductController extends BaseController
         header('Location: /dashboard/products');
         exit;
     }
-    
+
+    public function updateStock($product_id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $change_type = $_POST['change_type'];
+            $change_quantity = $_POST['change_quantity'];
+            $user_id = $_SESSION['user_id'];
+
+            $result = $this->productModel->logStockActivity($product_id, $change_type, $change_quantity, $user_id);
+
+            if ($result) {
+                $_SESSION['success_message'] = "Stock updated successfully.";
+            } else {
+                $_SESSION['error_message'] = "Failed to update stock.";
+            }
+
+            header('Location: /dashboard/products');
+            exit;
+        }
+
+    }
+
 }

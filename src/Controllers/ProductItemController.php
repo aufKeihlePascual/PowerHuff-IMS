@@ -20,13 +20,14 @@ class ProductItemController extends BaseController
                 exit;
             }
 
-            $product_items = $this->productItemModel->getAllProductItems();  // Make sure this is correctly fetching product items
+            $product_items = $this->productItemModel->getAllProductItems();
             $role = $_SESSION['role'];
 
             $data = [
                 'title' => 'Product Items',
                 'username' => $_SESSION['username'],
-                'productItems' => $product_items,  // Make sure to send the fetched data
+                'productItems' => $product_items,
+            
                 'role' => $role,
                 'isAdmin' => $role === 'Admin',
                 'isInventoryManager' => $role === 'Inventory_Manager',
@@ -65,6 +66,7 @@ class ProductItemController extends BaseController
                 'first_name' => $_SESSION['first_name'],
                 'last_name' => $_SESSION['last_name'],
                 'username' => $_SESSION['username'],
+            
                 'role' => $role,
                 'isAdmin' => $role === 'Admin',
                 'isInventoryManager' => $role === 'Inventory_Manager',
@@ -78,7 +80,6 @@ class ProductItemController extends BaseController
         public function editProductItem($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Handle POST request when updating the product item
             $product_id = $_POST['product_id'];
             $price = $_POST['price'];
             $stock_quantity = $_POST['stock_quantity'];
@@ -95,22 +96,21 @@ class ProductItemController extends BaseController
             exit;
         }
 
-        // Fetch the product item by ID
         $productItem = $this->productItemModel->getProductItemById($id);
 
-        // If product item doesn't exist, redirect to product items page
         if (!$productItem) {
             $_SESSION['error_message'] = "Product item not found.";
             header('Location: /dashboard/product-items');
             exit;
         }
 
-        // Fetch all products to populate the dropdown
         $products = $this->productModel->getAllProducts();
 
         foreach ($products as &$product) {
             $product['selected'] = ($product['Product_ID'] == $productItem['Product_ID']);
         }
+
+        $role = $_SESSION['role'];
 
         $data = [
             'title' => 'Edit Product Item',
@@ -119,6 +119,12 @@ class ProductItemController extends BaseController
             'username' => $_SESSION['username'],
             'productItem' => $productItem,
             'products' => $products,
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('edit-product-item', $data);

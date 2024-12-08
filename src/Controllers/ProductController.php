@@ -62,6 +62,8 @@ class ProductController extends BaseController
         $suppliers = $this->supplierModel->getAllSuppliers();
         $categories = $this->categoryModel->getAllCategories();
 
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Add New Product',
             'first_name' => $_SESSION['first_name'],
@@ -69,6 +71,12 @@ class ProductController extends BaseController
             'username' => $_SESSION['username'],
             'suppliers' => $suppliers,
             'categories' => $categories,
+
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('add-product', $data);
@@ -100,6 +108,8 @@ class ProductController extends BaseController
             exit;
         }
 
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Edit Product',
             'first_name' => $_SESSION['first_name'],
@@ -108,6 +118,12 @@ class ProductController extends BaseController
             'product' => $product,
             'suppliers' => $suppliers,
             'categories' => $categories,
+
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('edit-product', $data);

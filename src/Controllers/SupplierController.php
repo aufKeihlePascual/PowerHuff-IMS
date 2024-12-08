@@ -40,13 +40,21 @@ class SupplierController extends BaseController
 
     public function createSupplier()
     {
+        $role = $_SESSION['role'];
+
         $data = [
             'supplier_name' => $_POST['supplier_name'],
             'product_categoryID' => $_POST['product_categoryID'],
             'contact_number' => $_POST['contact_number'],
             'email' => $_POST['email'],
             'address' => $_POST['address'],
-            'created_on' => date('Y-m-d H:i:s')
+            'created_on' => date('Y-m-d H:i:s'),
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         if ($this->supplierModel->createSupplier($data)) {
@@ -58,7 +66,6 @@ class SupplierController extends BaseController
 
     public function updateSupplier($id)
     {
-        // Update supplier details
         $data = [
             'supplier_name' => $_POST['supplier_name'],
             'product_categoryID' => $_POST['product_categoryID'],

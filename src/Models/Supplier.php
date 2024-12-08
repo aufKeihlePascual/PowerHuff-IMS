@@ -28,6 +28,8 @@ class Supplier extends BaseModel
                 s.supplier_id,
                 s.supplier_name,
                 s.contact_number,
+                s.email,
+                s.address,
                 DATE_FORMAT(s.created_on, '%b %d, %Y %h:%i %p') AS created_on, 
                 c.name AS category_name,
                 pc.name AS name

@@ -24,6 +24,7 @@ class ProductCategoryController extends BaseController
             'title' => 'Product Categories',
             'username' => $_SESSION['username'],
             'product_category' => $product_category,
+
             'role' => $role,
             'isAdmin' => $role === 'Admin',
             'isInventoryManager' => $role === 'Inventory_Manager',
@@ -40,7 +41,6 @@ class ProductCategoryController extends BaseController
             $category_name = $_POST['category_name'];
             $category_description = $_POST['category_description'];
 
-            // Add the product category
             $result = $this->productCategoryModel->addProductCategory($category_name, $category_description);
 
             if ($result) {
@@ -60,6 +60,7 @@ class ProductCategoryController extends BaseController
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
+
             'role' => $role,
             'isAdmin' => $role === 'Admin',
             'isInventoryManager' => $role === 'Inventory_Manager',

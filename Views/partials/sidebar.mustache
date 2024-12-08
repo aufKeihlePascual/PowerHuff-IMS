@@ -26,7 +26,15 @@
         {{/canAccessLinks}}
         
         {{#isAdmin}}
-        <li><a href="#" data-content="reports">Reports</a></li>
+        <li>
+            <a href="#" data-content="reports">Reports</a>
+            <ul class="sub-menu">
+                <li><a href="#" data-content="#">User Activity</a></li>
+                <li><a href="#" data-content="#" class="active">Categories</a></li>
+                <li><a href="#" data-content="#" class="active">Product Categories</a></li>
+                <li><a href="#" data-content="#">Product Items</a></li>
+            </ul>
+        </li>
         {{/isAdmin}}
 
     </ul>

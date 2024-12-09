@@ -787,7 +787,7 @@ textarea {
     font-size: 16px;
 }
 
-.chart-container canvas {
+/* .chart-container canvas {
     width: 500px !important;
     height: 500px !important;
 }
@@ -807,4 +807,4 @@ textarea {
     display: flex;
     justify-content: center;
     margin-top: 30px;
-}
+} */

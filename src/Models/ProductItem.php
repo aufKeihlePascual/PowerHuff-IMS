@@ -9,9 +9,15 @@ class ProductItem extends BaseModel
         $stmt = $this->db->query("
             SELECT p.Product_Name, pi.Price, pi.Stock_Quantity, pi.Created_On, pi.Updated_On
             FROM product_items pi
-            JOIN products p ON pi.Product_ID = p.Product_ID
+            JOIN products p
+            ON pi.Product_ID = p.Product_ID
         ");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function totalCountProductItems() {
+        $result = $this->db->query("SELECT COUNT(*) AS total FROM product_items");
+        return $result->fetchColumn();
     }
     
     public function getProductItemById($id)

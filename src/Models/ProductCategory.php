@@ -20,10 +20,13 @@ class ProductCategory extends BaseModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function totalCountProductCategories() {
+        $result = $this->db->query("SELECT COUNT(DISTINCT category_id) AS total FROM product_category");
+        return $result->fetchColumn();
+    }
 
     public function addProductCategory($category_name, $category_description)
     {
-        // Insert into the powerhuff_db, which includes Product_ID, Category_ID, Name, and Description
         $query = "INSERT INTO product_category (Name, Description) VALUES (:category_name, :category_description)";
         
         $stmt = $this->db->prepare($query);

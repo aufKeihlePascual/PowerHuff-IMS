@@ -8,17 +8,87 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/Views/js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
 </head>
 <body>
     <div class="dashboard-container">
         {{> sidebar}}
         <main class="main-content">
             {{> top-nav}}
-            
 
             <!--------------------- Dashboard Content --------------------->
             <section class="content">
                 {{{ dashboardContent }}}
+                <div class="computations">
+                    <h3>Statistics</h3>
+                    <div style="width: 500px; height: 500px;">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+
+                    <script>
+                        const chartData = {
+                            categories: {{{ totalCategories }}},
+                            productCategories: {{{ totalProductCategories }}},
+                            products: {{{ totalProducts }}},
+                            productItems: {{{ totalProductItems }}}
+                        };
+                    
+                        const ctx = document.getElementById('categoryChart').getContext('2d');
+                        const categoryChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Categories', 'Product Categories', 'Products', 'Product Items'],
+                                datasets: [{
+                                    data: [
+                                        chartData.categories,
+                                        chartData.productCategories,
+                                        chartData.products,
+                                        chartData.productItems
+                                    ],
+                                    backgroundColor: ['#ff6384', '#36a2eb', '#2E8B57', '#4bc0c0'],
+                                    hoverBackgroundColor: ['#ff4d6d', '#3398ff', '#ffbc32', '#28c4c4']
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Overview',
+                                        font: {
+                                            size: 15,
+                                            weight: 'bold'
+                                        },
+                                        padding: {
+                                            top: 10,
+                                            bottom: 30
+                                        }
+                                    },
+                                    legend: {
+                                        display: true,
+                                    },
+                                    datalabels: {
+                                        color: '#fff',
+                                        formatter: (value, context) => {
+                                            const total = context.chart.data.datasets[0].data.reduce((sum, val) => sum + val, 0);
+                                            const percentage = ((value / total) * 100).toFixed(2);
+                                            return `${value} (${percentage}%)`;
+                                        },
+                                        font: {
+                                            size: 12
+                                        },
+                                    },
+                                    anchor: 'top',
+                                    align: 'end'
+                                }
+                            },
+                            plugins: [ChartDataLabels]
+                        });
+                    </script>
+                </div>
             </section>
 
         </main>

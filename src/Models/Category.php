@@ -16,10 +16,18 @@ class Category extends BaseModel
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function totalCountCategories()
+    {
+        $result = $this->db->query("SELECT COUNT(*) AS total FROM categories");
+        return $result->fetchColumn();
+    }
+
     public function addCategory($category_name, $description)
     {
-        $stmt = $this->db->prepare("INSERT INTO categories (name, description, created_on) 
-                                    VALUES (:category_name, :description, CURRENT_TIMESTAMP)");
+        $stmt = $this->db->prepare("
+            INSERT INTO categories (name, description, created_on) 
+            VALUES (:category_name, :description, CURRENT_TIMESTAMP)
+        ");
 
         $stmt->bindParam(':category_name', $category_name);
         $stmt->bindParam(':description', $description);

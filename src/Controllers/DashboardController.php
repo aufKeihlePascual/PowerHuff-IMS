@@ -5,11 +5,17 @@ namespace App\Controllers;
 class DashboardController extends BaseController
 {
     protected $userModel, $adminModel;
+    
+    protected $categoryModel, $productCategoryModel, $productModel, $productItemModel;
 
     public function __construct()
     {
         $this->userModel = new \App\Models\User();
         $this->adminModel = new \App\Models\Admin();
+        $this->categoryModel = new \App\Models\Category();
+        $this->productCategoryModel = new \App\Models\ProductCategory();
+        $this->productModel = new \App\Models\Product();
+        $this->productItemModel = new \App\Models\ProductItem();
     }
 
     public function showDashboard()
@@ -36,10 +42,12 @@ class DashboardController extends BaseController
                     <div class="chart-bar"></div>
                 </div>
             </div>
-            <div class="computations">
-                <h3>Computations</h3>
-            </div>
         ';
+
+        $totalCategories = $this->categoryModel->totalCountCategories();
+        $totalProductCategories = $this->productCategoryModel->totalCountProductCategories();
+        $totalProducts = $this->productModel->totalCountProducts();
+        $totalProductItems = $this->productItemModel->totalCountProductItems();
 
         $data = [
             'title' => ucfirst($role) . ' Dashboard',
@@ -47,6 +55,11 @@ class DashboardController extends BaseController
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
             'dashboardContent' => $dashboardContent,
+
+            'totalCategories' => json_encode($totalCategories),
+            'totalProductCategories' => json_encode($totalProductCategories),
+            'totalProducts' => json_encode($totalProducts),
+            'totalProductItems' => json_encode($totalProductItems),
 
             'role' => $role,
             'isAdmin' => $role === 'Admin',

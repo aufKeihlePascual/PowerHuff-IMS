@@ -38,6 +38,11 @@ class Product extends BaseModel
         return $products;
     }
 
+    public function totalCountProducts() {
+        $result = $this->db->query("SELECT COUNT(*) AS total FROM products");
+        return $result->fetchColumn();
+    }
+
     public function getProductById($id)
     {
         $stmt = $this->db->prepare("

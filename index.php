@@ -38,10 +38,6 @@ try {
     $router->post('/edit-product/(\d+)', '\App\Controllers\ProductController@editProduct');
     $router->post('/delete-product/(\d+)', '\App\Controllers\ProductController@deleteProduct');
 
-    # PRODUCT ITEMS MANAGEMENT
-    $router->get('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
-    $router->post('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
-
     # CATEGORY MANAGEMENT
     $router->get('/add-category', '\App\Controllers\CategoryController@addCategory');
     $router->post('/add-category', '\App\Controllers\CategoryController@addCategory');
@@ -64,7 +60,6 @@ try {
         
     # SUPPLIER MANAGEMENT
     $router->get('/dashboard/suppliers', '\App\Controllers\SupplierController@showSupplierManagement');
-    
     $router->get('/add-supplier', '\App\Controllers\SupplierController@showAddSupplierPage');
     $router->post('/create-supplier', '\App\Controllers\SupplierController@createSupplier');
     $router->post('/update-supplier/(\d+)', '\App\Controllers\SupplierController@updateSupplier');
@@ -89,8 +84,6 @@ try {
         $controller = new \App\Controllers\GeneratePDFController();
         $controller->handlePdfRequest($type);
     });
-
-
     
     $router->get('/reset-login-attempts', function () {
         $_SESSION['login_attempts'] = 0;

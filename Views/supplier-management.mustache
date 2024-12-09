@@ -44,6 +44,7 @@
                                 <td>
                                     <a href="/edit-supplier/{{supplier_id}}" class="btn-edit">Edit</a>
                                     <form action="/delete-supplier/{{supplier_id}}" method="POST" style="display:inline;">
+                                        <input type="hidden" name="supplier_id" value="{{supplier.supplier_id}}">
                                         <button type="submit" class="btn-delete">Delete</button>
                                     </form>
                                 </td>

@@ -97,10 +97,19 @@ class ProductController extends BaseController
         $suppliers = $this->supplierModel->getDistinctSuppliers();
         $categories = $this->categoryModel->getAllCategories();
 
+        $role = $_SESSION['role'];
+
         $data = [
             'title' => 'Add New Product',
             'suppliers' => $suppliers,
             'categories' => $categories,
+            
+            
+            'role' => $role,
+            'isAdmin' => $role === 'Admin',
+            'isInventoryManager' => $role === 'Inventory_Manager',
+            'isProcurementManager' => $role === 'Procurement_Manager',
+            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('add-product', $data);

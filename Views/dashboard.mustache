@@ -11,26 +11,35 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <style>
-        .chart-container canvas {
-            width: 500px !important;
-            height: 500px !important;
+
+        .pie-charts canvas {
+            width: 600px !important;
+            height: 600px !important;
         }
 
         .pie-charts {
-        display: flex;
-        justify-content: space-between; 
-        margin-bottom: 20px; 
-    }
+            display: flex;
+            justify-content: center;  
+            margin-bottom: 20px; 
+            gap: 20px;
+        }
 
-    .pie-chart-box {
-        width: 50%; 
-    }
+        .pie-chart-box {
+            width: 45%;
+        }
 
-    .chart-box {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;
-    }
+        .chart-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            width: 100%;  
+        }
+
+        .bar-chart-container canvas {
+            width: 700px !important;
+            height: 400px !important;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -57,7 +66,9 @@
                         </div>
                     
                         <div class="chart-box">
-                            <canvas id="productItemsPerCategoryChart"></canvas>
+                            <div class="bar-chart-container">
+                                <canvas id="productItemsPerCategoryChart"></canvas>
+                            </div>
                         </div>
                     </div>
                     

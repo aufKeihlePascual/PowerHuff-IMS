@@ -37,6 +37,8 @@ class Activity extends User
                 categories c ON pa.category_id = c.category_id
             WHERE
                 (sa.change_quantity IS NOT NULL AND sa.change_quantity != '')
+            ORDER BY 
+                u.user_id DESC;
         ";
 
         $whereClause = [];

@@ -57,7 +57,7 @@ class Product extends BaseModel
                 p.Supplier_ID,
                 s.Supplier_Name,
                 p.Created_On,
-                c.Category_ID,
+                pc.Category_ID,
                 c.Name AS Category_Name,
                 pc.Name AS Product_Category_Name
             FROM 

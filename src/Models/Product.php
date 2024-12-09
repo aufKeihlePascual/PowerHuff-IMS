@@ -145,5 +145,40 @@ class Product extends BaseModel
         $stmt = $this->db->query("SELECT * FROM products WHERE Stock_Quantity <= Lowstock_Threshold");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getProductCountsByCategory() {
+        
+        $stmt = $this->db->prepare("
+            SELECT c.name AS category_name, COUNT(p.product_id) AS total_products
+            FROM categories c
+            LEFT JOIN product_category pc ON c.category_id = pc.category_id
+            LEFT JOIN products p ON pc.product_id = p.product_id
+            GROUP BY c.category_id;
+        ");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalProductItemsPerCategory() {
+        $result = $this->db->query("
+            SELECT c.name AS category_name, COUNT(pi.product_item_id) AS total_product_items
+            FROM categories c
+            LEFT JOIN product_category pc ON c.category_id = pc.category_id
+            LEFT JOIN products p ON pc.product_id = p.product_id
+            LEFT JOIN product_items pi ON p.product_id = pi.product_id
+            GROUP BY c.category_id
+        ");
+        
+        $categories = [];
+        
+        while ($row = $result->fetch(\PDO::FETCH_ASSOC)) {
+            $categories[] = $row;
+        }
+        
+        return $categories;
+    }
+    
     
 }

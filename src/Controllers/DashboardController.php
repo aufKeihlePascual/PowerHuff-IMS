@@ -37,6 +37,14 @@ class DashboardController extends BaseController
         $totalProductCategories = $this->productCategoryModel->totalCountProductCategories();
         $totalProducts = $this->productModel->totalCountProducts();
         $totalProductItems = $this->productItemModel->totalCountProductItems();
+        $productCountsByCategory = $this->productModel->getProductCountsByCategory();
+
+        $productLabels = array_column($productCountsByCategory, 'category_name');
+        $productData = array_column($productCountsByCategory, 'total_products');
+
+        $productItemsPerCategory = $this->productModel->getTotalProductItemsPerCategory();
+        $productCategoryLabels = array_column($productItemsPerCategory, 'category_name');
+        $productItemData = array_column($productItemsPerCategory, 'total_product_items');
 
         $data = [
             'title' => ucfirst($role) . ' Dashboard',
@@ -49,6 +57,12 @@ class DashboardController extends BaseController
             'totalProductCategories' => json_encode($totalProductCategories),
             'totalProducts' => json_encode($totalProducts),
             'totalProductItems' => json_encode($totalProductItems),
+
+            'productCountsLabels' => json_encode($productLabels),
+            'productCountsData' => json_encode($productData),
+
+            'productCategoryLabels' => json_encode($productCategoryLabels),
+            'totalProductItemsPerCategoryData' => json_encode($productItemData),
 
             'role' => $role,
             'isAdmin' => $role === 'Admin',

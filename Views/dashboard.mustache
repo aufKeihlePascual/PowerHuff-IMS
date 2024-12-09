@@ -10,7 +10,6 @@
     <script src="/Views/js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-
 </head>
 <body>
     <div class="dashboard-container">
@@ -18,7 +17,7 @@
         <main class="main-content">
             {{> top-nav}}
 
-            <!--------------------- Dashboard Content --------------------->
+            <!--------------------- Dashboard Content ---------------------->
             <section class="content">
                 {{{ dashboardContent }}}
                 <div class="computations">
@@ -27,16 +26,16 @@
                     <div class="chart-container">
                         <div class="pie-charts">
                             <div class="pie-chart-box">
-                                <canvas id="overviewChart"></canvas>
+                                <canvas id="overviewChart" width="300" height="300"></canvas>
                             </div>
                     
                             <div class="pie-chart-box">
-                                <canvas id="productsByCategoryChart"></canvas>
+                                <canvas id="productsByCategoryChart" width="300" height="300"></canvas>
                             </div>
                         </div>
                     
                         <div class="chart-box">
-                            <canvas id="productItemsPerCategoryChart"></canvas>
+                            <canvas id="productItemsPerCategoryChart" width="300" height="300"></canvas>
                         </div>
                     </div>
                     

@@ -89,60 +89,68 @@ class ProductController extends BaseController
     }
 
     public function editProduct($id)
-    {
-        $product = $this->productModel->getProductById($id);
-        $suppliers = $this->supplierModel->getAllSuppliers();
-        $categories = $this->categoryModel->getAllCategories();
+{
+    // Get product details by its ID
+    $product = $this->productModel->getProductById($id);
+    // Get all suppliers and categories
+    $suppliers = $this->supplierModel->getDistinctSuppliers();
+    $categories = $this->categoryModel->getAllCategories();
 
-        // Mark selected supplier and category
-        foreach ($suppliers as &$supplier) {
-            $supplier['selected'] = $supplier['Supplier_ID'] == $product['Supplier_ID'];
-        }
-
-        foreach ($categories as &$category) {
-            $category['selected'] = $category['Category_ID'] == $product['Category_ID'];
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $product_name = $_POST['product_name'];
-            $price = $_POST['price'];
-            $stock_quantity = $_POST['stock_quantity'];
-            $lowstock_threshold = $_POST['lowstock_threshold'];
-            $supplier_id = $_POST['supplier_id'];
-            $category_id = $_POST['category_id'];
-
-            $result = $this->productModel->updateProduct($id, $product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id);
-
-            if ($result) {
-                $_SESSION['success_message'] = "Product updated successfully.";
-            } else {
-                $_SESSION['error_message'] = "Failed to update product.";
-            }
-
-            header('Location: /dashboard/products');
-            exit;
-        }
-
-        $role = $_SESSION['role'];
-
-        $data = [
-            'title' => 'Edit Product',
-            'first_name' => $_SESSION['first_name'],
-            'last_name' => $_SESSION['last_name'],
-            'username' => $_SESSION['username'],
-            'product' => $product,
-            'suppliers' => $suppliers,
-            'categories' => $categories,
-
-            'role' => $role,
-            'isAdmin' => $role === 'Admin',
-            'isInventoryManager' => $role === 'Inventory_Manager',
-            'isProcurementManager' => $role === 'Procurement_Manager',
-            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
-        ];
-
-        return $this->render('edit-product', $data);
+    // Mark selected supplier and category
+    foreach ($suppliers as &$supplier) {
+        $supplier['selected'] = $supplier['supplier_id'] == $product['supplier_id'];  // Ensure the correct field names are used
     }
+
+    foreach ($categories as &$category) {
+        $category['selected'] = $category['category_id'] == $product['category_id'];  // Ensure the correct field names are used
+    }
+
+    // Handle form submission for product update
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $product_name = $_POST['product_name'];
+        $price = $_POST['price'];
+        $stock_quantity = $_POST['stock_quantity'];
+        $lowstock_threshold = $_POST['lowstock_threshold'];
+        $supplier_id = $_POST['supplier_id'];
+        $category_id = $_POST['category_id'];
+
+        // Update the product using the provided data
+        $result = $this->productModel->updateProduct($id, $product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id);
+
+        // Set the session message based on the result of the update
+        if ($result) {
+            $_SESSION['success_message'] = "Product updated successfully.";
+        } else {
+            $_SESSION['error_message'] = "Failed to update product.";
+        }
+
+        // Redirect to the product list page
+        header('Location: /dashboard/products');
+        exit;
+    }
+
+    // Get the role of the current user
+    $role = $_SESSION['role'];
+
+    // Prepare data for the view
+    $data = [
+        'title' => 'Edit Product',
+        'first_name' => $_SESSION['first_name'],
+        'last_name' => $_SESSION['last_name'],
+        'username' => $_SESSION['username'],
+        'product' => $product,
+        'suppliers' => $suppliers,
+        'categories' => $categories,
+        'role' => $role,
+        'isAdmin' => $role === 'Admin',
+        'isInventoryManager' => $role === 'Inventory_Manager',
+        'isProcurementManager' => $role === 'Procurement_Manager',
+        'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
+    ];
+
+    // Render the view with the data
+    return $this->render('edit-product', $data);
+}
 
     public function deleteProduct($id)
     {

@@ -22,7 +22,7 @@ class ProductItem extends BaseModel
             JOIN products p ON pi.Product_ID = p.Product_ID
             WHERE pi.Item_ID = :id
         ");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);

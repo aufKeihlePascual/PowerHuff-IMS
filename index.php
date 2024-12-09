@@ -43,8 +43,7 @@ try {
     $router->post('/add-category', '\App\Controllers\CategoryController@addCategory');
     $router->get('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
     $router->post('/edit-category/(\d+)', '\App\Controllers\CategoryController@editCategory');
-
-    // $router->post('/delete-category/(\d+)', '\App\Controllers\InventoryManagerController@deleteCategory');
+    $router->post('/delete-category/(\d+)', '\App\Controllers\CategoryController@deleteCategory');
 
     # PRODUCT CATEGORY MANAGEMENT
     $router->get('/add-product-category', '\App\Controllers\ProductCategoryController@addProductCategory');

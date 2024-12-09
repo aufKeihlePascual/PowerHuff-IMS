@@ -10,6 +10,7 @@
     <script src="/Views/js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
 </head>
 <body>
     <div class="dashboard-container">
@@ -17,28 +18,28 @@
         <main class="main-content">
             {{> top-nav}}
 
-            <!--------------------- Dashboard Content ---------------------->
+            <!--------------------- Dashboard Content --------------------->
             <section class="content">
                 {{{ dashboardContent }}}
                 <div class="computations">
                     <h3>Statistics</h3>
 
-                    <div class="chart-container">
-                        <div class="pie-charts">
-                            <div class="pie-chart-box">
-                                <canvas id="overviewChart"></canvas>
+                    <section class="content">
+                        {{{ dashboardContent }}}
+                        <div class="computations">
+                            <h3>Statistics</h3>
+                            <div class="chart-container">
+
+                                <div class="chart-box">
+                                    <canvas id="overviewChart"></canvas>
+                                </div>
+
+                                <div class="chart-box">
+                                    <canvas id="productsByCategoryChart"></canvas>
+                                </div>
                             </div>
-                    
-                            <div class="pie-chart-box">
-                                <canvas id="productsByCategoryChart"></canvas>
-                            </div>
-                        </div>
-                    
-                        <div class="chart-box">
-                            <canvas id="productItemsPerCategoryChart"></canvas>
-                        </div>
-                    </div>
-                    
+
+
                     <script>
                         const overviewData = {
                             categories: {{{ totalCategories }}},
@@ -64,6 +65,8 @@
                                 }]
                             },
                             options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
                                 plugins: {
                                     title: {
                                         display: true,
@@ -96,6 +99,7 @@
                             plugins: [ChartDataLabels]
                         });
 
+                        // Chart 2: Products by Category
                         const productsByCategoryData = {
                             labels: {{{ productCountsLabels }}}, 
                             datasets: [{
@@ -110,63 +114,14 @@
                             type: 'pie',
                             data: productsByCategoryData,
                             options: {
-                            plugins: {
-                                legend: {
-                                    position: 'top'
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Total Products by Category',
-                                    font: {
-                                        size: 15,
-                                        weight: 'bold'
-                                    },
-                                    padding: {
-                                        top: 10,
-                                        bottom: 30
-                                    }
-                                },
-                                datalabels: {
-                                    color: '#fff',
-                                    formatter: (value, context) => {
-                                        const total = context.chart.data.datasets[0].data.reduce((sum, val) => sum + val, 0);
-                                        const percentage = ((value / total) * 100).toFixed(2);
-                                        return `${value} (${percentage}%)`; 
-                                    },
-                                    font: {
-                                        size: 12
-                                    },
-                                }
-                            }
-                        },
-                            plugins: [ChartDataLabels]
-                        });
-                        
-                        const productItemsCategoryData = {
-                            labels: {{{ productCategoryLabels }}},
-                            datasets: [{
-                                label: 'Total Product Items per Category',
-                                data: {{{ totalProductItemsPerCategoryData }}},
-                                backgroundColor: [
-                                    '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40', 
-                                    '#ff5733', '#33ff57', '#57ff33', '#5733ff', '#ff33a8', '#a833ff' 
-                                ],
-                                hoverBackgroundColor: [
-                                    '#ff4d6d', '#3398ff', '#ffbc32', '#28c4c4', '#8c7eff', '#ff8f30',
-                                    '#ff2a1a', '#1aff2a', '#2aff1a', '#1a2aff', '#ff1a7a', '#7a1aff' 
-                                ]
-                            }]
-                        };
-
-                        const productItemsCategoryCtx = document.getElementById('productItemsPerCategoryChart').getContext('2d');
-                        new Chart(productItemsCategoryCtx, {
-                            type: 'bar',
-                            data: productItemsCategoryData,
-                            options: {
+                                responsive: true,
                                 plugins: {
+                                    legend: {
+                                        position: 'top'
+                                    },
                                     title: {
                                         display: true,
-                                        text: 'Total Product Items per Category',
+                                        text: 'Total Products by Category',
                                         font: {
                                             size: 15,
                                             weight: 'bold'
@@ -175,22 +130,9 @@
                                             top: 10,
                                             bottom: 30
                                         }
-                                    },
-                                    datalabels: {
-                                        color: '#fff',
-                                        formatter: (value, context) => `${value}`,
-                                        font: {
-                                            size: 12
-                                        }
-                                    }
-                                },
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
                                     }
                                 }
-                            },
-                            plugins: [ChartDataLabels]
+                            }
                         });
                     </script>
                 </div>

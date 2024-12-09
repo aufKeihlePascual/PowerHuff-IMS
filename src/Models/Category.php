@@ -25,8 +25,8 @@ class Category extends BaseModel
     public function addCategory($category_name, $description)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO categories (name, description, created_on) 
-            VALUES (:category_name, :description, CURRENT_TIMESTAMP)
+            INSERT INTO categories (name, description, created_on, updated_on) 
+            VALUES (:category_name, :description, CURRENT_TIMESTAMP, NULL)
         ");
 
         $stmt->bindParam(':category_name', $category_name);

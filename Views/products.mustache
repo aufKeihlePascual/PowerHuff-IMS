@@ -29,6 +29,7 @@
             {{#error_message}}
                 <div class="alert alert-error">{{error_message}}</div>
             {{/error_message}}
+            <a href="/add-product" class="btn-add">Add New Product</a>
                         <div class="table">
                             <table>
                                 <thead>
@@ -57,13 +58,16 @@
                                         <td>{{Supplier_Name}}</td>
                                         <td>
                                             <a href="/edit-product/{{Product_ID}}" class="btn-edit">Edit</a>
-                                            <a href="/delete-product/{{Product_ID}}" class="btn-delete">Delete</a>
+                                            <form action="/delete-product/{{Product_ID}}" method="POST" style="display:inline;">
+                                                <input type="hidden" name="product_id" value="{{product.product_id}}">
+                                                <button type="submit" class="btn-delete">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     {{/products}}
                                 </tbody>
                             </table>
-                            <a href="/add-product" class="btn-add">Add New Product</a>
+                            
                     </div>
             </section>
         </main>

@@ -68,7 +68,7 @@ class User extends BaseModel
     {
         $stmt = $this->db->prepare("
             INSERT INTO login_activity (user_id, activity_type, logged_time) 
-            VALUES (:user_id, :activity_type, NOW())
+            VALUES (:user_id, :activity_type, CONVERT_TZ(NOW(), '+00:00', '+08:00'))
         ");
         $stmt->execute([
             ':user_id' => $userId,

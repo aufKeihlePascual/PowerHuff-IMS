@@ -91,7 +91,16 @@ class ProductController extends BaseController
         $product = $this->productModel->getProductById($id);
         $suppliers = $this->supplierModel->getAllSuppliers();
         $categories = $this->categoryModel->getAllCategories();
-        
+
+        // Mark selected supplier and category
+        foreach ($suppliers as &$supplier) {
+            $supplier['selected'] = $supplier['Supplier_ID'] == $product['Supplier_ID'];
+        }
+
+        foreach ($categories as &$category) {
+            $category['selected'] = $category['Category_ID'] == $product['Category_ID'];
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product_name = $_POST['product_name'];
             $price = $_POST['price'];

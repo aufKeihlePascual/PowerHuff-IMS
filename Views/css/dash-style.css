@@ -787,7 +787,7 @@ textarea {
     font-size: 16px;
 }
 
-.chart-container {
+/* .chart-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -814,4 +814,4 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */

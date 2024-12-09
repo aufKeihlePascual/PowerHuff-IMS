@@ -3,7 +3,7 @@ name: Deploy to Hostinger
 on:
   push:
     branches:
-      - Basis-V3
+      - Basis-V3 # Trigger deployment on push to Basis-V3 branch
 
 jobs:
   deploy:
@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to Hostinger
         run: |
-          ssh -o StrictHostKeyChecking=no user@your_hostinger_ip 'cd /path/to/your/project && git pull origin main'
+          ssh -o StrictHostKeyChecking=no Hooman@145.223.108.201 'cd /home/Hooman/PowerHuff-IMS && git pull origin Basis-V3'

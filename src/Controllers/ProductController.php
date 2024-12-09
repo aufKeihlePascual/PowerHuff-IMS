@@ -45,7 +45,8 @@ class ProductController extends BaseController
     {
         $suppliers = $this->supplierModel->getDistinctSuppliers();
         $categories = $this->categoryModel->getAllCategories();
-        
+        $productCategories = $this->productCategoryModel->getAllProductCategories();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $product_name = $_POST['product_name'];
             $price = $_POST['price'];
@@ -75,6 +76,7 @@ class ProductController extends BaseController
             'username' => $_SESSION['username'],
             'suppliers' => $suppliers,
             'categories' => $categories,
+            'productCategories' => $productCategories,
 
             'role' => $role,
             'isAdmin' => $role === 'Admin',

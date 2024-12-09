@@ -61,13 +61,13 @@ class Product extends BaseModel
                 c.Name AS Category_Name,
                 pc.Name AS Product_Category_Name
             FROM 
-                powerhuff_db.PRODUCTS p
+                PRODUCTS p
             LEFT JOIN 
-                powerhuff_db.PRODUCT_CATEGORY pc ON p.Product_ID = pc.Product_ID
+                PRODUCT_CATEGORY pc ON p.Product_ID = pc.Product_ID
             LEFT JOIN 
-                powerhuff_db.CATEGORIES c ON pc.Category_ID = c.Category_ID
+                CATEGORIES c ON pc.Category_ID = c.Category_ID
             LEFT JOIN
-                powerhuff_db.SUPPLIERS s ON p.Supplier_ID = s.Supplier_ID
+                SUPPLIERS s ON p.Supplier_ID = s.Supplier_ID
             WHERE
                 p.Product_ID = :id
         ");
@@ -111,7 +111,7 @@ class Product extends BaseModel
     public function updateProduct($id, $product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id)
     {
         $stmt = $this->db->prepare("
-            UPDATE powerhuff_db.PRODUCTS 
+            UPDATE products 
             SET Product_Name = :product_name, 
                 Price = :price, 
                 Stock_Quantity = :stock_quantity, 

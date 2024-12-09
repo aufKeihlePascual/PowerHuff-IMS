@@ -76,11 +76,11 @@ class Product extends BaseModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function addProduct($product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id)
+    public function addProduct($product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO powerhuff_db.PRODUCTS (Product_Name, Price, Stock_Quantity, Lowstock_Threshold, Supplier_ID, Category_ID, Created_On)
-            VALUES (:product_name, :price, :stock_quantity, :lowstock_threshold, :supplier_id, :category_id, CURRENT_TIMESTAMP)
+            INSERT INTO products (Product_Name, Price, Stock_Quantity, Lowstock_Threshold, Supplier_ID, Created_On)
+            VALUES (:product_name, :price, :stock_quantity, :lowstock_threshold, :supplier_id, CURRENT_TIMESTAMP)
         ");
 
         $stmt->bindParam(':product_name', $product_name);
@@ -88,7 +88,6 @@ class Product extends BaseModel
         $stmt->bindParam(':stock_quantity', $stock_quantity);
         $stmt->bindParam(':lowstock_threshold', $lowstock_threshold);
         $stmt->bindParam(':supplier_id', $supplier_id);
-        $stmt->bindParam(':category_id', $category_id);
 
         return $stmt->execute();
     }

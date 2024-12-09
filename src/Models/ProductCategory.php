@@ -7,7 +7,7 @@ class ProductCategory extends BaseModel
     
     public function getAllProductCategories()
     {
-        $stmt = $this->db->query("SELECT Product_ID, Category_ID, Name, Description FROM product_category");
+        $stmt = $this->db->query("SELECT Product_ID, Category_ID, Name AS product_category_name, Description FROM product_category");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

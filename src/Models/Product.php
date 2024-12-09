@@ -14,6 +14,7 @@ class Product extends BaseModel
                 p.Price,
                 p.Stock_Quantity,
                 p.Lowstock_Threshold,
+                pc.Product_CategoryID,
                 CONCAT(UPPER(SUBSTRING(s.Supplier_Name, 1, 1)), LOWER(SUBSTRING(s.Supplier_Name, 2))) AS Supplier_Name, 
                 p.Created_On,
                 c.Name AS Category_Name,

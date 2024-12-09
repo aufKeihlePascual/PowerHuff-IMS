@@ -158,25 +158,25 @@ class ProductController extends BaseController
         exit;
     }
 
-    public function updateStock($product_id)
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $change_type = $_POST['change_type'];
-            $change_quantity = $_POST['change_quantity'];
-            $user_id = $_SESSION['user_id'];
+    // public function updateStock($product_id)
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $change_type = $_POST['change_type'];
+    //         $change_quantity = $_POST['change_quantity'];
+    //         $user_id = $_SESSION['user_id'];
 
-            $result = $this->productModel->logStockActivity($product_id, $change_type, $change_quantity, $user_id);
+    //         $result = $this->productModel->logStockActivity($product_id, $change_type, $change_quantity, $user_id);
 
-            if ($result) {
-                $_SESSION['success_message'] = "Stock updated successfully.";
-            } else {
-                $_SESSION['error_message'] = "Failed to update stock.";
-            }
+    //         if ($result) {
+    //             $_SESSION['success_message'] = "Stock updated successfully.";
+    //         } else {
+    //             $_SESSION['error_message'] = "Failed to update stock.";
+    //         }
 
-            header('Location: /dashboard/products');
-            exit;
-        }
+    //         header('Location: /dashboard/products');
+    //         exit;
+    //     }
 
-    }
+    // }
 
 }

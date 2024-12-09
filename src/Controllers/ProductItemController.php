@@ -6,12 +6,12 @@ class ProductItemController extends BaseController
 {
     protected $productModel, $productItemModel, $categoryModel, $supplierModel;
 
-        public function __construct()
-        {
-            $this->productModel = new \App\Models\Product();
-            $this->categoryModel = new \App\Models\Category();
-            $this->productItemModel = new \App\Models\ProductItem();
-        }
+    public function __construct()
+    {
+        $this->productModel = new \App\Models\Product();
+        $this->categoryModel = new \App\Models\Category();
+        $this->productItemModel = new \App\Models\ProductItem();
+    }
 
         public function showProductItems()
         {
@@ -80,10 +80,12 @@ class ProductItemController extends BaseController
         public function editProductItem($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Handle form submission (product item update)
             $product_id = $_POST['product_id'];
             $price = $_POST['price'];
             $stock_quantity = $_POST['stock_quantity'];
 
+            // Update the product item
             $result = $this->productItemModel->updateProductItem($id, $product_id, $price, $stock_quantity);
 
             if ($result) {
@@ -96,8 +98,8 @@ class ProductItemController extends BaseController
             exit;
         }
 
+        // Retrieve the product item and products list
         $productItem = $this->productItemModel->getProductItemById($id);
-
         if (!$productItem) {
             $_SESSION['error_message'] = "Product item not found.";
             header('Location: /dashboard/product-items');
@@ -105,21 +107,16 @@ class ProductItemController extends BaseController
         }
 
         $products = $this->productModel->getAllProducts();
-
         foreach ($products as &$product) {
             $product['selected'] = ($product['Product_ID'] == $productItem['Product_ID']);
         }
 
+        // Prepare data for the view
         $role = $_SESSION['role'];
-
         $data = [
             'title' => 'Edit Product Item',
-            'first_name' => $_SESSION['first_name'],
-            'last_name' => $_SESSION['last_name'],
-            'username' => $_SESSION['username'],
             'productItem' => $productItem,
             'products' => $products,
-            
             'role' => $role,
             'isAdmin' => $role === 'Admin',
             'isInventoryManager' => $role === 'Inventory_Manager',

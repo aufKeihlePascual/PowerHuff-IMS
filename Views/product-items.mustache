@@ -48,16 +48,16 @@
                                 <td>{{Stock_Quantity}}</td>
                                 <td>{{Updated_On}}</td>
                                 <td>
-                                    <a href="/edit-product-item/{{Item_ID}}" class="btn-edit">Edit</a>
-                                    <form action="/delete-product-item/{{Item_ID}}" method="POST"
-                                        style="display: inline;">
+                                    <!-- Updated Edit Button -->
+                                    <a href="/edit-product-item/{{product_item_id}}" class="btn-edit">Edit</a>
+                                    <form action="/delete-product-item/{{Item_ID}}" method="POST" style="display: inline;">
                                         <button type="submit" class="btn-delete"
                                             onclick="return confirm('Are you sure you want to delete this product item?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
                             {{/productItems}}
-                        </tbody>
+                        </tbody>                        
                     </table>
                 </div>
                 <a href="/add-product-item" class="btn-add">Add New Product Item</a>

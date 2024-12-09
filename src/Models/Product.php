@@ -134,7 +134,7 @@ class Product extends BaseModel
 
     public function deleteProduct($id)
     {
-        $stmt = $this->db->prepare("DELETE FROM powerhuff_db.PRODUCTS WHERE Product_ID = :id");
+        $stmt = $this->db->prepare("DELETE FROM PRODUCTS WHERE Product_ID = :id");
         $stmt->bindParam(':id', $id);
 
         return $stmt->execute();

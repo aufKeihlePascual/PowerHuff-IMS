@@ -34,6 +34,22 @@ class Supplier extends BaseModel
         return $suppliers;
     }
 
+    public function getDistinctSuppliers()
+{
+    $stmt = $this->db->query("
+        SELECT DISTINCT s.supplier_id, s.supplier_name
+        FROM suppliers AS s
+    ");
+
+    $suppliers = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    foreach ($suppliers as &$supplier) {
+        $supplier['supplier_name'] = ucwords(strtolower($supplier['supplier_name']));
+    }
+
+    return $suppliers;
+}
+
     public function getAllSuppliers()
     {
         $stmt = $this->db->query("

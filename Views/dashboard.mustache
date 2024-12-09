@@ -65,7 +65,7 @@
                                 }]
                             },
                             options: {
-                                responsive: true,
+                                responsive: true, 
                                 maintainAspectRatio: false,
                                 plugins: {
                                     title: {
@@ -99,7 +99,6 @@
                             plugins: [ChartDataLabels]
                         });
 
-                        // Chart 2: Products by Category
                         const productsByCategoryData = {
                             labels: {{{ productCountsLabels }}}, 
                             datasets: [{
@@ -114,7 +113,7 @@
                             type: 'pie',
                             data: productsByCategoryData,
                             options: {
-                            responsive: true,
+                            responsive: true, 
                             plugins: {
                                 legend: {
                                     position: 'top'

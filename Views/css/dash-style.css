@@ -787,43 +787,31 @@ textarea {
     font-size: 16px;
 }
 
-/* .chart-container {
+.chart-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     gap: 20px;
-}
-
-.chart-box {
-    width: 600px;
-    height: 600px; 
-    max-width: 600px;
+    justify-content: space-between;
 }
 
 .pie-charts {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    width: 100%;
+    flex: 1; /* This allows the pie charts to take up the available space */
 }
 
 .pie-chart-box {
-    width: 600px;
-    height: 600px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%; /* Ensure the pie charts don't take up the whole space */
 }
 
-@media (max-width: 768px) {
-    .pie-chart-box {
-        width: 100%;
-        height: 300px;
-    }
-    .chart-box {
-        height: 300px;
-    }
+.chart-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-@media (max-width: 480px) {
-    .pie-chart-box {
-        height: 250px; 
-    }
-} */

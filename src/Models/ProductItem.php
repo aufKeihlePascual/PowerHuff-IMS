@@ -14,6 +14,14 @@ class ProductItem extends BaseModel
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function totalCountProductItems() {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS total FROM product_items");
+        $stmt->execute();
+
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+
     public function getProductItemById($id)
     {
         $stmt = $this->db->prepare("

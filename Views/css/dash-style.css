@@ -795,7 +795,7 @@ textarea {
 }
 
 .chart-box {
-    width: 100%;
+    width: 600px;
     height: 600px; 
     max-width: 600px;
 }

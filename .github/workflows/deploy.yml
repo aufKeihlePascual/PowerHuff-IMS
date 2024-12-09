@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to Hostinger
         run: |
-          ssh -o StrictHostKeyChecking=no u862816240@145.223.108.201 'cd /home/u862816240/PowerHuff-IMS && git pull origin Basis-V3'
+          ssh -o StrictHostKeyChecking=no u862816240@145.223.108.201 'cd /home/u862816240/domains/powerhuff-ims.com && git pull origin Basis-V3'

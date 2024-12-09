@@ -28,7 +28,7 @@ try {
     # PRODUCT MANAGEMENT VIEWS
     $router->get('/dashboard/products', '\App\Controllers\ProductController@showAllProducts');
     $router->get('/dashboard/categories', '\App\Controllers\CategoryController@showCategories');
-    $router->get('/dashboard/product-categories', '\App\Controllers\ProductcategoryController@showProductCategories');
+    $router->get('/dashboard/product-categories', '\App\Controllers\ProductCategoryController@showProductCategories');
     $router->get('/dashboard/product-items', '\App\Controllers\ProductItemController@showProductItems');
     
     # PRODUCT MANAGEMENT

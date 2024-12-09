@@ -5,7 +5,6 @@ $(document).ready(function() {
 
     // Check if Products submenu should be open when the page is loaded
     function checkSubmenuVisibility() {
-        // If on the Products, Categories, or Product Items pages, open the Products submenu
         if (window.location.pathname === '/dashboard/products' || 
             window.location.pathname === '/dashboard/categories' || 
             window.location.pathname === '/dashboard/product-items') {

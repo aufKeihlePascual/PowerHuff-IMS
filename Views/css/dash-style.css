@@ -794,15 +794,14 @@ textarea {
 
 .pie-charts {
     display: flex;
-    justify-content: space-between; /* Distribute space between pie charts */
-    margin-bottom: 20px; /* Add some space between pie charts and the bar chart */
+    justify-content: space-between; 
+    margin-bottom: 20px; 
 }
 
 .pie-chart-box {
-    width: 50%; /* Set width for each pie chart */
+    width: 50%; 
 }
 
-/* Center the bar chart */
 .chart-box {
     display: flex;
     justify-content: center;

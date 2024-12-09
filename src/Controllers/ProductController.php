@@ -2,8 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\BaseModel;
+
 class ProductController extends BaseController
 {
+    protected $db; 
+
     protected $productModel, $categoryModel, $supplierModel, $productCategoryModel;
 
     public function __construct()
@@ -54,35 +58,49 @@ class ProductController extends BaseController
             $lowstock_threshold = $_POST['lowstock_threshold'];
             $supplier_id = $_POST['supplier_id'];
             $category_id = $_POST['category_id'];
+            $description = $_POST['description'];
 
-            $result = $this->productModel->addProduct($product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id, $category_id);
+            global $conn;
 
-            if ($result) {
-                $_SESSION['success_message'] = "Product added successfully.";
-            } else {
-                $_SESSION['error_message'] = "Failed to add product.";
+            if (!$conn) {
+                throw new \Exception('Database connection not established.');
+            }
+
+            $this->db = $conn;   
+            
+            try {
+                $this->db->beginTransaction();
+                
+                $product_id = $this->productModel->addProduct(
+                    $product_name,
+                    $description,
+                    $price,
+                    $stock_quantity,
+                    $lowstock_threshold,
+                    $supplier_id,
+                );
+
+            $this->productModel->mapProductToCategory($product_id, $category_id);
+
+            $this->db->commit();
+
+            $_SESSION['success_message'] = "Product added successfully.";
+            } catch (\Exception $e) {
+                $this->db->rollBack();
+                $_SESSION['error_message'] = "Failed to add product: " . $e->getMessage();
             }
 
             header('Location: /dashboard/products');
             exit;
         }
 
-        $role = $_SESSION['role'];
+        $suppliers = $this->supplierModel->getDistinctSuppliers();
+        $categories = $this->categoryModel->getAllCategories();
 
         $data = [
             'title' => 'Add New Product',
-            'first_name' => $_SESSION['first_name'],
-            'last_name' => $_SESSION['last_name'],
-            'username' => $_SESSION['username'],
             'suppliers' => $suppliers,
             'categories' => $categories,
-            'productCategories' => $productCategories,
-
-            'role' => $role,
-            'isAdmin' => $role === 'Admin',
-            'isInventoryManager' => $role === 'Inventory_Manager',
-            'isProcurementManager' => $role === 'Procurement_Manager',
-            'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
         return $this->render('add-product', $data);

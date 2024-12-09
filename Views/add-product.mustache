@@ -25,6 +25,10 @@
                         <input type="text" id="product_name" name="product_name" required>
                     </div>
                     <div class="form-group">
+                        <label for="description">Description (Optional)</label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="price">Price:</label>
                         <input type="number" id="price" name="price" step="0.01" required>
                     </div>
@@ -50,14 +54,6 @@
                             {{#categories}}
                                 <option value="{{category_id}}">{{name}}</option>
                             {{/categories}}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_category_id">Product Category:</label>
-                        <select id="product_category_id" name="product_category_id" required>
-                            {{#productCategories}}
-                                <option value="{{product_category_id}}">{{product_category_name}}</option>
-                            {{/productCategories}}
                         </select>
                     </div>
                     <button type="submit" class="btn-add">Add Product</button>

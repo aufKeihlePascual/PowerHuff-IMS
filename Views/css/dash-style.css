@@ -776,3 +776,13 @@ form select {
 .cancel-btn:hover {
     background: #7f1414;
 }
+
+textarea {
+    width: 98.5%; 
+    height: 100px; 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}

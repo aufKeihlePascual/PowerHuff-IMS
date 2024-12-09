@@ -8,25 +8,26 @@ class Product extends BaseModel
     {
         $stmt = $this->db->query("
             SELECT 
-                p.Product_ID,
-                p.Product_Name,
-                p.Description AS Product_Description,
-                p.Price,
-                p.Stock_Quantity,
-                p.Lowstock_Threshold,
-                pc.Product_CategoryID,
-                CONCAT(UPPER(SUBSTRING(s.Supplier_Name, 1, 1)), LOWER(SUBSTRING(s.Supplier_Name, 2))) AS Supplier_Name, 
-                p.Created_On,
-                c.Name AS Category_Name,
-                pc.Name AS Product_Category_Name
+                p.product_id AS Product_ID,
+                p.product_name AS Product_Name,
+                p.description AS Product_Description,
+                p.price AS Price,
+                p.stock_quantity AS Stock_Quantity,
+                p.lowstock_threshold AS Lowstock_Threshold,
+                CONCAT(UPPER(SUBSTRING(s.supplier_name, 1, 1)), LOWER(SUBSTRING(s.supplier_name, 2))) AS Supplier_Name, 
+                p.created_on AS Created_On,
+                c.name AS Category_Name
             FROM 
                 products p
             LEFT JOIN 
-                product_category pc ON p.Product_ID = pc.Product_ID
+                product_category pc ON p.product_id = pc.product_id  -- join with product_category
             LEFT JOIN 
-                categories c ON pc.Category_ID = c.Category_ID
-            LEFT JOIN
-                suppliers s ON p.Supplier_ID = s.Supplier_ID
+                categories c ON pc.category_id = c.category_id  -- join with categories through product_category
+            LEFT JOIN 
+                suppliers s ON p.supplier_id = s.supplier_id
+            ORDER BY 
+                p.product_id DESC;
+
         ");
 
         $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -76,18 +77,33 @@ class Product extends BaseModel
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function addProduct($product_name, $price, $stock_quantity, $lowstock_threshold, $supplier_id)
+    public function addProduct($product_name, $description, $price, $stock_quantity, $lowstock_threshold, $supplier_id)
     {
         $stmt = $this->db->prepare("
-            INSERT INTO products (Product_Name, Price, Stock_Quantity, Lowstock_Threshold, Supplier_ID, Created_On)
-            VALUES (:product_name, :price, :stock_quantity, :lowstock_threshold, :supplier_id, CURRENT_TIMESTAMP)
+            INSERT INTO products (product_name, description, price, stock_quantity, lowstock_threshold, supplier_id, created_on)
+            VALUES (:product_name, :description, :price, :stock_quantity, :lowstock_threshold, :supplier_id, CURRENT_TIMESTAMP)
         ");
 
         $stmt->bindParam(':product_name', $product_name);
+        $stmt->bindParam(':description', $description);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':stock_quantity', $stock_quantity);
         $stmt->bindParam(':lowstock_threshold', $lowstock_threshold);
         $stmt->bindParam(':supplier_id', $supplier_id);
+
+        $stmt->execute();
+        return $this->db->lastInsertId();
+    }
+
+    public function mapProductToCategory($product_id, $category_id)
+    {
+        $stmt = $this->db->prepare("
+            INSERT INTO product_category (product_id, category_id)
+            VALUES (:product_id, :category_id)
+        ");
+
+        $stmt->bindParam(':product_id', $product_id);
+        $stmt->bindParam(':category_id', $category_id);
 
         return $stmt->execute();
     }

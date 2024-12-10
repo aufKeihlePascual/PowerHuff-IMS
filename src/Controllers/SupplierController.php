@@ -40,6 +40,9 @@ class SupplierController extends BaseController
 
     public function createSupplier()
     {
+        $categoryModel = new \App\Models\Category();
+        $categories = $categoryModel->getAllCategories();
+        
         $role = $_SESSION['role'];
 
         $data = [
@@ -92,11 +95,14 @@ class SupplierController extends BaseController
 
     public function showAddSupplierPage()
     {
+        $categoryModel = new \App\Models\Category();
+        $categories = $categoryModel->getAllCategories();
         $role = $_SESSION['role'];
 
         $data = [
             'title' => 'Create Supplier',
             'username' => $_SESSION['username'],
+            'categories' => $categories,
             
             'role' => $role,
             'isAdmin' => $role === 'Admin',

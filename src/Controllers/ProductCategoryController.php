@@ -66,7 +66,7 @@ class ProductCategoryController extends BaseController
         $role = $_SESSION['role'];
         
         $data = [
-            'title' => 'Add New Category',
+            'title' => 'Add New Product Category',
             'first_name' => $_SESSION['first_name'],
             'last_name' => $_SESSION['last_name'],
             'username' => $_SESSION['username'],
@@ -78,7 +78,7 @@ class ProductCategoryController extends BaseController
             'canAccessLinks' => in_array($role, ['Admin', 'Inventory_Manager']),
         ];
 
-        return $this->render('add-category', $data);
+        return $this->render('add-product-category', $data);
     }
 
 

@@ -56,6 +56,7 @@ try {
     $router->post('/add-product-item', '\App\Controllers\ProductItemController@addProductItem');
     $router->get('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
     $router->post('/edit-product-item/(\d+)', '\App\Controllers\ProductItemController@editProductItem');
+    $router->post('/delete-product-item/(\d+)', '\App\Controllers\ProductItemController@deleteProductItem');
         
     # SUPPLIER MANAGEMENT
     $router->get('/dashboard/suppliers', '\App\Controllers\SupplierController@showSupplierManagement');

@@ -10,8 +10,10 @@ class ProductItem extends BaseModel
             SELECT pi.product_item_id, p.Product_Name, pi.size, pi.color, pi.price, pi.stock_quantity, pi.created_on, pi.updated_on
             FROM product_items pi
             JOIN products p ON pi.product_id = p.Product_ID
+            ORDER BY pi.product_item_id DESC
         ");
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
     }
 
     public function totalCountProductItems() {
@@ -69,6 +71,14 @@ class ProductItem extends BaseModel
         $stmt->bindParam(':color', $color);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':stock_quantity', $stock_quantity);
+
+        return $stmt->execute();
+    }
+
+    public function deleteProductItem($product_item_id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM product_items WHERE product_item_id = :product_item_id");
+        $stmt->bindParam(':product_item_id', $product_item_id);
 
         return $stmt->execute();
     }

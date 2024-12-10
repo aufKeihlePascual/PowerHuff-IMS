@@ -96,5 +96,62 @@ class ProductItemController extends BaseController
             exit;
         }
     }
-    
+
+    public function addProductItem()
+{
+    try {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $product_id = $_POST['product_id'];
+            $size = $_POST['size'] ?? null; // Handle nullable size
+            $color = $_POST['color'] ?? null; // Handle nullable color
+            $price = $_POST['price'];
+            $stock_quantity = $_POST['stock_quantity'];
+
+            $result = $this->productItemModel->addProductItem($product_id, $size, $color, $price, $stock_quantity);
+
+            if ($result) {
+                $_SESSION['success_message'] = "Product item added successfully.";
+            } else {
+                $_SESSION['error_message'] = "Failed to add product item.";
+            }
+
+            header('Location: /dashboard/product-items');
+            exit;
+        }
+
+        $products = $this->productModel->getAllProducts();
+
+        $data = [
+            'title' => 'Add Product Item',
+            'products' => $products,
+            'role' => $_SESSION['role'],
+            'isAdmin' => $_SESSION['role'] === 'Admin',
+            'isInventoryManager' => $_SESSION['role'] === 'Inventory_Manager',
+            'isProcurementManager' => $_SESSION['role'] === 'Procurement_Manager',
+            'canAccessLinks' => in_array($_SESSION['role'], ['Admin', 'Inventory_Manager']),
+        ];
+
+        return $this->render('add-product-item', $data);
+
+    } catch (\Exception $e) {
+        error_log("Exception in addProductItem: " . $e->getMessage());
+        $_SESSION['error_message'] = "An unexpected error occurred.";
+        header('Location: /dashboard/product-items');
+        exit;
+    }
+}
+
+        public function deleteProductItem($product_item_id)
+        {
+            $result = $this->productItemModel->deleteProductItem($product_item_id);
+
+            if ($result) {
+                $_SESSION['success_message'] = "Product Item deleted successfully.";
+            } else {
+                $_SESSION['error_message'] = "Failed to delete product item.";
+            }
+
+            header('Location: /dashboard/product-items');
+            exit;
+        }
 }

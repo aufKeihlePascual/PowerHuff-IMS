@@ -21,11 +21,11 @@
                     <label for="supplier_name">Supplier Name:</label>
                     <input type="text" name="supplier_name" required>
 
-                    <label for="categoryID">Category:</label>
-                    <select name="categoryID" required>
+                    <label for="product_categoryID">Product Category ID:</label>
+                    <select name="product_categoryID" required>
                         <option value="">-- Select a Category --</option>
                         {{#categories}}
-                        <option value="{{category_id}}">{{name}}</option>
+                        <option value="{{product_categoryID}}">{{name}}</option>
                         {{/categories}}
                     </select>
 
